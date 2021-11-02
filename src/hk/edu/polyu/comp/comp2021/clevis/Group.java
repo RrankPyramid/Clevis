@@ -18,4 +18,10 @@ public class Group extends Shape{
         }
     }
 
+    @Override
+    public boolean contains_point(double x,double y){
+        return false;
+    }
+
+
 }

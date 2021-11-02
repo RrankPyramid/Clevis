@@ -4,19 +4,19 @@ package hk.edu.polyu.comp.comp2021.clevis;
 import java.awt.*;
 
 public class Rectangle extends Shape {
-    private int x;
-    private int y;
-    private int width;
-    private int height;
+    private double x;
+    private double y;
+    private double width;
+    private double height;
 
-    public Rectangle(int x, int y, int width, int height) {
+    public Rectangle(double x, double y, double width, double height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
     }
 
-    public Rectangle(int x, int y, int l) {
+    public Rectangle(double x, double y, double l) {
         this.x = x;
         this.y = y;
         this.width = l;
@@ -25,7 +25,12 @@ public class Rectangle extends Shape {
 
     @Override
     public void draw(Graphics g) {
-        g.drawRect(x, y, width, height);
+        g.drawRect((int)x, (int)y, (int)width, (int)height);
+    }
+
+    @Override
+    public boolean contains_point(double x,double y){
+        return false;
     }
 
 }
