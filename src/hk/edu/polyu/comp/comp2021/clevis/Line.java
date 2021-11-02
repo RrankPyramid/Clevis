@@ -25,12 +25,12 @@ public class Line extends Shape {
     public boolean containPoint(Point p){
         if(x.vectorTo(p).crossProduct(x.vectorTo(y)) > EPS)
             return false;
-        double minx = Math.min(x.x, y.x), maxx = Math.max(x.x, y.x);
-        double miny = Math.min(x.y, y.y), maxy = Math.max(x.y, y.y);
+        double min_x = Math.min(x.x, y.x), max_x = Math.max(x.x, y.x);
+        double min_y = Math.min(x.y, y.y), max_y= Math.max(x.y, y.y);
 
-        if(x.x-minx < -EPS || x.x-maxx > EPS || x.y-miny < -EPS || x.y-maxy > EPS)
+        if(x.x-min_x < -EPS || x.x-max_x > EPS || x.y-min_y < -EPS || x.y-max_y > EPS)
             return false;
-        if(y.x-minx < -EPS || y.x-maxx > EPS || y.y-miny < -EPS || y.y-maxy > EPS)
+        if(y.x-min_x < -EPS || y.x-max_x > EPS || y.y-min_y < -EPS || y.y-max_y > EPS)
             return false;
         return true;
     }
