@@ -2,7 +2,12 @@ package hk.edu.polyu.comp.comp2021.clevis;
 
 import java.awt.Graphics;
 
+
+
 public class Line extends Shape {
+
+    static double EPS = 0.05;
+
     private double x1;
     private double y1;
     private double x2;
@@ -18,6 +23,7 @@ public class Line extends Shape {
     public void draw(Graphics g) {
         g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);
     }
+
 
     @Override
     public boolean containsPoint(double x, double y){
