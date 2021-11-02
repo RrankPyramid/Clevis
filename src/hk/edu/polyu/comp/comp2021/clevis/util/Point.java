@@ -1,7 +1,7 @@
 package hk.edu.polyu.comp.comp2021.clevis.util;
 
 public class Point extends Vector{
-    Point(double x, double y){
+    public Point(double x, double y){
         super(x,y);
     }
     public Vector vectorTo(Point other){
