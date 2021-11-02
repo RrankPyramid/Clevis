@@ -1,8 +1,8 @@
 package hk.edu.polyu.comp.comp2021.clevis.util;
 
 public class Vector{
-    private double x;
-    private double y;
+    public double x;
+    public double y;
     Vector(double x, double y){
         this.x = x;
         this.y = y;
