@@ -4,8 +4,6 @@ import java.awt.*;
 
 public abstract class Shape {
 
-    protected int groupCount;
-
     protected double upper_boundary,lower_boundary,left_boundary,right_boundary;
 
     public abstract void draw(Graphics g);

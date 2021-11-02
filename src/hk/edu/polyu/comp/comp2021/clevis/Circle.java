@@ -21,5 +21,4 @@ public class Circle extends Shape {
     public void draw(Graphics g) {
         g.drawOval((int)(x-radius), (int)(y-radius), (int)radius*2, (int)radius*2);
     }
-
 }
