@@ -29,7 +29,7 @@ public class Rectangle extends Shape {
     }
 
     @Override
-    public boolean contains_point(double x,double y){
+    public boolean containsPoint(double x, double y){
         return false;
     }
 

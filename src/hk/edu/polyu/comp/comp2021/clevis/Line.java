@@ -20,7 +20,7 @@ public class Line extends Shape {
     }
 
     @Override
-    public boolean contains_point(double x,double y){
+    public boolean containsPoint(double x, double y){
         double a = p_dis(x1,y1,x2,y2);
         double b = p_dis(x,y,x2,y2);
         double c = p_dis(x1,y1,x,y);
