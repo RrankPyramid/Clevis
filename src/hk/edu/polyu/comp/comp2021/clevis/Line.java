@@ -13,8 +13,8 @@ public class Line extends Shape {
     Point x,y;
 
     Line(Point x, Point y) {
-        x = this.x;
-        y = this.y;
+        this.x = x;
+        this.y = y;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class Line extends Shape {
     }
 
     public boolean containPoint(Point p){
-        if(x.vectorTo(p).crossProduct(x.vectorTo(y)) > EPS)
+        if(x.vectorTo(p).crossProduct(x.vectorTo(y))/(x.distanceTo(y)) > EPS)
             return false;
         double min_x = Math.min(x.x, y.x), max_x = Math.max(x.x, y.x);
         double min_y = Math.min(x.y, y.y), max_y= Math.max(x.y, y.y);
