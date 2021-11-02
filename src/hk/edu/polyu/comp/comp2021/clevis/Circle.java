@@ -1,8 +1,11 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
+import hk.edu.polyu.comp.comp2021.clevis.util.Point;
+
 import java.awt.Graphics;
 
 public class Circle extends Shape {
+    static double EPS;
     private double x;
     private double y;
     private double radius;
@@ -20,5 +23,10 @@ public class Circle extends Shape {
     @Override
     public void draw(Graphics g) {
         g.drawOval((int)(x-radius), (int)(y-radius), (int)radius*2, (int)radius*2);
+    }
+
+    public boolean containPoint(Point p){
+        Point center = new Point(x,y);
+        return EPS <= Math.abs(center.distanceTo(p)-radius);
     }
 }
