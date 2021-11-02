@@ -12,13 +12,13 @@ public class Circle extends Shape {
         this.x = x;
         this.y = y;
         this.radius = radius;
+        left_boundary=x-radius;
+        upper_boundary=y-radius;
+        right_boundary=x+radius;
+        lower_boundary=y+radius;
     }
     @Override
     public void draw(Graphics g) {
         g.drawOval((int)(x-radius), (int)(y-radius), (int)radius*2, (int)radius*2);
-    }
-    @Override
-    public boolean containsPoint(double x, double y){
-        return 0.05<=Math.sqrt((x-this.x)*(x-this.x)+(y-this.y)*(y-this.y));
     }
 }

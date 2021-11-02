@@ -28,9 +28,5 @@ public class Rectangle extends Shape {
         g.drawRect((int)x, (int)y, (int)width, (int)height);
     }
 
-    @Override
-    public boolean containsPoint(double x, double y){
-        return false;
-    }
 
 }
