@@ -13,8 +13,8 @@ public class Line extends Shape {
     Point x,y;
 
     Line(Point x, Point y) {
-        x = this.x;
-        y = this.y;
+        this.x=x;
+        this.y=y;
     }
 
     @Override
