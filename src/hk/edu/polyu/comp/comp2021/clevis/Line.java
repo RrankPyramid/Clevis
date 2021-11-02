@@ -35,5 +35,12 @@ public class Line extends Shape {
         return true;
     }
 
+    public Point getTopLeft(){
+        return new Point(Math.min(x.x, y.x), Math.min(x.y, y.y));
+    }
+    public Point getBottomRight(){
+        return new Point(Math.min(x.x, y.x), Math.min(x.y, y.y));
+    }
+
 
 }
