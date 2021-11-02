@@ -6,8 +6,6 @@ import java.awt.*;
 
 public abstract class Shape {
 
-    protected double upper_boundary,lower_boundary,left_boundary,right_boundary;
-
     public abstract void draw(Graphics g);
 
     public abstract boolean containPoint(Point p);
