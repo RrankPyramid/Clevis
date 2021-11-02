@@ -39,7 +39,7 @@ public class Line extends Shape {
         return new Point(Math.min(x.x, y.x), Math.min(x.y, y.y));
     }
     public Point getBottomRight(){
-        return new Point(Math.min(x.x, y.x), Math.min(x.y, y.y));
+        return new Point(Math.max(x.x, y.x), Math.max(x.y, y.y));
     }
 
 
