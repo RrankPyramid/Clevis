@@ -12,4 +12,7 @@ public abstract class Shape {
 
     public abstract boolean containPoint(Point p);
 
+    public abstract Point getTopLeft();
+    public abstract Point getBottomRight();
+
 }

@@ -25,8 +25,20 @@ public class Circle extends Shape {
         g.drawOval((int)(x-radius), (int)(y-radius), (int)radius*2, (int)radius*2);
     }
 
+    @Override
     public boolean containPoint(Point p){
         Point center = new Point(x,y);
         return EPS <= Math.abs(center.distanceTo(p)-radius);
+    }
+
+    @Override
+    public Point getTopLeft(){
+        return new Point(x-radius,y-radius);
+    }
+
+
+    @Override
+    public Point getBottomRight(){
+        return new Point(x+radius,y+radius);
     }
 }

@@ -22,6 +22,7 @@ public class Line extends Shape {
         g.drawLine((int)x.x, (int)x.y, (int)y.x, (int)y.y);
     }
 
+    @Override
     public boolean containPoint(Point p){
 
     }

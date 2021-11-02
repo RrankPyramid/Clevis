@@ -30,6 +30,7 @@ public class Rectangle extends Shape {
         g.drawRect((int)x, (int)y, (int)width, (int)height);
     }
 
+    @Override
     public boolean containPoint(Point p){
         Line left = new Line(new Point(x,y),new Point(x,y+height));
         Line up = new Line(new Point(x,y),new Point(x+width,y));
