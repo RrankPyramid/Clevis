@@ -22,9 +22,4 @@ public class Circle extends Shape {
         g.drawOval((int)(x-radius), (int)(y-radius), (int)radius*2, (int)radius*2);
     }
 
-    @Override
-    public boolean containsPoint(double x, double y){
-        return 0.05<=Math.sqrt((x-this.x)*(x-this.x)+(y-this.y)*(y-this.y));
-    }
-
 }

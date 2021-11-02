@@ -25,14 +25,4 @@ public class Line extends Shape {
     }
 
 
-    @Override
-    public boolean containsPoint(double x, double y){
-        double a = p_dis(x1,y1,x2,y2);
-        double b = p_dis(x,y,x2,y2);
-        double c = p_dis(x1,y1,x,y);
-        return false;
-    }
-    double p_dis(double x0,double y0,double x1,double y1){
-        return Math.sqrt((x0-x1)*(x0-x1)+(y0-y1)*(y0-y1));
-    }
 }

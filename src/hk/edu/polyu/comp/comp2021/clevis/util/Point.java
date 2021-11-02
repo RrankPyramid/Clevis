@@ -10,4 +10,5 @@ public class Point extends Vector{
     public double distanceTo(Point other){
         return this.vectorTo(other).norm();
     }
+
 }
