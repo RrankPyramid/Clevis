@@ -3,7 +3,6 @@ package hk.edu.polyu.comp.comp2021.clevis;
 import hk.edu.polyu.comp.comp2021.clevis.util.*;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.INF;
@@ -15,7 +14,7 @@ public class Group extends Shape{
     }
     public void add_Shape(String name,Shape s){
         list.put(name,s);
-        s.GroupCounter += 1;
+        s.groupCounter += 1;
     }
     @Override
     public void draw(Graphics g){
