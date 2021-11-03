@@ -20,6 +20,7 @@ public class Group extends Shape{
         }
     }
 
+    @Override
     public boolean containPoint(Point p){
         for(Shape s : list){
             if(s.containPoint(p))return true;
@@ -27,4 +28,12 @@ public class Group extends Shape{
         return false;
     }
 
+    @Override
+    public Point getTopLeft(){
+        double min_x = list.get(0).getTopLeft().x;
+        double min_y = list.get(0).getTopLeft().y;
+        for (Shape s : list){
+
+        }
+    }
 }
