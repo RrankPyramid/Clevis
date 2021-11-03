@@ -1,39 +1,35 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
-import hk.edu.polyu.comp.comp2021.clevis.util.Point;
+import hk.edu.polyu.comp.comp2021.clevis.util.*;
 
 import java.awt.Graphics;
 
 public class Circle extends Shape {
-    static double EPS;
-    private double x;
-    private double y;
+    private Vertex center;
     private double radius;
 
-    public Circle(double x, double y, double radius) {
-        this.x = x;
-        this.y = y;
+    public Circle(Vertex center, double radius) {
+        this.center = center;
         this.radius = radius;
     }
     @Override
     public void draw(Graphics g) {
-        g.drawOval((int)(x-radius), (int)(y-radius), (int)radius*2, (int)radius*2);
+        g.drawOval((int)(center.x-radius), (int)(center.y-radius), (int)radius*2, (int)radius*2);
     }
 
     @Override
-    public boolean containPoint(Point p){
-        Point center = new Point(x,y);
-        return EPS <= Math.abs(center.distanceTo(p)-radius);
+    public boolean containPoint(Vertex p){
+        return GraphConstant.EPS <= Math.abs(center.distanceTo(p)-radius);
     }
 
     @Override
-    public Point getTopLeft(){
-        return new Point(x-radius,y-radius);
+    public Vertex getTopLeft(){
+        return new Vertex(center.x-radius, center.y-radius);
     }
 
 
     @Override
-    public Point getBottomRight(){
-        return new Point(x+radius,y+radius);
+    public Vertex getBottomRight(){
+        return new Vertex(center.x+radius, center.y+radius);
     }
 }

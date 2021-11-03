@@ -1,18 +1,17 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
-import hk.edu.polyu.comp.comp2021.clevis.util.Point;
+import hk.edu.polyu.comp.comp2021.clevis.util.Vertex;
 
 import java.awt.Graphics;
 
+import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.EPS;
 
 
 public class Line extends Shape {
 
-    static final double EPS = 0.05;
+    Vertex x,y;
 
-    Point x,y;
-
-    Line(Point x, Point y) {
+    Line(Vertex x, Vertex y) {
         this.x = x;
         this.y = y;
     }
@@ -23,8 +22,8 @@ public class Line extends Shape {
     }
 
     @Override
-    public boolean containPoint(Point p){
-        if(x.vectorTo(p).crossProduct(x.vectorTo(y))/(x.distanceTo(y)) > EPS)
+    public boolean containPoint(Vertex p){
+        if(Math.abs(x.vectorTo(p).crossProduct(x.vectorTo(y)))/(x.distanceTo(y)) > EPS)
             return false;
         double min_x = Math.min(x.x, y.x), max_x = Math.max(x.x, y.x);
         double min_y = Math.min(x.y, y.y), max_y= Math.max(x.y, y.y);
@@ -36,11 +35,14 @@ public class Line extends Shape {
         return true;
     }
 
-    public Point getTopLeft(){
-        return new Point(Math.min(x.x, y.x), Math.min(x.y, y.y));
+    @Override
+    public Vertex getTopLeft(){
+        return new Vertex(Math.min(x.x, y.x), Math.min(x.y, y.y));
     }
-    public Point getBottomRight(){
-        return new Point(Math.max(x.x, y.x), Math.max(x.y, y.y));
+
+    @Override
+    public Vertex getBottomRight(){
+        return new Vertex(Math.max(x.x, y.x), Math.max(x.y, y.y));
     }
 
 
