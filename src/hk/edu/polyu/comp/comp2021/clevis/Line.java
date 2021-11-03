@@ -22,6 +22,7 @@ public class Line extends Shape {
         g.drawLine((int)x.x, (int)x.y, (int)y.x, (int)y.y);
     }
 
+    @Override
     public boolean containPoint(Point p){
         if(x.vectorTo(p).crossProduct(x.vectorTo(y))/(x.distanceTo(y)) > EPS)
             return false;
