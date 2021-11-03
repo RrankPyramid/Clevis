@@ -22,22 +22,23 @@ public class Rectangle extends Shape {
     @Override
     public boolean containPoint(Vertex p){
         Vector vectorDown = new Vector(0, direct.y);
-        Vector vectorUp = new Vector(direct.x, 0);
+        Vector vectorRight = new Vector(direct.x, 0);
         Line left = new Line(p, p.add(vectorDown));
-        Line up = new Line(new Vertex(x,y),new Vertex(x+width,y));
-        Line right = new Line(new Vertex(x+width,y),new Vertex(x+width,y+height));
-        Line bottom = new Line(new Vertex(x,y+height),new Vertex(x+width,y+height));
+        Line up = new Line(p, p.add(vectorRight));
+        Line right = new Line(p.add(vectorRight),p.add(direct));
+        Line bottom = new Line(p.add(vectorDown),p.add(direct));
         return (left.containPoint(p)||up.containPoint(p)||right.containPoint(p)||bottom.containPoint(p));
     }
+
+
     @Override
     public Vertex getTopLeft(){
-        return new Vertex(x,y);
+        return p;
     }
 
 
     @Override
     public Vertex getBottomRight(){
-        return new Vertex(x+width,y+height);
+        return p.add(direct);
     }
-
 }
