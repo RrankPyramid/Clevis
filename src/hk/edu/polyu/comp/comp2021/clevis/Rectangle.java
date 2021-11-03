@@ -30,6 +30,7 @@ public class Rectangle extends Shape {
         g.drawRect((int)x, (int)y, (int)width, (int)height);
     }
 
+    @Override
     public boolean containPoint(Point p){
         Line left = new Line(new Point(x,y),new Point(x,y+height));
         Line up = new Line(new Point(x,y),new Point(x+width,y));
@@ -37,6 +38,15 @@ public class Rectangle extends Shape {
         Line bottom = new Line(new Point(x,y+height),new Point(x+width,y+height));
         return (left.containPoint(p)||up.containPoint(p)||right.containPoint(p)||bottom.containPoint(p));
     }
+    @Override
+    public Point getTopLeft(){
+        return new Point(x,y);
+    }
 
+
+    @Override
+    public Point getBottomRight(){
+        return new Point(x+width,y+height);
+    }
 
 }
