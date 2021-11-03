@@ -1,52 +1,43 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
 
-import hk.edu.polyu.comp.comp2021.clevis.util.Point;
+import hk.edu.polyu.comp.comp2021.clevis.util.*;
 
 import java.awt.*;
 
 public class Rectangle extends Shape {
-    private double x;
-    private double y;
-    private double width;
-    private double height;
+    Vertex p;
+    Vector direct;
 
-    public Rectangle(double x, double y, double width, double height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-    }
-
-    public Rectangle(double x, double y, double l) {
-        this.x = x;
-        this.y = y;
-        this.width = l;
-        this.height = l;
+    public Rectangle(Vertex p, Vector direct) {
+        this.p = p;
+        this.direct = direct;
     }
 
     @Override
     public void draw(Graphics g) {
-        g.drawRect((int)x, (int)y, (int)width, (int)height);
+        g.drawRect((int)p.x, (int)p.y, (int)direct.x, (int)direct.y);
     }
 
     @Override
-    public boolean containPoint(Point p){
-        Line left = new Line(new Point(x,y),new Point(x,y+height));
-        Line up = new Line(new Point(x,y),new Point(x+width,y));
-        Line right = new Line(new Point(x+width,y),new Point(x+width,y+height));
-        Line bottom = new Line(new Point(x,y+height),new Point(x+width,y+height));
+    public boolean containPoint(Vertex p){
+        Vector vectorDown = new Vector(0, direct.y);
+        Vector vectorUp = new Vector(direct.x, 0);
+        Line left = new Line(p, p.add(vectorDown));
+        Line up = new Line(new Vertex(x,y),new Vertex(x+width,y));
+        Line right = new Line(new Vertex(x+width,y),new Vertex(x+width,y+height));
+        Line bottom = new Line(new Vertex(x,y+height),new Vertex(x+width,y+height));
         return (left.containPoint(p)||up.containPoint(p)||right.containPoint(p)||bottom.containPoint(p));
     }
     @Override
-    public Point getTopLeft(){
-        return new Point(x,y);
+    public Vertex getTopLeft(){
+        return new Vertex(x,y);
     }
 
 
     @Override
-    public Point getBottomRight(){
-        return new Point(x+width,y+height);
+    public Vertex getBottomRight(){
+        return new Vertex(x+width,y+height);
     }
 
 }

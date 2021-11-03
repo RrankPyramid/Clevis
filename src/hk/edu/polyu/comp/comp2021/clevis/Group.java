@@ -1,6 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
-import hk.edu.polyu.comp.comp2021.clevis.util.Point;
+import hk.edu.polyu.comp.comp2021.clevis.util.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class Group extends Shape{
     }
 
     @Override
-    public boolean containPoint(Point p){
+    public boolean containPoint(Vertex p){
         for(Shape s : list){
             if(s.containPoint(p))return true;
         }
@@ -29,7 +29,7 @@ public class Group extends Shape{
     }
 
     @Override
-    public Point getTopLeft(){
+    public Vertex getTopLeft(){
         double min_x = list.get(0).getTopLeft().x;
         double min_y = list.get(0).getTopLeft().y;
         for (Shape s : list){
