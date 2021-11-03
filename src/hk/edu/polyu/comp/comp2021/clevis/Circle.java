@@ -1,7 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
 import hk.edu.polyu.comp.comp2021.clevis.util.*;
-import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.*;
 
 
 import java.awt.Graphics;

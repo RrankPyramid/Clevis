@@ -33,17 +33,21 @@ public class Main {
     }
 
     public void unGroup(String name){
-        Group group = (Group)Name_Shape.get(name);
+        Shape shape = Name_Shape.get(name);
+        if(! (shape instanceof Group))
+            throw new RuntimeException();
         Name_Shape.remove(name);
+        Group group = (Group)shape;
         Name_Shape.putAll(group.list);
         for (Shape a : group.list.values()){
-            a.GroupCounter -= 1;
+            a.groupCounter -= 1;
         }
     }
 
     public void delete(String name){
         Name_Shape.remove(name);
     }
+
 
 
 }

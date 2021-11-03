@@ -4,12 +4,9 @@ import hk.edu.polyu.comp.comp2021.clevis.util.*;
 
 import java.awt.*;
 
-import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.NotInGroup;
-
 public abstract class Shape {
 
-    public int z_Order;
-    protected int GroupCounter=NotInGroup;
+    protected int groupCounter = 0;
 
     public abstract void draw(Graphics g);
 
