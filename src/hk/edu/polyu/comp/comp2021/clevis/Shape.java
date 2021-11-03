@@ -8,6 +8,7 @@ import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.NotInGroup;
 
 public abstract class Shape {
 
+    public int z_Order;
     protected int GroupCounter=NotInGroup;
 
     public abstract void draw(Graphics g);

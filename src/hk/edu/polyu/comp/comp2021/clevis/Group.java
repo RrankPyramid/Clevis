@@ -10,7 +10,7 @@ import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.NotInGroup;
 
 public class Group extends Shape{
     protected HashMap<String,Shape> list;
-    public Group(){
+    public Group(int z_Order){
         list = new HashMap<>();
     }
     public void add_Shape(String name,Shape s){
