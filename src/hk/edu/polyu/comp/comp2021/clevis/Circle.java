@@ -24,6 +24,11 @@ public class Circle extends Shape {
     }
 
     @Override
+    public void move(double dx, double dy) {
+        center=center.add(new Vector(dx,dy));
+    }
+
+    @Override
     public Vertex getTopLeft(){
         return new Vertex(center.x-radius, center.y-radius);
     }

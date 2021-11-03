@@ -32,6 +32,11 @@ public class Rectangle extends Shape {
         return (left.containPoint(p)||up.containPoint(p)||right.containPoint(p)||bottom.containPoint(p));
     }
 
+    @Override
+    public void move(double dx, double dy) {
+        p=p.add(new Vector(dx,dy));
+    }
+
 
     @Override
     public Vertex getTopLeft(){
