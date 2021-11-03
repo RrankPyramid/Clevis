@@ -4,5 +4,6 @@ public final class GraphConstant {
     private GraphConstant() {}
 
     public static final double EPS = 0.05;
+    public static final int NotInGroup=0;
 
 }

@@ -5,10 +5,13 @@ import hk.edu.polyu.comp.comp2021.clevis.util.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.NotInGroup;
+
 public class Group extends Shape{
     private ArrayList<Shape> list;
     public Group(){
         list = new ArrayList<>();
+        inGroups = NotInGroup;
     }
     public void add_Shape(Shape s){
         list.add(s);
