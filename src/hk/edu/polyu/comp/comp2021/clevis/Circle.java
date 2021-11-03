@@ -13,7 +13,6 @@ public class Circle extends Shape {
     public Circle(Vertex center, double radius) {
         this.center = center;
         this.radius = radius;
-        inGroups = NotInGroup;
     }
     @Override
     public void draw(Graphics g) {
@@ -23,6 +22,11 @@ public class Circle extends Shape {
     @Override
     public boolean containPoint(Vertex p){
         return GraphConstant.EPS <= Math.abs(center.distanceTo(p)-radius);
+    }
+
+    @Override
+    public void move(double dx, double dy) {
+        center=center.add(new Vector(dx,dy));
     }
 
     @Override

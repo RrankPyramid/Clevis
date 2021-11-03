@@ -14,7 +14,6 @@ public class Rectangle extends Shape {
     public Rectangle(Vertex p, Vector direct) {
         this.p = p;
         this.direct = direct;
-        inGroups = NotInGroup;
     }
 
     @Override
@@ -31,6 +30,11 @@ public class Rectangle extends Shape {
         Line right = new Line(p.add(vectorRight),p.add(direct));
         Line bottom = new Line(p.add(vectorDown),p.add(direct));
         return (left.containPoint(p)||up.containPoint(p)||right.containPoint(p)||bottom.containPoint(p));
+    }
+
+    @Override
+    public void move(double dx, double dy) {
+        p=p.add(new Vector(dx,dy));
     }
 
 

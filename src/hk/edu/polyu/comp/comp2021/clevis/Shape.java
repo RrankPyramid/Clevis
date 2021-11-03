@@ -4,15 +4,16 @@ import hk.edu.polyu.comp.comp2021.clevis.util.*;
 
 import java.awt.*;
 
+import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.NotInGroup;
+
 public abstract class Shape {
 
-    protected int inGroups;
-
+    protected int GroupCounter=NotInGroup;
 
     public abstract void draw(Graphics g);
 
     public abstract boolean containPoint(Vertex p);
-
+    public abstract void move(double dx,double dy);
     public abstract Vertex getTopLeft();
     public abstract Vertex getBottomRight();
 

@@ -1,11 +1,11 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
+import hk.edu.polyu.comp.comp2021.clevis.util.Vector;
 import hk.edu.polyu.comp.comp2021.clevis.util.Vertex;
 
 import java.awt.Graphics;
 
 import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.EPS;
-import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.NotInGroup;
 
 
 public class Line extends Shape {
@@ -15,7 +15,6 @@ public class Line extends Shape {
     Line(Vertex x, Vertex y) {
         this.x = x;
         this.y = y;
-        inGroups = NotInGroup;
     }
 
     @Override
@@ -32,9 +31,14 @@ public class Line extends Shape {
 
         if(x.x-min_x < -EPS || x.x-max_x > EPS || x.y-min_y < -EPS || x.y-max_y > EPS)
             return false;
-        if(y.x-min_x < -EPS || y.x-max_x > EPS || y.y-min_y < -EPS || y.y-max_y > EPS)
-            return false;
-        return true;
+        return !(y.x - min_x < -EPS) && !(y.x - max_x > EPS) && !(y.y - min_y < -EPS) && !(y.y - max_y > EPS);
+    }
+
+    @Override
+    public void move(double dx, double dy) {
+        Vector vector = new Vector(dx,dy);
+        x.add(vector);
+        y.add(vector);
     }
 
     @Override
