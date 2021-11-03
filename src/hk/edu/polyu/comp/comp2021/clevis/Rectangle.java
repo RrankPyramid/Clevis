@@ -38,6 +38,15 @@ public class Rectangle extends Shape {
         Line bottom = new Line(new Point(x,y+height),new Point(x+width,y+height));
         return (left.containPoint(p)||up.containPoint(p)||right.containPoint(p)||bottom.containPoint(p));
     }
+    @Override
+    public Point getTopLeft(){
+        return new Point(x,y);
+    }
 
+
+    @Override
+    public Point getBottomRight(){
+        return new Point(x+width,y+height);
+    }
 
 }
