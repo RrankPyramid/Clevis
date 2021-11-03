@@ -14,7 +14,6 @@ public class Rectangle extends Shape {
     public Rectangle(Vertex p, Vector direct) {
         this.p = p;
         this.direct = direct;
-        inGroups = NotInGroup;
     }
 
     @Override

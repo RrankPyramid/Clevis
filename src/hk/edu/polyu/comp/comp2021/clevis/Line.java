@@ -5,7 +5,6 @@ import hk.edu.polyu.comp.comp2021.clevis.util.Vertex;
 import java.awt.Graphics;
 
 import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.EPS;
-import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.NotInGroup;
 
 
 public class Line extends Shape {
@@ -15,7 +14,6 @@ public class Line extends Shape {
     Line(Vertex x, Vertex y) {
         this.x = x;
         this.y = y;
-        inGroups = NotInGroup;
     }
 
     @Override

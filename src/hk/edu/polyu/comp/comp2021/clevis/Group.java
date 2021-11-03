@@ -5,13 +5,12 @@ import hk.edu.polyu.comp.comp2021.clevis.util.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.NotInGroup;
+import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.INF;
 
 public class Group extends Shape{
     private ArrayList<Shape> list;
     public Group(){
         list = new ArrayList<>();
-        inGroups = NotInGroup;
     }
     public void add_Shape(Shape s){
         list.add(s);
@@ -33,10 +32,23 @@ public class Group extends Shape{
 
     @Override
     public Vertex getTopLeft(){
-        double min_x = list.get(0).getTopLeft().x;
-        double min_y = list.get(0).getTopLeft().y;
+        double min_x = INF;
+        double min_y = INF;
         for (Shape s : list){
-
+            min_x = Math.min(min_x, s.getTopLeft().x);
+            min_y = Math.min(min_y, s.getTopLeft().y);
         }
+        return new Vertex(min_x, min_y);
+    }
+
+    @Override
+    public Vertex getBottomRight() {
+        double max_x = -INF;
+        double max_y = -INF;
+        for (Shape s : list){
+            max_x = Math.max(max_x, s.getBottomRight().x);
+            max_y = Math.max(max_y, s.getBottomRight().y);
+        }
+        return new Vertex(max_x, max_y);
     }
 }

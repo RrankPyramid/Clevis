@@ -1,7 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
 import hk.edu.polyu.comp.comp2021.clevis.util.*;
-import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.*;
 
 
 import java.awt.Graphics;
@@ -13,7 +12,6 @@ public class Circle extends Shape {
     public Circle(Vertex center, double radius) {
         this.center = center;
         this.radius = radius;
-        inGroups = NotInGroup;
     }
     @Override
     public void draw(Graphics g) {

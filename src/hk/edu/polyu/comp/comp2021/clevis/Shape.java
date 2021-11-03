@@ -6,9 +6,8 @@ import java.awt.*;
 
 public abstract class Shape {
 
-    protected int inGroups;
-
-
+    protected int groupCounter = 0;
+    
     public abstract void draw(Graphics g);
 
     public abstract boolean containPoint(Vertex p);
