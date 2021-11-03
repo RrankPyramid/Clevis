@@ -5,6 +5,8 @@ import hk.edu.polyu.comp.comp2021.clevis.util.*;
 
 import java.awt.*;
 
+import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.*;
+
 public class Rectangle extends Shape {
     Vertex p;
     Vector direct;
@@ -12,6 +14,7 @@ public class Rectangle extends Shape {
     public Rectangle(Vertex p, Vector direct) {
         this.p = p;
         this.direct = direct;
+        inGroups = NotInGroup;
     }
 
     @Override
