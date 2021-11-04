@@ -21,7 +21,7 @@ public class Main {
     }
 
     public void createGroup(String name , ArrayList<String> shapeArrayList){
-        Group group = new Group();
+        Group group = new Group(1);
         for(String s : shapeArrayList){
             group.add_Shape(s,Name_Shape.get(s));
             /*
