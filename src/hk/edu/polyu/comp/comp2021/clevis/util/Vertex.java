@@ -1,23 +1,21 @@
 package hk.edu.polyu.comp.comp2021.clevis.util;
 
-public class Vertex extends Vector{
+public class Vertex extends BinaryPair{
     public Vertex(double x, double y){
         super(x,y);
     }
     public Vector vectorTo(Vertex other){
-        return other.substract(this);
+        return new Vector(other.x - this.x, other.y-this.y);
     }
     public double distanceTo(Vertex other){
         return this.vectorTo(other).norm();
     }
 
-    @Override
     public Vertex add(Vector other) {
-        return (Vertex) super.add(other);
+        return new Vertex(this.x + other.x, this.y+other.y);
     }
 
-    @Override
     public Vertex substract(Vector other) {
-        return (Vertex)super.substract(other);
+        return new Vertex(this.x - other.x, this.y - other.y);
     }
 }
