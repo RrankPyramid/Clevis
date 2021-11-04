@@ -23,10 +23,10 @@ public class Main {
     public void createGroup(String name , ArrayList<String> shapeArrayList){
         Group group = new Group(1);
         for(String s : shapeArrayList){
-            group.add_Shape(s,Name_Shape.get(s));
-            /*
-            可以放个抓异常的，或者说在解析指令的时候就判一下所有的name是不是合法
-             */
+            Shape shape = Name_Shape.get(s);
+            if(shape == null)
+                throw new IllegalArgumentException();
+            group.add_Shape(s,shape);
             Name_Shape.remove(s);
         }
         Name_Shape.put(name,group);
@@ -35,7 +35,7 @@ public class Main {
     public void unGroup(String name){
         Shape shape = Name_Shape.get(name);
         if(! (shape instanceof Group))
-            throw new RuntimeException();
+            throw new IllegalArgumentException();
         Name_Shape.remove(name);
         Group group = (Group)shape;
         Name_Shape.putAll(group.list);
