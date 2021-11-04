@@ -8,9 +8,7 @@ public class Vector{
         this.y = y;
     }
 
-    public Vector add(Vector other){
-        return new Vector(this.x+other.x, this.y+other.y);
-    }
+    public Vector add(Vector other){return new Vector(this.x+other.x, this.y+other.y);}
     public Vector substract(Vector other){
         return new Vector(this.x - other.x, this.y - other.y);
     }
