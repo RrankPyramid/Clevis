@@ -15,6 +15,7 @@ public class Application {
 //        pic.add(c1);
 //        pic.add(r1);
 //        pic.add(l1);
+        dsiadnasid
 //        pic.add(c2);
         pic.draw();
     }
