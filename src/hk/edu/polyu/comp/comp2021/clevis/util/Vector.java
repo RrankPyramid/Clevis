@@ -1,11 +1,8 @@
 package hk.edu.polyu.comp.comp2021.clevis.util;
 
-public class Vector{
-    public double x;
-    public double y;
+public class Vector extends BinaryPair{
     public Vector(double x, double y){
-        this.x = x;
-        this.y = y;
+        super(x, y);
     }
 
     public Vector add(Vector other){
