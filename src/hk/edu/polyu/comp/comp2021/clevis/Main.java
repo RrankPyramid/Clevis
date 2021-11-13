@@ -48,6 +48,17 @@ public class Main {
             a.groupCounter -= 1;
         }
     }
+    public void pickAndMove(double x,double y,double dx,double dy){
+        Shape temp = null;
+        Vertex p = new Vertex(x,y);
+        for(Shape s : Name_Shape.values()){
+            if(s.containPoint(p)){
+                if(temp==null)temp = s;
+                else if(temp.zOrder<s.zOrder)temp=s;
+            }
+        }
+        if(temp != null)temp.move(dx,dy);
+    }
 
     public void delete(String name){
         Name_Shape.remove(name);
