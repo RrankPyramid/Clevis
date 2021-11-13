@@ -9,8 +9,9 @@ import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.INF;
 
 public class Group extends Shape{
     protected HashMap<String,Shape> list;
-    public Group(int z_Order){
+    public Group(int z){
         list = new HashMap<>();
+        this.zOrder = z;
     }
     public void add_Shape(String name,Shape s){
         list.put(name,s);

@@ -12,11 +12,15 @@ public class Line extends Shape {
 
     Vertex x,y;
 
+    Line(Vertex x, Vertex y, int z) {
+        this.x = x;
+        this.y = y;
+        this.zOrder = z;
+    }
     Line(Vertex x, Vertex y) {
         this.x = x;
         this.y = y;
     }
-
     @Override
     public void draw(Graphics g) {
         g.drawLine((int)x.x, (int)x.y, (int)y.x, (int)y.y);

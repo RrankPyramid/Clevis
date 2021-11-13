@@ -30,6 +30,8 @@ public class Picture extends JFrame {
         listShape.add(s);
     }
 
+    public void remove(Shape s) { listShape.remove(s); }
+
     public Picture(int width, int height)
     {
         add(new ShapesPanel());

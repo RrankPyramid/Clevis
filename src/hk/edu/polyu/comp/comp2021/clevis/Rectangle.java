@@ -11,9 +11,10 @@ public class Rectangle extends Shape {
     Vertex p;
     Vector direct;
 
-    public Rectangle(Vertex p, Vector direct) {
+    public Rectangle(Vertex p, Vector direct,int z) {
         this.p = p;
         this.direct = direct;
+        this.zOrder = z;
     }
 
     @Override

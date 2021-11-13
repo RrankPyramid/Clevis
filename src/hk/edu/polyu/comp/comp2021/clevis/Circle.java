@@ -9,9 +9,10 @@ public class Circle extends Shape {
     private Vertex center;
     private double radius;
 
-    public Circle(Vertex center, double radius) {
+    public Circle(Vertex center, double radius,int z) {
         this.center = center;
         this.radius = radius;
+        this.zOrder = z;
     }
     @Override
     public void draw(Graphics g) {

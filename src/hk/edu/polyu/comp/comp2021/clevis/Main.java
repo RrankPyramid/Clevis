@@ -7,21 +7,26 @@ import java.util.HashMap;
 
 public class Main {
     HashMap<String,Shape> Name_Shape = new HashMap<>();
+    int z = 0;
 
     public void createRectangle(String name,double x,double y,double w,double h){
-        Name_Shape.put(name,new Rectangle(new Vertex(x,y),new Vector(w,h)));
+        Name_Shape.put(name,new Rectangle(new Vertex(x,y),new Vector(w,h),z));
+        z++;
     }
 
     public void createLine(String name,double x1,double y1,double x2,double y2){
-        Name_Shape.put(name , new Line(new Vertex(x1,y1),new Vertex(x2,y2)));
+        Name_Shape.put(name , new Line(new Vertex(x1,y1),new Vertex(x2,y2),z));
+        z++;
     }
 
     public void createCircle(String name,double x,double y,double r){
-        Name_Shape.put(name, new Circle(new Vertex(x,y),r));
+        Name_Shape.put(name, new Circle(new Vertex(x,y),r,z));
+        z++;
     }
 
     public void createGroup(String name , ArrayList<String> shapeArrayList){
-        Group group = new Group(1);
+        Group group = new Group(z);
+        z++;
         for(String s : shapeArrayList){
             Shape shape = Name_Shape.get(s);
             if(shape == null)

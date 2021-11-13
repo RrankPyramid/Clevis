@@ -7,7 +7,7 @@ import java.awt.*;
 public abstract class Shape {
 
     protected int groupCounter = 0;
-
+    public int zOrder;
     public abstract void draw(Graphics g);
 
     public abstract boolean containPoint(Vertex p);
