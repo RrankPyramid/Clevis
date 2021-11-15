@@ -65,4 +65,31 @@ public class Line extends Shape {
         return (String[])result.toArray();
     }
 
+    public double distanceTo(Vertex point){
+        double a = point.vectorTo(x).norm();
+        double b = point.vectorTo(y).norm();
+        double c = y.vectorTo(x).norm();
+        double p = (a+b+c)/2;
+        double s =Math.sqrt(p*(p-a)*(p-b)*(p-c));
+        return s/c;
+    }
+
+    public boolean intersect(Line other){
+        double a = this.x.vectorTo(this.y).crossProduct(this.x.vectorTo(other.x))*(this.x.vectorTo(y).crossProduct(this.x.vectorTo(other.y)));
+        double b = other.x.vectorTo(other.y).crossProduct(other.x.vectorTo(this.x))*other.x.vectorTo(other.y).crossProduct(other.x.vectorTo(this.y));
+        return a>=0 && b>=0;
+    }
+
+    public boolean intersect(Rectangle other){
+        Vector vectorDown = new Vector(0, other.direct.y);
+        Vector vectorRight = new Vector(other.direct.x, 0);
+        Line left = new Line(other.p, other.p.add(vectorDown));
+        Line up = new Line(other.p, other.p.add(vectorRight));
+        Line right = new Line(other.p.add(vectorRight),other.p.add(other.direct));
+        Line bottom = new Line(other.p.add(vectorDown),other.p.add(other.direct));
+        return(this.intersect(left)||this.intersect(up)||this.intersect(right)||this.intersect(bottom));
+    }
+    public boolean intersect(Circle other){
+        return other.intersect(this);
+    }
 }
