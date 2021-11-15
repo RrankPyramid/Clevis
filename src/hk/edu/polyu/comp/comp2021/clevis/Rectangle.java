@@ -61,27 +61,30 @@ public class Rectangle extends Shape {
         return (String[])result.toArray();
     }
 
-    public boolean intersect(Rectangle other){
-        Vertex otherTopLeft = other.getTopLeft();
-        Vertex topLeft = this.getTopLeft();
-        Vertex otherBottomRight = other.getBottomRight();
-        Vertex bottomRight = this.getBottomRight();
+    public boolean intersect(Shape other){
+        if(other instanceof Rectangle){
+            Rectangle otherRec = (Rectangle)other;
+            Vertex otherTopLeft = otherRec.getTopLeft();
+            Vertex topLeft = this.getTopLeft();
+            Vertex otherBottomRight = otherRec.getBottomRight();
+            Vertex bottomRight = this.getBottomRight();
 
-        if(otherBottomRight.x<topLeft.x || otherBottomRight.y<topLeft.y)return false;
-        if(otherTopLeft.x>bottomRight.x || otherTopLeft.y>bottomRight.y)return false;
+            if(otherBottomRight.x<topLeft.x || otherBottomRight.y<topLeft.y)return false;
+            if(otherTopLeft.x>bottomRight.x || otherTopLeft.y>bottomRight.y)return false;
 
-        return (!(otherTopLeft.x > topLeft.x) || !(otherTopLeft.y > topLeft.y)) || (!(otherBottomRight.x < bottomRight.x) || !(otherBottomRight.y < bottomRight.y));
-    }
-    public boolean intersect(Line other){
-        return other.intersect(this);
-    }
-    public boolean intersect(Circle other){
-        Vector vectorDown = new Vector(0, direct.y);
-        Vector vectorRight = new Vector(direct.x, 0);
-        Line left = new Line(p, p.add(vectorDown));
-        Line up = new Line(p, p.add(vectorRight));
-        Line right = new Line(p.add(vectorRight),p.add(direct));
-        Line bottom = new Line(p.add(vectorDown),p.add(direct));
-        return left.intersect(other)||up.intersect(other)||right.intersect(other)||bottom.intersect(other);
+            return (!(otherTopLeft.x > topLeft.x) || !(otherTopLeft.y > topLeft.y)) || (!(otherBottomRight.x < bottomRight.x) || !(otherBottomRight.y < bottomRight.y));
+        }
+        else if(other instanceof Circle){
+            Circle otherCircle = (Circle)other;
+            Vector vectorDown = new Vector(0, direct.y);
+            Vector vectorRight = new Vector(direct.x, 0);
+            Line left = new Line(p, p.add(vectorDown));
+            Line up = new Line(p, p.add(vectorRight));
+            Line right = new Line(p.add(vectorRight),p.add(direct));
+            Line bottom = new Line(p.add(vectorDown),p.add(direct));
+            return left.intersect(otherCircle)||up.intersect(otherCircle)||right.intersect(otherCircle)||bottom.intersect(otherCircle);
+        }
+
+        else return other.intersect(this);
     }
 }

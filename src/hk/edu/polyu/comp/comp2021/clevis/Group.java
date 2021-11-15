@@ -96,6 +96,13 @@ public class Group extends Shape{
     }
 
     @Override
+    public boolean intersect(Shape other) {
+        for(Shape s : list.values()){
+            if(s.intersect(other))return true;
+        }return false;
+    }
+
+    @Override
     public String[] getInfo(String name){
         ArrayList<String> result = new ArrayList<>();
         result.add(name+"is a group");

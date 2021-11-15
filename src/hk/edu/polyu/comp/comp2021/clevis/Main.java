@@ -8,8 +8,13 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
-    HashMap<String,Shape> Name_Shape = new HashMap<>();
-    int z = 0;
+    HashMap<String,Shape> Name_Shape;
+    int z;
+    public Main(){
+        Name_Shape = new HashMap<>();
+        z = 0;
+    }
+
 
     public void createRectangle(String name,double x,double y,double w,double h){
         Name_Shape.put(name,new Rectangle(new Vertex(x,y),new Vector(w,h),z));
@@ -194,6 +199,11 @@ public class Main {
                 listAll();
                 return true;
             }
+            case "intersect": {
+                String n1 = list.remove(0);
+                String n2 = list.remove(0);
+                System.out.println( Name_Shape.get(n1).intersect(Name_Shape.get(n2)) );
+            }
             case "quit": {
                 return false;
             }
@@ -204,9 +214,22 @@ public class Main {
 
     }
 
-    public static void main(String[] args) {
+    public void start() {
+        while(this.getCommand()){
+            Picture pic = new Picture(700,700);
+            for(Shape s : Name_Shape.values()){
+                pic.add(s);
+            }
+            pic.draw();
+        }
 
     }
+
+    public static void main(String[] args) {
+        Main app = new Main();
+        app.start();
+    }
+
 
 
 }

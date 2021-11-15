@@ -14,5 +14,6 @@ public abstract class Shape {
     public abstract void move(double dx,double dy);
     public abstract Vertex getTopLeft();
     public abstract Vertex getBottomRight();
+    public abstract boolean intersect(Shape other);
 
 }

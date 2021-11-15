@@ -74,22 +74,23 @@ public class Line extends Shape {
         return s/c;
     }
 
-    public boolean intersect(Line other){
-        double a = this.x.vectorTo(this.y).crossProduct(this.x.vectorTo(other.x))*(this.x.vectorTo(y).crossProduct(this.x.vectorTo(other.y)));
-        double b = other.x.vectorTo(other.y).crossProduct(other.x.vectorTo(this.x))*other.x.vectorTo(other.y).crossProduct(other.x.vectorTo(this.y));
-        return a>=0 && b>=0;
-    }
-
-    public boolean intersect(Rectangle other){
-        Vector vectorDown = new Vector(0, other.direct.y);
-        Vector vectorRight = new Vector(other.direct.x, 0);
-        Line left = new Line(other.p, other.p.add(vectorDown));
-        Line up = new Line(other.p, other.p.add(vectorRight));
-        Line right = new Line(other.p.add(vectorRight),other.p.add(other.direct));
-        Line bottom = new Line(other.p.add(vectorDown),other.p.add(other.direct));
-        return(this.intersect(left)||this.intersect(up)||this.intersect(right)||this.intersect(bottom));
-    }
-    public boolean intersect(Circle other){
-        return other.intersect(this);
+    public boolean intersect(Shape other){
+        if(other instanceof Line){
+            Line otherLine = (Line)other;
+            double a = this.x.vectorTo(this.y).crossProduct(this.x.vectorTo(otherLine.x))*(this.x.vectorTo(y).crossProduct(this.x.vectorTo(otherLine.y)));
+            double b = otherLine.x.vectorTo(otherLine.y).crossProduct(otherLine.x.vectorTo(this.x))*otherLine.x.vectorTo(otherLine.y).crossProduct(otherLine.x.vectorTo(this.y));
+            return a>=0 && b>=0;
+        }
+        else if(other instanceof Rectangle){
+            Rectangle otherRec = (Rectangle)other;
+            Vector vectorDown = new Vector(0, otherRec.direct.y);
+            Vector vectorRight = new Vector(otherRec.direct.x, 0);
+            Line left = new Line(otherRec.p, otherRec.p.add(vectorDown));
+            Line up = new Line(otherRec.p, otherRec.p.add(vectorRight));
+            Line right = new Line(otherRec.p.add(vectorRight),otherRec.p.add(otherRec.direct));
+            Line bottom = new Line(otherRec.p.add(vectorDown),otherRec.p.add(otherRec.direct));
+            return(this.intersect(left)||this.intersect(up)||this.intersect(right)||this.intersect(bottom));
+        }
+        else return other.intersect(this);
     }
 }

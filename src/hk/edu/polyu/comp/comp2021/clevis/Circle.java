@@ -51,13 +51,25 @@ public class Circle extends Shape {
         result.add("Radius : "+String.format("%.2f", radius));
         return (String[])result.toArray();
     }
-    public boolean intersect(Circle other){
-        return this.center.distanceTo(other.center)<=this.radius+other.radius;
-    }
-    public boolean intersect(Line other){
-        if(other.x.distanceTo(center)<radius && other.y.distanceTo(center)<radius)return false;
-        else if(!(other.x.distanceTo(center)<radius) && other.y.distanceTo(center)<radius)return true;
-        else if((other.x.distanceTo(center)<radius) && !(other.y.distanceTo(center)<radius))return true;
-        else{ return other.distanceTo(center)<=radius; }
+    @Override
+    public boolean intersect(Shape other){
+        if(other instanceof Circle){
+            Circle otherCircle = (Circle)other;
+            return this.center.distanceTo(otherCircle.center)<=this.radius+otherCircle.radius;
+        }
+        if(other instanceof Line){
+            Line otherLine = (Line)other;
+            if(otherLine.x.distanceTo(center)<radius && otherLine.y.distanceTo(center)<radius)return false;
+            else if(!(otherLine.x.distanceTo(center)<radius) && otherLine.y.distanceTo(center)<radius)return true;
+            else if((otherLine.x.distanceTo(center)<radius) && !(otherLine.y.distanceTo(center)<radius))return true;
+            else{ return otherLine.distanceTo(center)<=radius; }
+        }
+        if(other instanceof Square){
+            return other.intersect(this);
+        }
+        if(other instanceof Group){
+            other.intersect(this);
+        }
+        return false;
     }
 }
