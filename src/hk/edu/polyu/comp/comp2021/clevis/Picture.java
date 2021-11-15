@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ *
+ */
 public class Picture extends JFrame {
     private final int width;
     private final int height;
@@ -25,14 +28,28 @@ public class Picture extends JFrame {
 
     }
 
+    /**
+     * @param s The shape that need to be drawn
+     */
     public void add(Shape s)
     {
         listShape.add(s);
     }
 
+    /**
+     * @param s The shape that need to be remove
+     */
     public void remove(Shape s) { listShape.remove(s); }
+
+    /**
+     * remove all the Shapes
+     */
     public void removeAllShape(){listShape.clear();}
 
+    /**
+     * @param width Maximum width of the whole picture
+     * @param height Maximum height of the whole figure
+     */
     public Picture(int width, int height)
     {
         add(new ShapesPanel());
@@ -41,6 +58,9 @@ public class Picture extends JFrame {
         this.height = height;
     }
 
+    /**
+     * Draw the picture
+     */
     public void draw()
     {
         setLocationRelativeTo(null);

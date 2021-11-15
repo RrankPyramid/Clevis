@@ -1,94 +1,121 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
-import b.i.N;
 import hk.edu.polyu.comp.comp2021.clevis.util.*;
 import hk.edu.polyu.comp.comp2021.clevis.util.Vector;
 
+import java.lang.reflect.Method;
 import java.util.*;
 
+/**
+ *  The main operating modules
+ */
 public class Main {
-    HashMap<String,Shape> Name_Shape;
-    int z;
+    private HashMap<String,Shape> Name_Shape;
+    private int z;
+
+    /**
+     * Constructor
+     * Initialize the parameters
+     */
     public Main(){
-        Name_Shape = new HashMap<>();
-        z = 0;
-    }
-    public boolean alreadyExist (String name){
-        return Name_Shape.containsKey(name);
+        setName_Shape(new HashMap<>());
+        setZ(0);
     }
 
+    /**
+     * @param name  Name of the shape to be checked
+     * @return Returns whether the name is already occupied
+     */
+    public boolean alreadyExist (String name){
+        return getName_Shape().containsKey(name);
+    }
+
+    /**
+     * @param name Problems with which shape is running
+     */
     public void existErr(String name){
         System.out.println("Already have a shape named \""+name+"\"");
     }
 
+    /**
+     *
+     */
     public void createSuccess(){
         System.out.println("Create successfully !");
     }
 
 
+    /**
+     * @param name Name of the rectangle
+     * @param x The horizontal coordinate of the top left corner
+     * @param y The vertical coordinate of the top left corner
+     * @param w The Width of the rectangle
+     * @param h The height of the rectangle
+     */
     public void createRectangle(String name,double x,double y,double w,double h){
         if(alreadyExist(name)){existErr(name);return;}
-        Name_Shape.put(name,new Rectangle(new Vertex(x,y),new Vector(w,h),z));
-        z++;
+        getName_Shape().put(name,new Rectangle(new Vertex(x,y),new Vector(w,h), getZ()));
+        setZ(getZ() + 1);
         createSuccess();
     }
 
     public void createSquare(String name,double x,double y,double l){
         if(alreadyExist(name)){existErr(name);return;}
-        Name_Shape.put(name,new Square(new Vertex(x,y),new Vector(l,l),z));
-        z++;
+        getName_Shape().put(name,new Square(new Vertex(x,y),new Vector(l,l), getZ()));
+        setZ(getZ() + 1);
         createSuccess();
     }
 
     public void createLine(String name,double x1,double y1,double x2,double y2){
         if(alreadyExist(name)){existErr(name);return;}
-        Name_Shape.put(name , new Line(new Vertex(x1,y1),new Vertex(x2,y2),z));
-        z++;
+        getName_Shape().put(name , new Line(new Vertex(x1,y1),new Vertex(x2,y2), getZ()));
+        setZ(getZ() + 1);
         createSuccess();
     }
 
     public void createCircle(String name,double x,double y,double r){
         if(alreadyExist(name)){existErr(name);return;}
-        Name_Shape.put(name, new Circle(new Vertex(x,y),r,z));
-        z++;
+        getName_Shape().put(name, new Circle(new Vertex(x,y),r, getZ()));
+        setZ(getZ() + 1);
         createSuccess();
     }
 
     public void createGroup(String name , ArrayList<String>list){
         if(alreadyExist(name)){existErr(name);return;}
-        Group group = new Group(z);
-        z++;
+        Group group = new Group(getZ());
+        setZ(getZ() + 1);
         for(String s : list){
-            Shape shape = Name_Shape.get(s);
+            Shape shape = getName_Shape().get(s);
             if(shape == null)
                 throw new IllegalArgumentException();
             group.add_Shape(s,shape);
-            Name_Shape.remove(s);
+            getName_Shape().remove(s);
         }
-        Name_Shape.put(name,group);
+        getName_Shape().put(name,group);
         createSuccess();
     }
 
     public void unGroup(String name){
         if(!alreadyExist(name)){System.out.println("Cannot find group"+name);return;}
-        Shape shape = Name_Shape.get(name);
+        Shape shape = getName_Shape().get(name);
         if(! (shape instanceof Group)){
             System.out.println(name + " is not a group");
-        }
-        Name_Shape.remove(name);
+        }else{
+        getName_Shape().remove(name);
         Group group = (Group)shape;
-        Name_Shape.putAll(group.list);
-        for (Shape a : group.list.values()){
-            a.groupCounter -= 1;
+        getName_Shape().putAll(group.getList());
+        for (Shape a : group.getList().values()){
+            a.setGroupCounter(a.getGroupCounter() - 1);
+        }
         }
     }
     public void pickAndMove(double x,double y,double dx,double dy){
         Shape temp = null;
         Vertex p = new Vertex(x,y);
-        for(Shape s : Name_Shape.values()){
+        for(Shape s : getName_Shape().values()){
             if(s.containPoint(p)){
                 if(temp==null)temp = s;
-                else if(temp.zOrder<s.zOrder)temp=s;
+                else if(temp.getzOrder() < s.getzOrder())temp=s;
             }
         }
         if(temp != null){
@@ -98,19 +125,19 @@ public class Main {
     }
 
     public void delete(String name){
-        Name_Shape.remove(name);
+        getName_Shape().remove(name);
         System.out.println("Already delete.");
     }
 
     public void listAll(){
-        String[] nameList = Name_Shape.keySet().toArray(new String[0]);
+        String[] nameList = getName_Shape().keySet().toArray(new String[0]);
         int max = Integer.MIN_VALUE;
         int temp=-1;
         for(int a = 0 ; a<nameList.length-1 ; a++){
             for(int x = a+1 ; x< nameList.length ; x++){
-                if(Name_Shape.get(nameList[x]).zOrder>max){
+                if(getName_Shape().get(nameList[x]).getzOrder() >max){
                     temp=x;
-                    max = Name_Shape.get(nameList[temp]).zOrder;
+                    max = getName_Shape().get(nameList[temp]).getzOrder();
                 }
             }
             String x = nameList[temp];
@@ -119,8 +146,8 @@ public class Main {
         }
         for (String s : nameList) {
             System.out.println(s);
-            if (Name_Shape.get(s) instanceof Group) {
-                ((Group) Name_Shape.get(s)).printInfo(1);
+            if (getName_Shape().get(s) instanceof Group) {
+                ((Group) getName_Shape().get(s)).printInfo(1);
             }
         }
     }
@@ -221,9 +248,9 @@ public class Main {
                     break;
                 }
                 String n = list.remove(0);
-                Vertex top_left = Name_Shape.get(n).getTopLeft();
-                Vertex bottom_right = Name_Shape.get(n).getBottomRight();
-                System.out.println(top_left.x+" "+top_left.y+" "+ (bottom_right.x - top_left.x)+" "+ (bottom_right.y-top_left.y));
+                Vertex top_left = getName_Shape().get(n).getTopLeft();
+                Vertex bottom_right = getName_Shape().get(n).getBottomRight();
+                System.out.println(top_left.getX() +" "+ top_left.getY() +" "+ (bottom_right.getX() - top_left.getX())+" "+ (bottom_right.getY() - top_left.getY()));
                 break;
             }
             case "move": {
@@ -234,7 +261,7 @@ public class Main {
                 String n = list.remove(0);
                 double dx = Double.parseDouble(list.remove(0));
                 double dy = Double.parseDouble(list.remove(0));
-                Name_Shape.get(n).move(dx,dy);
+                getName_Shape().get(n).move(dx,dy);
                 break;
             }
             case "pick-and-move": {
@@ -255,7 +282,7 @@ public class Main {
                     break;
                 }
                 String n = list.remove(0);
-                String[] out = Name_Shape.get(n).getInfo(n);
+                ArrayList<String> out = getName_Shape().get(n).getInfo(n);
                 System.out.println("========");
                 for(String s : out){
                     System.out.println(s);
@@ -278,7 +305,18 @@ public class Main {
                 }
                 String n1 = list.remove(0);
                 String n2 = list.remove(0);
-                System.out.println( Name_Shape.get(n1).intersect(Name_Shape.get(n2)) );
+
+                Shape s1 =getName_Shape().get(n1);
+                Shape s2 =getName_Shape().get(n2);
+
+                Class c = s1.getClass();
+                try{
+                    Method m = c.getMethod("intersect",s2.getClass());
+                    boolean result = (boolean)m.invoke(s1,s2);
+                    System.out.println(result);
+                }catch(Exception ignored) {System.out.println(ignored.getMessage());}
+
+
                 break;
             }
             case "quit": {
@@ -298,7 +336,7 @@ public class Main {
         while(this.getCommand()){
             pic.removeAllShape();
             pic.repaint();
-            for(Shape s : Name_Shape.values()){
+            for(Shape s : getName_Shape().values()){
                 pic.add(s);
             }
             pic.draw();
@@ -312,5 +350,25 @@ public class Main {
     }
 
 
+    public HashMap<String, Shape> getName_Shape() {
+        return Name_Shape;
+    }
 
+    public void setName_Shape(HashMap<String, Shape> name_Shape) {
+        Name_Shape = name_Shape;
+    }
+
+    public int getZ() {
+        return z;
+    }
+
+    public void setZ(int z) {
+        this.z = z;
+    }
 }
+/*
+line l1 20 20 400 400
+circle c1 200 200 100
+intersect l1 c1
+
+ */
