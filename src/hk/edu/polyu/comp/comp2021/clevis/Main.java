@@ -2,7 +2,7 @@ package hk.edu.polyu.comp.comp2021.clevis;
 
 import hk.edu.polyu.comp.comp2021.clevis.util.*;
 import hk.edu.polyu.comp.comp2021.clevis.util.Vector;
-
+import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.*;
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -59,6 +59,12 @@ public class Main {
         createSuccess();
     }
 
+    /**
+     * @param name Name of the rectangle
+     * @param x The horizontal coordinate of the top left corner
+     * @param y The vertical coordinate of the top left corner
+     * @param l The side length of the rectangle
+     */
     public void createSquare(String name,double x,double y,double l){
         if(alreadyExist(name)){existErr(name);return;}
         getName_Shape().put(name,new Square(new Vertex(x,y),new Vector(l,l), getZ()));
@@ -66,6 +72,13 @@ public class Main {
         createSuccess();
     }
 
+    /**
+     * @param name Name of the line
+     * @param x1 The horizontal coordinate of the start node
+     * @param y1 The vertical coordinate of the start node
+     * @param x2 The horizontal coordinate of the end node
+     * @param y2 The vertical coordinate of the end node
+     */
     public void createLine(String name,double x1,double y1,double x2,double y2){
         if(alreadyExist(name)){existErr(name);return;}
         getName_Shape().put(name , new Line(new Vertex(x1,y1),new Vertex(x2,y2), getZ()));
@@ -73,6 +86,12 @@ public class Main {
         createSuccess();
     }
 
+    /**
+     * @param name Name of the Circle
+     * @param x The horizontal coordinate of the center
+     * @param y The vertical coordinate of the center
+     * @param r The radius of the Circle
+     */
     public void createCircle(String name,double x,double y,double r){
         if(alreadyExist(name)){existErr(name);return;}
         getName_Shape().put(name, new Circle(new Vertex(x,y),r, getZ()));
@@ -80,6 +99,10 @@ public class Main {
         createSuccess();
     }
 
+    /**
+     * @param name Name of the group
+     * @param list List of Shape need to be add in to group
+     */
     public void createGroup(String name , ArrayList<String>list){
         if(alreadyExist(name)){existErr(name);return;}
         Group group = new Group(getZ());
@@ -95,20 +118,30 @@ public class Main {
         createSuccess();
     }
 
+    /**
+     * @param name Name of the Group you want to ungroup
+     */
     public void unGroup(String name){
         if(!alreadyExist(name)){System.out.println("Cannot find group"+name);return;}
         Shape shape = getName_Shape().get(name);
         if(! (shape instanceof Group)){
             System.out.println(name + " is not a group");
         }else{
-        getName_Shape().remove(name);
-        Group group = (Group)shape;
-        getName_Shape().putAll(group.getList());
-        for (Shape a : group.getList().values()){
-            a.setGroupCounter(a.getGroupCounter() - 1);
-        }
+            getName_Shape().remove(name);
+            Group group = (Group)shape;
+            getName_Shape().putAll(group.getList());
+            for (Shape a : group.getList().values()){
+                a.setGroupCounter(a.getGroupCounter() - 1);
+            }
         }
     }
+
+    /**
+     * @param x The horizontal coordinate of the node you need to pick
+     * @param y The vertical coordinate of the node you need to pick
+     * @param dx Distance travelled horizontally
+     * @param dy Distance travelled vertically
+     */
     public void pickAndMove(double x,double y,double dx,double dy){
         Shape temp = null;
         Vertex p = new Vertex(x,y);
@@ -124,11 +157,17 @@ public class Main {
         }else{System.out.println("Cannot find a shape contains that point"); }
     }
 
+    /**
+     * @param name The name of shape you want to delete
+     */
     public void delete(String name){
         getName_Shape().remove(name);
         System.out.println("Already delete.");
     }
 
+    /**
+     * List all the shape in decreasing Z order
+     */
     public void listAll(){
         String[] nameList = getName_Shape().keySet().toArray(new String[0]);
         int max = Integer.MIN_VALUE;
@@ -152,10 +191,19 @@ public class Main {
         }
     }
 
+    /**
+     * Output the error massage
+     */
     public void err(){
         System.out.println("Oops...incorrect command, please try again");
     }
 
+    /**
+     * @return whether to continue
+     *
+     * Get the user input and parse its parameters
+     * Execute the corresponding function according to the command content
+     */
     public boolean getCommand() {
         Scanner in = new Scanner(System.in);
         String command = in.nextLine();
@@ -309,12 +357,12 @@ public class Main {
                 Shape s1 =getName_Shape().get(n1);
                 Shape s2 =getName_Shape().get(n2);
 
-                Class c = s1.getClass();
+                Class<?> c = s1.getClass();
                 try{
                     Method m = c.getMethod("intersect",s2.getClass());
                     boolean result = (boolean)m.invoke(s1,s2);
                     System.out.println(result);
-                }catch(Exception ignored) {System.out.println(ignored.getMessage());}
+                }catch(Exception ignored) {err();}
 
 
                 break;
@@ -331,8 +379,11 @@ public class Main {
 
     }
 
+    /**
+     * Launch the application
+     */
     public void start() {
-        Picture pic = new Picture(700,700);
+        Picture pic = new Picture(WIDTH,HEIGHT);
         while(this.getCommand()){
             pic.removeAllShape();
             pic.repaint();
@@ -344,31 +395,40 @@ public class Main {
 
     }
 
+    /**
+     * @param args Default parameters
+     */
     public static void main(String[] args) {
         Main app = new Main();
         app.start();
     }
 
 
+    /**
+     * @return The Name_Shape (Hashmap, contains name and corresponding shape )
+     */
     public HashMap<String, Shape> getName_Shape() {
         return Name_Shape;
     }
 
+    /**
+     * @param name_Shape update the HashMap
+     */
     public void setName_Shape(HashMap<String, Shape> name_Shape) {
         Name_Shape = name_Shape;
     }
 
+    /**
+     * @return return the z_Order
+     */
     public int getZ() {
         return z;
     }
 
+    /**
+     * @param z  the Z_order
+     */
     public void setZ(int z) {
         this.z = z;
     }
 }
-/*
-line l1 20 20 400 400
-circle c1 200 200 100
-intersect l1 c1
-
- */
