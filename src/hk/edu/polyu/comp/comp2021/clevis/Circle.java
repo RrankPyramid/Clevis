@@ -24,7 +24,7 @@ public class Circle extends Shape {
 
     @Override
     public boolean containPoint(Vertex p){
-        return GraphConstant.EPS <= Math.abs(center.distanceTo(p)-radius);
+        return GraphConstant.EPS >= Math.abs(center.distanceTo(p)-radius);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class Circle extends Shape {
         result.add(name+"is a circle");
         result.add("Center : "+String.format("%.2f", center.x)+" "+String.format("%.2f", center.y));
         result.add("Radius : "+String.format("%.2f", radius));
-        return (String[])result.toArray();
+        return result.toArray(new String[0]);
     }
     @Override
     public boolean intersect(Shape other){

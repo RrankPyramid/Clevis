@@ -31,6 +31,7 @@ public class Picture extends JFrame {
     }
 
     public void remove(Shape s) { listShape.remove(s); }
+    public void removeAllShape(){listShape.clear();}
 
     public Picture(int width, int height)
     {

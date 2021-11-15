@@ -34,16 +34,16 @@ public class Line extends Shape {
         double min_x = Math.min(x.x, y.x), max_x = Math.max(x.x, y.x);
         double min_y = Math.min(x.y, y.y), max_y= Math.max(x.y, y.y);
 
-        if(x.x-min_x < -EPS || x.x-max_x > EPS || x.y-min_y < -EPS || x.y-max_y > EPS)
+        if(p.x-min_x < -EPS || p.x-max_x > EPS || p.y-min_y < -EPS || p.y-max_y > EPS)
             return false;
-        return !(y.x - min_x < -EPS) && !(y.x - max_x > EPS) && !(y.y - min_y < -EPS) && !(y.y - max_y > EPS);
+        return true;
     }
 
     @Override
     public void move(double dx, double dy) {
         Vector vector = new Vector(dx,dy);
-        x.add(vector);
-        y.add(vector);
+        x=x.add(vector);
+        y=y.add(vector);
     }
 
     @Override
