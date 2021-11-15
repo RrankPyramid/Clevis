@@ -18,6 +18,39 @@ public class Group extends Shape{
         list.put(name,s);
         s.groupCounter += 1;
     }
+
+    public String[] getName(){
+        int max = Integer.MIN_VALUE;
+        String[] shapes = (String[])list.keySet().toArray();
+        int temp=-1;
+        for(int a = 0 ; a<shapes.length-1 ; a++){
+            for(int x = a+1 ; x< shapes.length ; x++){
+                if(list.get(shapes[x]).zOrder>max){
+                    temp=x;
+                    max = list.get(shapes[temp]).zOrder;
+                }
+            }
+            String x = shapes[temp];
+            shapes[temp]=shapes[a];
+            shapes[a]=x;
+        }
+        return shapes;
+    }
+
+    public void printInfo(int countTab){
+        String[] toPrint = this.getName();
+        for(String s : toPrint){
+            for(int x = 0 ; x<countTab ;x++){
+                System.out.print("    ");
+            }
+            System.out.print(s);
+            System.out.print("\n");
+            if(list.get(s) instanceof Group){
+                ((Group) list.get(s)).printInfo(countTab+1);
+            }
+        }
+    }
+
     @Override
     public void draw(Graphics g){
         for (Shape s : this.list.values()){

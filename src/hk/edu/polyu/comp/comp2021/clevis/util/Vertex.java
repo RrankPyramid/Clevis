@@ -19,10 +19,4 @@ public class Vertex extends BinaryPair{
         return new Vertex(this.x - other.x, this.y - other.y);
     }
 
-    public static void main(String[] args) {
-        Vertex a=new Vertex(3,4);
-        Vector b = new Vector( 100,100);
-        Vertex c = a.add(b);
-        System.out.println(c.x+""+c.y);
-    }
 }

@@ -16,7 +16,7 @@ public class Main {
         z++;
     }
 
-    public void createRectangle(String name,double x,double y,double l){
+    public void createSquare(String name,double x,double y,double l){
         Name_Shape.put(name,new Square(new Vertex(x,y),new Vector(l,l),z));
         z++;
     }
@@ -71,6 +71,30 @@ public class Main {
         Name_Shape.remove(name);
     }
 
+    public void listAll(){
+        String[] nameList = Name_Shape.keySet().toArray(new String[0]);
+        int max = Integer.MIN_VALUE;
+        int temp=-1;
+        for(int a = 0 ; a<nameList.length-1 ; a++){
+            for(int x = a+1 ; x< nameList.length ; x++){
+                if(Name_Shape.get(nameList[x]).zOrder>max){
+                    temp=x;
+                    max = Name_Shape.get(nameList[temp]).zOrder;
+                }
+            }
+            String x = nameList[temp];
+            nameList[temp]=nameList[a];
+            nameList[a]=x;
+        }
+        for (String s : nameList) {
+            System.out.println(s);
+            if (Name_Shape.get(s) instanceof Group) {
+                ((Group) Name_Shape.get(s)).printInfo(1);
+            }
+        }
+
+    }
+
     public boolean getCommand(){
         Scanner in = new Scanner(System.in);
         String command = in.nextLine();
@@ -84,6 +108,7 @@ public class Main {
                 double w = Double.parseDouble(list.remove(0));
                 double h = Double.parseDouble(list.remove(0));
                 createRectangle(n, x, y, w, h);
+                System.out.println("Create successfully !");
                 return true;
             }
             case "line": {
@@ -93,6 +118,7 @@ public class Main {
                 double x2 = Double.parseDouble(list.remove(0));
                 double y2 = Double.parseDouble(list.remove(0));
                 createLine(n, x1, y1, x2, y2);
+                System.out.println("Create successfully !");
                 return true;
             }
             case "circle": {
@@ -101,6 +127,7 @@ public class Main {
                 double y = Double.parseDouble(list.remove(0));
                 double r = Double.parseDouble(list.remove(0));
                 createCircle(n, x, y, r);
+                System.out.println("Create successfully !");
                 return true;
             }
             case "square": {
@@ -108,7 +135,8 @@ public class Main {
                 double x = Double.parseDouble(list.remove(0));
                 double y = Double.parseDouble(list.remove(0));
                 double l = Double.parseDouble(list.remove(0));
-                createRectangle(n, x, y, l, l);
+                createSquare(n,x,y,l);
+                System.out.println("Create successfully !");
                 return true;
             }
             case "group": {
@@ -117,6 +145,7 @@ public class Main {
                 ArrayList<String> groupList = new ArrayList<>(Arrays.asList(ShapeArr));
                 String name = groupList.remove(0);
                 createGroup(name, list);
+                System.out.println("Create successfully !");
                 return true;
             }
             case "ungroup": {
@@ -161,8 +190,17 @@ public class Main {
                 System.out.println("========");
                 return true;
             }
+            case "listAll": {
+                listAll();
+                return true;
+            }
+            case "quit": {
+                return false;
+            }
+
         }
-        return false;
+        System.out.println("Oops...unknown command, please try again");
+        return true;
 
     }
 
