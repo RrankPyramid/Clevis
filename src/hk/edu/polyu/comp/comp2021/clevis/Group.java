@@ -3,6 +3,7 @@ package hk.edu.polyu.comp.comp2021.clevis;
 import hk.edu.polyu.comp.comp2021.clevis.util.*;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.INF;
@@ -60,4 +61,13 @@ public class Group extends Shape{
         }
         return new Vertex(max_x, max_y);
     }
+
+    @Override
+    public String[] getInfo(String name){
+        ArrayList<String> result = new ArrayList<>();
+        result.add(name+"is a group");
+        result.add("Shape included : "+list.keySet());
+        return (String[])result.toArray();
+    }
+
 }

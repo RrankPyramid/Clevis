@@ -4,6 +4,7 @@ import hk.edu.polyu.comp.comp2021.clevis.util.*;
 
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 public class Circle extends Shape {
     private Vertex center;
@@ -38,5 +39,14 @@ public class Circle extends Shape {
     @Override
     public Vertex getBottomRight(){
         return new Vertex(center.x+radius, center.y+radius);
+    }
+
+    @Override
+    public String[] getInfo(String name){
+        ArrayList<String> result = new ArrayList<>();
+        result.add(name+"is a circle");
+        result.add("Center : "+String.format("%.2f", center.x)+" "+String.format("%.2f", center.y));
+        result.add("Radius : "+String.format("%.2f", radius));
+        return (String[])result.toArray();
     }
 }

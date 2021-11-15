@@ -4,6 +4,7 @@ import hk.edu.polyu.comp.comp2021.clevis.util.Vector;
 import hk.edu.polyu.comp.comp2021.clevis.util.Vertex;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.EPS;
 
@@ -55,5 +56,13 @@ public class Line extends Shape {
         return new Vertex(Math.max(x.x, y.x), Math.max(x.y, y.y));
     }
 
+    @Override
+    public String[] getInfo(String name){
+        ArrayList<String> result = new ArrayList<>();
+        result.add(name+"is a line");
+        result.add("First endpoint : "+String.format("%.2f", x.x)+" "+String.format("%.2f", x.y));
+        result.add("Second endpoint : "+String.format("%.2f", y.x)+" "+String.format("%.2f", y.y));
+        return (String[])result.toArray();
+    }
 
 }

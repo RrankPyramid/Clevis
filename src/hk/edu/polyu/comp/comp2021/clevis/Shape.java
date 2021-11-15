@@ -9,7 +9,7 @@ public abstract class Shape {
     protected int groupCounter = 0;
     public int zOrder;
     public abstract void draw(Graphics g);
-
+    public abstract String[] getInfo(String name);
     public abstract boolean containPoint(Vertex p);
     public abstract void move(double dx,double dy);
     public abstract Vertex getTopLeft();

@@ -4,6 +4,7 @@ package hk.edu.polyu.comp.comp2021.clevis;
 import hk.edu.polyu.comp.comp2021.clevis.util.*;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.*;
 
@@ -48,5 +49,15 @@ public class Rectangle extends Shape {
     @Override
     public Vertex getBottomRight(){
         return p.add(direct);
+    }
+
+    @Override
+    public String[] getInfo(String name){
+        ArrayList<String> result = new ArrayList<>();
+        result.add(name+"is a rectangle,");
+        result.add("Top-Left Corner : "+String.format("%.2f", p.x)+" "+String.format("%.2f", p.y));
+        result.add("Width : "+String.format("%.2f", direct.x));
+        result.add("Height : "+String.format("%.2f", direct.y));
+        return (String[])result.toArray();
     }
 }
