@@ -40,16 +40,24 @@ public class Line extends Shape {
     public void draw(Graphics g) {
         g.drawLine((int) getX().getX(), (int) getX().getY(), (int) getY().getX(), (int) getY().getY());
     }
+//
+//    @Override
+//    public boolean containPoint(Vertex p){
+//        if(Math.abs(    getX().vectorTo(p).crossProduct(getX().vectorTo(getY()))   )/(getX().distanceTo(getY()))  > EPS)
+//            return false;
+//        double min_x = Math.min(getX().getX(), getY().getX()), max_x = Math.max(getX().getX(), getY().getX());
+//        double min_y = Math.min(getX().getY(), getY().getY()), max_y = Math.max(getX().getY(), getY().getY());
+//
+//        if(p.getX() -min_x < -EPS || p.getX() -max_x > EPS || p.getY() -min_y < -EPS || p.getY() -max_y > EPS)
+//            return false;
+//        return true;
+//    }
 
     @Override
     public boolean containPoint(Vertex p){
-        if(Math.abs(getX().vectorTo(p).crossProduct(getX().vectorTo(getY())))/(getX().distanceTo(getY())) > EPS)
-            return false;
-        double min_x = Math.min(getX().getX(), getY().getX()), max_x = Math.max(getX().getX(), getY().getX());
-        double min_y = Math.min(getX().getY(), getY().getY()), max_y= Math.max(getX().getY(), getY().getY());
-
-        if(p.getX() -min_x < -EPS || p.getX() -max_x > EPS || p.getY() -min_y < -EPS || p.getY() -max_y > EPS)
-            return false;
+        if(this.distanceTo(p)>EPS)return false;
+        double len = this.getX().distanceTo(this.getY());
+        if((p.distanceTo(this.getX())>=len+1)|| (p.distanceTo(this.getY())>=len+1))return false;
         return true;
     }
 
@@ -100,12 +108,12 @@ public class Line extends Shape {
     }
     @Override
     public boolean intersect(Rectangle other){
-            Vector vectorDown = new Vector(0, other.direct.getY());
-            Vector vectorRight = new Vector(other.direct.getX(), 0);
-            Line left = new Line(other.p, other.p.add(vectorDown));
-            Line up = new Line(other.p, other.p.add(vectorRight));
-            Line right = new Line(other.p.add(vectorRight),other.p.add(other.direct));
-            Line bottom = new Line(other.p.add(vectorDown),other.p.add(other.direct));
+            Vector vectorDown = new Vector(0, other.getDirect().getY());
+            Vector vectorRight = new Vector(other.getDirect().getX(), 0);
+            Line left = new Line(other.getP(), other.getP().add(vectorDown));
+            Line up = new Line(other.getP(), other.getP().add(vectorRight));
+            Line right = new Line(other.getP().add(vectorRight), other.getP().add(other.getDirect()));
+            Line bottom = new Line(other.getP().add(vectorDown), other.getP().add(other.getDirect()));
             return(this.intersect(left)||this.intersect(up)||this.intersect(right)||this.intersect(bottom));
     }
     @Override
