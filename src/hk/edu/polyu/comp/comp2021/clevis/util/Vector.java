@@ -1,26 +1,29 @@
 package hk.edu.polyu.comp.comp2021.clevis.util;
 
-public class Vector{
-    public double x;
-    public double y;
+/**
+ * Defines vectors for subsequent calculations
+ */
+public class Vector extends BinaryPair{
+    /**
+     * @param x x of this Vector
+     * @param y y of this Vector
+     */
     public Vector(double x, double y){
-        this.x = x;
-        this.y = y;
+        super(x, y);
     }
 
-    public Vector add(Vector other){
-        return new Vector(this.x+other.x, this.y+other.y);
-    }
-    public Vector substract(Vector other){
-        return new Vector(this.x - other.x, this.y - other.y);
-    }
-    public double dotProduct(Vector other){
-        return this.x*other.x + this.y+other.y;
-    }
+    /**
+     * @param other another vector
+     * @return return the vector product of two vector
+     */
     public double crossProduct(Vector other){
-        return this.x*other.y - other.x*this.y;
+        return this.getX() * other.getY() - other.getX() * this.getY();
     }
+
+    /**
+     * @return the norm of this vector
+     */
     public double norm(){
-        return Math.sqrt(x*x+y*y);
+        return Math.sqrt(getX() * getX() + getY() * getY());
     }
 }
