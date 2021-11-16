@@ -327,6 +327,7 @@ public class Main {
                     break;
                 }
                 String n = list.remove(0);
+                if(!isExist(n)){notExistErr(n);return true;}
                 double dx = Double.parseDouble(list.remove(0));
                 double dy = Double.parseDouble(list.remove(0));
                 getName_Shape().get(n).move(dx,dy);
