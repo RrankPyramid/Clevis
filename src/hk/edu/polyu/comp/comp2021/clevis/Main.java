@@ -169,14 +169,13 @@ public class Main {
         Shape temp = null;
         Vertex p = new Vertex(x,y);
         for(Shape s : getName_Shape().values()){
-
             if(s.getGroupCounter()!=0)continue;
-
             if(s.containPoint(p)){
                 if(temp==null)temp = s;
                 else if(temp.getzOrder() < s.getzOrder())temp=s;
             }
         }
+
         if(temp != null){
             temp.move(dx,dy);
             System.out.println("Already moved");

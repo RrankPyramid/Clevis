@@ -7,55 +7,57 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Rectangle extends Shape {
-    Vertex p;
-    Vector direct;
+    private Vertex p;
+    private Vector direct;
 
     public Rectangle(Vertex p, Vector direct,int z) {
-        this.p = p;
-        this.direct = direct;
+        this.setP(p);
+        this.setDirect(direct);
         this.setzOrder(z);
     }
 
     @Override
     public void draw(Graphics g) {
-        g.drawRect((int) p.getX(), (int) p.getY(), (int) direct.getX(), (int) direct.getY());
+        g.drawRect((int) getP().getX(), (int) getP().getY(), (int) getDirect().getX(), (int) getDirect().getY());
     }
 
     @Override
-    public boolean containPoint(Vertex p){
-        Vector vectorDown = new Vector(0, direct.getY());
-        Vector vectorRight = new Vector(direct.getX(), 0);
-        Line left = new Line(p, p.add(vectorDown));
-        Line up = new Line(p, p.add(vectorRight));
-        Line right = new Line(p.add(vectorRight),p.add(direct));
-        Line bottom = new Line(p.add(vectorDown),p.add(direct));
-        return (left.containPoint(p)||up.containPoint(p)||right.containPoint(p)||bottom.containPoint(p));
+    public boolean containPoint(Vertex point){
+        Vector vectorDown = new Vector(0, getDirect().getY());
+        Vector vectorRight = new Vector(getDirect().getX(), 0);
+        Line left = new Line(getP(), getP().add(vectorDown));
+        Line up = new Line(getP(), getP().add(vectorRight));
+        Line right = new Line(getP().add(vectorRight), getP().add(getDirect()));
+        Line bottom = new Line(getP().add(vectorDown), getP().add(getDirect()));
+        boolean result = right.containPoint(point)||bottom.containPoint(point)||left.containPoint(point)||up.containPoint(point);
+
+        return result;
     }
 
     @Override
     public void move(double dx, double dy) {
-        p=p.add(new Vector(dx,dy));
+        setP(getP().add(new Vector(dx,dy)));
     }
 
 
     @Override
     public Vertex getTopLeft(){
-        return p;
+        return getP();
     }
 
 
     @Override
     public Vertex getBottomRight(){
-        return p.add(direct);
+        return getP().add(getDirect());
     }
 
     @Override
     public ArrayList<String> getInfo(String name){
         ArrayList<String> result = new ArrayList<>();
         result.add(name+"is a rectangle,");
-        result.add("Top-Left Corner : "+String.format("%.2f", p.getX())+" "+String.format("%.2f", p.getY()));
-        result.add("Width : "+String.format("%.2f", direct.getX()));
-        result.add("Height : "+String.format("%.2f", direct.getY()));
+        result.add("Top-Left Corner : "+String.format("%.2f", getP().getX())+" "+String.format("%.2f", getP().getY()));
+        result.add("Width : "+String.format("%.2f", getDirect().getX()));
+        result.add("Height : "+String.format("%.2f", getDirect().getY()));
         return result;
     }
 
@@ -73,12 +75,12 @@ public class Rectangle extends Shape {
     }
     @Override
     public boolean intersect(Circle other){
-            Vector vectorDown = new Vector(0, direct.getY());
-            Vector vectorRight = new Vector(direct.getX(), 0);
-            Line left = new Line(p, p.add(vectorDown));
-            Line up = new Line(p, p.add(vectorRight));
-            Line right = new Line(p.add(vectorRight),p.add(direct));
-            Line bottom = new Line(p.add(vectorDown),p.add(direct));
+            Vector vectorDown = new Vector(0, getDirect().getY());
+            Vector vectorRight = new Vector(getDirect().getX(), 0);
+            Line left = new Line(getP(), getP().add(vectorDown));
+            Line up = new Line(getP(), getP().add(vectorRight));
+            Line right = new Line(getP().add(vectorRight), getP().add(getDirect()));
+            Line bottom = new Line(getP().add(vectorDown), getP().add(getDirect()));
             return left.intersect(other)||up.intersect(other)||right.intersect(other)||bottom.intersect(other);
     }
 
@@ -91,4 +93,19 @@ public class Rectangle extends Shape {
         return other.intersect(this);
     }
 
+    public Vertex getP() {
+        return p;
+    }
+
+    public void setP(Vertex p) {
+        this.p = p;
+    }
+
+    public Vector getDirect() {
+        return direct;
+    }
+
+    public void setDirect(Vector direct) {
+        this.direct = direct;
+    }
 }

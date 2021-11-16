@@ -21,8 +21,8 @@ public class Square extends Rectangle{
     public ArrayList<String> getInfo(String name){
         ArrayList<String> result = new ArrayList<>();
         result.add(name+"is a Square");
-        result.add("Top-Left Corner : "+String.format("%.2f", p.getX())+" "+String.format("%.2f", p.getY()));
-        result.add("Side length : "+String.format("%.2f", direct.getX()));
+        result.add("Top-Left Corner : "+String.format("%.2f", getP().getX())+" "+String.format("%.2f", getP().getY()));
+        result.add("Side length : "+String.format("%.2f", getDirect().getX()));
         return result;
     }
 }
