@@ -271,6 +271,12 @@ public class Main {
             unreachable(name);
             return;
         }
+
+        if(getName_Shape().get(name) instanceof Group){
+            for(String s : ((Group) getName_Shape().get(name)).getList().keySet()){
+                getName_Shape().remove(s);
+            }
+        }
         getName_Shape().remove(name);
         System.out.println("Already delete.");
     }
