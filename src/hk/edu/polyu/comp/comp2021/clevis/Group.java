@@ -156,6 +156,7 @@ public class Group extends Shape {
 
     /**
      * A HashMap stores the name and Shape
+     * @return
      */
     public HashMap<String, Shape> getList() {
         return list;

@@ -17,6 +17,11 @@ public class Rectangle extends Shape {
         this.setzOrder(z);
     }
 
+    public Rectangle(Vertex p, Vector direct) {
+        this.setP(p);
+        this.setDirect(direct);
+    }
+
     @Override
     public void draw(Graphics g) {
         g.drawRect((int) getP().getX(), (int) getP().getY(), (int) getDirect().getX(), (int) getDirect().getY());

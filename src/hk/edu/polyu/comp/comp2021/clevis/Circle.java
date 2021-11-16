@@ -91,7 +91,12 @@ public class Circle extends Shape {
 
     @Override
     public boolean intersect(Circle otherCircle) {
-        return this.getCenter().distanceTo(otherCircle.getCenter()) <= this.getRadius() + otherCircle.getRadius();
+        Circle bigger = this.getRadius()>otherCircle.getRadius()? this : otherCircle;
+        Circle smaller = this.getRadius()<=otherCircle.getRadius()? this : otherCircle;
+        boolean result_1 = this.getCenter().distanceTo(otherCircle.getCenter()) <= this.getRadius() + otherCircle.getRadius();
+        boolean result_2 = this.getCenter().distanceTo(otherCircle.getCenter())+smaller.getRadius()<bigger.getRadius();
+        if(result_2)return false;
+        return result_1;
     }
 
     @Override

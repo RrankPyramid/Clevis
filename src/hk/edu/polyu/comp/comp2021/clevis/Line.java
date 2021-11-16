@@ -89,8 +89,11 @@ public class Line extends Shape {
 
     @Override
     public boolean intersect(Line other) {
-        double a = this.getX().vectorTo(this.getY()).crossProduct(this.getX().vectorTo(other.getX())) * (this.getX().vectorTo(getY()).crossProduct(this.getX().vectorTo(other.getY())));
-        double b = other.getX().vectorTo(other.getY()).crossProduct(other.getX().vectorTo(this.getX())) * other.getX().vectorTo(other.getY()).crossProduct(other.getX().vectorTo(this.getY()));
+        Rectangle r1 = new Rectangle(this.getX(),this.getX().vectorTo(this.getY()));
+        Rectangle r2 = new Rectangle(other.getX(),other.getX().vectorTo(other.getY()));
+        if(! r1.intersect(r2))return false;
+        double a = this.getX().vectorTo(other.getY()).crossProduct(this.getX().vectorTo(this.getY())) * (this.getX().vectorTo(getY()).crossProduct(this.getX().vectorTo(other.getX())));
+        double b = other.getX().vectorTo(this.getY()).crossProduct(other.getX().vectorTo(other.getY())) * other.getX().vectorTo(other.getY()).crossProduct(other.getX().vectorTo(this.getX()));
         return a >= 0 && b >= 0;
     }
 
