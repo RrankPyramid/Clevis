@@ -10,8 +10,8 @@ public class GroupTest extends TestCase {
     int z2 = 2;
     int z3 = 3;
 
-    Vertex v1 = new Vertex(0,0);
-    Vertex v2 = new Vertex(100,100);
+    Vertex v1 = new Vertex(0, 0);
+    Vertex v2 = new Vertex(100, 100);
 
 
     Group g1 = new Group(z1);
@@ -19,9 +19,10 @@ public class GroupTest extends TestCase {
 
 
     @Before
-    public void before(){
+    public void before() {
 
     }
+
     public void testTestGetName() {
     }
 }

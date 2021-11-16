@@ -3,12 +3,12 @@ package hk.edu.polyu.comp.comp2021.clevis.util;
 /**
  * Defines vectors for subsequent calculations
  */
-public class Vector extends BinaryPair{
+public class Vector extends BinaryPair {
     /**
      * @param x x of this Vector
      * @param y y of this Vector
      */
-    public Vector(double x, double y){
+    public Vector(double x, double y) {
         super(x, y);
     }
 
@@ -16,14 +16,14 @@ public class Vector extends BinaryPair{
      * @param other another vector
      * @return return the vector product of two vector
      */
-    public double crossProduct(Vector other){
+    public double crossProduct(Vector other) {
         return this.getX() * other.getY() - other.getX() * this.getY();
     }
 
     /**
      * @return the norm of this vector
      */
-    public double norm(){
+    public double norm() {
         return Math.sqrt(getX() * getX() + getY() * getY());
     }
 }

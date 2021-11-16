@@ -11,7 +11,7 @@ public abstract class BinaryPair {
      * @param x Horizontal coordinate
      * @param y Longitudinal coordinate
      */
-    BinaryPair(double x, double y){
+    BinaryPair(double x, double y) {
         this.setX(x);
         this.setY(y);
     }

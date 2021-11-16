@@ -1,6 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
-import hk.edu.polyu.comp.comp2021.clevis.util.*;
+import hk.edu.polyu.comp.comp2021.clevis.util.Vertex;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public abstract class Shape {
      * @param dx Distance to move laterally
      * @param dy Distance travelled vertically
      */
-    public abstract void move(double dx,double dy);
+    public abstract void move(double dx, double dy);
 
     /**
      * @return Return the Top-Left point of the Shape
@@ -51,8 +51,11 @@ public abstract class Shape {
      * @return Whether these two shapes are intersected
      */
     public abstract boolean intersect(Circle other);
+
     public abstract boolean intersect(Line other);
+
     public abstract boolean intersect(Rectangle other);
+
     public abstract boolean intersect(Group other);
 
     /**
