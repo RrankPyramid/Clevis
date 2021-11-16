@@ -2,7 +2,13 @@ package hk.edu.polyu.comp.comp2021.clevis;
 
 import hk.edu.polyu.comp.comp2021.clevis.util.*;
 import hk.edu.polyu.comp.comp2021.clevis.util.Vector;
+import org.jetbrains.annotations.NotNull;
+
 import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.*;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -26,8 +32,15 @@ public class Main {
      * @param name  Name of the shape to be checked
      * @return Returns whether the name is already occupied
      */
-    public boolean alreadyExist (String name){
+    public boolean isExist(String name){
         return getName_Shape().containsKey(name);
+    }
+
+    /**
+     * @param name Problems with which shape is running
+     */
+    public void notExistErr(String name){
+        System.out.println("\""+name+"\" does not exist");
     }
 
     /**
@@ -36,6 +49,7 @@ public class Main {
     public void existErr(String name){
         System.out.println("Already have a shape named \""+name+"\"");
     }
+
 
     /**
      *
@@ -53,7 +67,7 @@ public class Main {
      * @param h The height of the rectangle
      */
     public void createRectangle(String name,double x,double y,double w,double h){
-        if(alreadyExist(name)){existErr(name);return;}
+        if(isExist(name)){existErr(name);return;}
         getName_Shape().put(name,new Rectangle(new Vertex(x,y),new Vector(w,h), getZ()));
         setZ(getZ() + 1);
         createSuccess();
@@ -66,7 +80,7 @@ public class Main {
      * @param l The side length of the rectangle
      */
     public void createSquare(String name,double x,double y,double l){
-        if(alreadyExist(name)){existErr(name);return;}
+        if(isExist(name)){existErr(name);return;}
         getName_Shape().put(name,new Square(new Vertex(x,y),new Vector(l,l), getZ()));
         setZ(getZ() + 1);
         createSuccess();
@@ -80,7 +94,7 @@ public class Main {
      * @param y2 The vertical coordinate of the end node
      */
     public void createLine(String name,double x1,double y1,double x2,double y2){
-        if(alreadyExist(name)){existErr(name);return;}
+        if(isExist(name)){existErr(name);return;}
         getName_Shape().put(name , new Line(new Vertex(x1,y1),new Vertex(x2,y2), getZ()));
         setZ(getZ() + 1);
         createSuccess();
@@ -93,7 +107,7 @@ public class Main {
      * @param r The radius of the Circle
      */
     public void createCircle(String name,double x,double y,double r){
-        if(alreadyExist(name)){existErr(name);return;}
+        if(isExist(name)){existErr(name);return;}
         getName_Shape().put(name, new Circle(new Vertex(x,y),r, getZ()));
         setZ(getZ() + 1);
         createSuccess();
@@ -104,13 +118,15 @@ public class Main {
      * @param list List of Shape need to be add in to group
      */
     public void createGroup(String name , ArrayList<String>list){
-        if(alreadyExist(name)){existErr(name);return;}
+        if(isExist(name)){existErr(name);return;}
         Group group = new Group(getZ());
         setZ(getZ() + 1);
         for(String s : list){
             Shape shape = getName_Shape().get(s);
-            if(shape == null)
-                throw new IllegalArgumentException();
+            if(shape == null) {
+                notExistErr(s);
+                return;
+            }
             group.add_Shape(s,shape);
             getName_Shape().remove(s);
         }
@@ -122,7 +138,7 @@ public class Main {
      * @param name Name of the Group you want to ungroup
      */
     public void unGroup(String name){
-        if(!alreadyExist(name)){System.out.println("Cannot find group"+name);return;}
+        if(!isExist(name)){System.out.println("Cannot find group"+name);return;}
         Shape shape = getName_Shape().get(name);
         if(! (shape instanceof Group)){
             System.out.println(name + " is not a group");
@@ -161,6 +177,7 @@ public class Main {
      * @param name The name of shape you want to delete
      */
     public void delete(String name){
+        if(!isExist(name)){notExistErr(name);return;}
         getName_Shape().remove(name);
         System.out.println("Already delete.");
     }
@@ -170,9 +187,10 @@ public class Main {
      */
     public void listAll(){
         String[] nameList = getName_Shape().keySet().toArray(new String[0]);
-        int max = Integer.MIN_VALUE;
+
         int temp=-1;
         for(int a = 0 ; a<nameList.length-1 ; a++){
+            int max = Integer.MIN_VALUE;
             for(int x = a+1 ; x< nameList.length ; x++){
                 if(getName_Shape().get(nameList[x]).getzOrder() >max){
                     temp=x;
@@ -183,10 +201,10 @@ public class Main {
             nameList[temp]=nameList[a];
             nameList[a]=x;
         }
-        for (String s : nameList) {
-            System.out.println(s);
-            if (getName_Shape().get(s) instanceof Group) {
-                ((Group) getName_Shape().get(s)).printInfo(1);
+        for(int x = 0 ; x< nameList.length ; x++){
+            System.out.println(nameList[x]);
+            if(getName_Shape().get(nameList[x]) instanceof Group){
+                ((Group) getName_Shape().get(nameList[x])).printInfo(1);
             }
         }
     }
@@ -199,14 +217,16 @@ public class Main {
     }
 
     /**
+     * @param command the command that user enter
      * @return whether to continue
      *
      * Get the user input and parse its parameters
      * Execute the corresponding function according to the command content
+     *
+     * Determine how many parameters should be read and what function should be used subsequently
+     * by judging the first parameter
      */
-    public boolean getCommand() {
-        Scanner in = new Scanner(System.in);
-        String command = in.nextLine();
+    public boolean getCommand(String command) {
         ArrayList<String> list = new ArrayList<>(Arrays.asList(command.split("\\s+")));
         String func = list.remove(0);
         int size = list.size();
@@ -310,6 +330,7 @@ public class Main {
                 double dx = Double.parseDouble(list.remove(0));
                 double dy = Double.parseDouble(list.remove(0));
                 getName_Shape().get(n).move(dx,dy);
+                System.out.println("Move successfully!");
                 break;
             }
             case "pick-and-move": {
@@ -330,6 +351,7 @@ public class Main {
                     break;
                 }
                 String n = list.remove(0);
+                if(!isExist(n)){notExistErr(n);return true;}
                 ArrayList<String> out = getName_Shape().get(n).getInfo(n);
                 System.out.println("========");
                 for(String s : out){
@@ -381,18 +403,71 @@ public class Main {
 
     /**
      * Launch the application
+     * @return return the list of command that successfully executed
      */
-    public void start() {
+    public ArrayList<String> start() {
         Picture pic = new Picture(WIDTH,HEIGHT);
-        while(this.getCommand()){
+        ArrayList<String> commandRecord = new ArrayList<>();
+        Scanner in = new Scanner(System.in);
+        String command = in.nextLine();
+        while(this.getCommand(command)){
+            commandRecord.add(command);
             pic.removeAllShape();
             pic.repaint();
             for(Shape s : getName_Shape().values()){
                 pic.add(s);
             }
             pic.draw();
+            command = in.nextLine();
         }
+        pic.dispose();
+        return commandRecord;
+    }
 
+    /**
+     * @param commands The list of command that successfully executed
+     * @param fileName The name of the txt file which will be used to store the record
+     */
+    public static void writeInTxt(@NotNull ArrayList<String> commands, String fileName){
+        try {
+            BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
+            for(String s : commands){
+                out.write(s);
+                out.write("\n");
+            }
+            out.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+    /**
+     * @param commands The list of command that successfully executed
+     * @param fileName The name of the html file which will be used to store the record
+     */
+
+    public static void writeInHtml(@NotNull ArrayList<String> commands, String fileName){
+        try {
+            BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
+            int index = 1;
+            out.write("<table border = \"1\">");
+            for(String s : commands){
+                out.write("<tr>\n");
+                out.write("<td>");
+                out.write(Integer.toString(index));
+                out.write("</td>\n");
+                out.write("<td>");
+                out.write(s);
+                out.write("</td>\n");
+                out.write("</tr>\n");
+                index+=1;
+            }
+            out.write("</table>");
+            out.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -400,7 +475,9 @@ public class Main {
      */
     public static void main(String[] args) {
         Main app = new Main();
-        app.start();
+        ArrayList<String> commands = app.start();
+        writeInHtml(commands,"log.html");
+        writeInTxt(commands,"log.txt");
     }
 
 

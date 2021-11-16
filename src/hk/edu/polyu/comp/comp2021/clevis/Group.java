@@ -35,7 +35,7 @@ public class Group extends Shape{
      */
     public String[] getName(){
         int max = Integer.MIN_VALUE;
-        String[] shapes = (String[]) getList().keySet().toArray();
+        String[] shapes = getList().keySet().toArray(new String[getList().keySet().size()]);
         int temp=-1;
         for(int a = 0 ; a<shapes.length-1 ; a++){
             for(int x = a+1 ; x< shapes.length ; x++){

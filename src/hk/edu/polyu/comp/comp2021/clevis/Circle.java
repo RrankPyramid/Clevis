@@ -102,7 +102,7 @@ public class Circle extends Shape {
     @Override
     public ArrayList<String> getInfo(String name){
         ArrayList<String> result = new ArrayList<>();
-        result.add(name+"is a circle");
+        result.add(name+" is a circle");
         result.add("Center : "+String.format("%.2f", getCenter().getX())+" "+String.format("%.2f", getCenter().getY()));
         result.add("Radius : "+String.format("%.2f", getRadius()));
         return result;
