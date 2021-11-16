@@ -36,6 +36,14 @@ public class Main {
         return getName_Shape().containsKey(name);
     }
 
+    public boolean isGrouped(String name){
+        return getName_Shape().get(name).getGroupCounter()!=0;
+    }
+
+    public void unreachable(String name){
+        System.out.println("Sorry, "+name + " is grouped");
+    }
+
     /**
      * @param name Problems with which shape is running
      */
@@ -52,7 +60,7 @@ public class Main {
 
 
     /**
-     *
+     * Output the success message
      */
     public void createSuccess(){
         System.out.println("Create successfully !");
@@ -128,7 +136,6 @@ public class Main {
                 return;
             }
             group.add_Shape(s,shape);
-            getName_Shape().remove(s);
         }
         getName_Shape().put(name,group);
         createSuccess();
@@ -138,7 +145,7 @@ public class Main {
      * @param name Name of the Group you want to ungroup
      */
     public void unGroup(String name){
-        if(!isExist(name)){System.out.println("Cannot find group"+name);return;}
+        if(isGrouped(name)){unreachable(name); return;}
         Shape shape = getName_Shape().get(name);
         if(! (shape instanceof Group)){
             System.out.println(name + " is not a group");
@@ -162,6 +169,9 @@ public class Main {
         Shape temp = null;
         Vertex p = new Vertex(x,y);
         for(Shape s : getName_Shape().values()){
+
+            if(s.getGroupCounter()!=0)continue;
+
             if(s.containPoint(p)){
                 if(temp==null)temp = s;
                 else if(temp.getzOrder() < s.getzOrder())temp=s;
@@ -178,6 +188,7 @@ public class Main {
      */
     public void delete(String name){
         if(!isExist(name)){notExistErr(name);return;}
+        if(isGrouped(name)){unreachable(name); return;}
         getName_Shape().remove(name);
         System.out.println("Already delete.");
     }
@@ -298,6 +309,7 @@ public class Main {
                     break;
                 }
                 String n = list.remove(0);
+                if(!isExist(n)){notExistErr(n);return true;}
                 unGroup(n);
                 break;
             }
@@ -307,6 +319,7 @@ public class Main {
                     break;
                 }
                 String n = list.remove(0);
+                if(!isExist(n)){notExistErr(n);return true;}
                 delete(n);
                 break;
             }
@@ -316,6 +329,8 @@ public class Main {
                     break;
                 }
                 String n = list.remove(0);
+                if(!isExist(n)){notExistErr(n);return true;}
+                if(isGrouped(n)){unreachable(n); return true;}
                 Vertex top_left = getName_Shape().get(n).getTopLeft();
                 Vertex bottom_right = getName_Shape().get(n).getBottomRight();
                 System.out.println(top_left.getX() +" "+ top_left.getY() +" "+ (bottom_right.getX() - top_left.getX())+" "+ (bottom_right.getY() - top_left.getY()));
@@ -328,6 +343,7 @@ public class Main {
                 }
                 String n = list.remove(0);
                 if(!isExist(n)){notExistErr(n);return true;}
+                if(isGrouped(n)){unreachable(n); return true;}
                 double dx = Double.parseDouble(list.remove(0));
                 double dy = Double.parseDouble(list.remove(0));
                 getName_Shape().get(n).move(dx,dy);
@@ -353,6 +369,7 @@ public class Main {
                 }
                 String n = list.remove(0);
                 if(!isExist(n)){notExistErr(n);return true;}
+                if(isGrouped(n)){unreachable(n); return true;}
                 ArrayList<String> out = getName_Shape().get(n).getInfo(n);
                 System.out.println("========");
                 for(String s : out){
@@ -374,9 +391,11 @@ public class Main {
                     err();
                     break;
                 }
+
                 String n1 = list.remove(0);
                 String n2 = list.remove(0);
-
+                if(!isExist(n1)){notExistErr(n1);return true;}
+                if(!isExist(n2)){notExistErr(n2);return true;}
                 Shape s1 =getName_Shape().get(n1);
                 Shape s2 =getName_Shape().get(n2);
 
