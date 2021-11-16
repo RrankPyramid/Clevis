@@ -231,6 +231,7 @@ public class Main {
             for (Shape a : group.getList().values()) {
                 a.setGroupCounter(a.getGroupCounter() - 1);
             }
+            System.out.println("Ungroup successfully");
         }
     }
 
@@ -294,12 +295,14 @@ public class Main {
             nameList[temp] = nameList[a];
             nameList[a] = x;
         }
+        System.out.println("========");
         for (int x = 0; x < nameList.length; x++) {
             System.out.println(nameList[x]);
             if (getName_Shape().get(nameList[x]) instanceof Group) {
                 ((Group) getName_Shape().get(nameList[x])).printInfo(1);
             }
         }
+        System.out.println("========");
     }
 
     /**
