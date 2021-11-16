@@ -8,6 +8,7 @@ public class Clevis {
     /**
      * laucher of Clevies
      */
-    public Clevis(){}
+    public Clevis() {
+    }
 
 }

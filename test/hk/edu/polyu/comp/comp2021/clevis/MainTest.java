@@ -9,48 +9,49 @@ import java.util.ArrayList;
 
 public class MainTest extends TestCase {
 
-    Vertex v1 = new Vertex(0,0);
-    Vertex v2 = new Vertex(100,100);
-    Vertex v3 = new Vertex(200,100);
-    Vertex v4 = new Vertex(100,200);
-    Vector vector = new Vector(300,400);
+    Vertex v1 = new Vertex(0, 0);
+    Vertex v2 = new Vertex(100, 100);
+    Vertex v3 = new Vertex(200, 100);
+    Vertex v4 = new Vertex(100, 200);
+    Vector vector = new Vector(300, 400);
     Main testMain = new Main();
 
     @Before
-    public void before(){
-        testMain.createRectangle("r1",100,100,200,400);
-        testMain.createSquare("s1",300,300,200);
-        testMain.createLine("l1",400,400,200,400);
-        testMain.createCircle("c1",300,300,200);
+    public void before() {
+        testMain.createRectangle("r1", 100, 100, 200, 400);
+        testMain.createSquare("s1", 300, 300, 200);
+        testMain.createLine("l1", 400, 400, 200, 400);
+        testMain.createCircle("c1", 300, 300, 200);
         ArrayList<String> testList = new ArrayList<String>();
         testList.add("l1");
         testList.add("r1");
         testList.add("c1");
-        testMain.createGroup("g1",testList);
+        testMain.createGroup("g1", testList);
     }
+
     public void testCreateRectangle() {
-        testMain.createRectangle("r2",100,100,200,400);
+        testMain.createRectangle("r2", 100, 100, 200, 400);
         assert true;
     }
 
     public void testCreateSquare() {
-        testMain.createSquare("s2",300,300,200);
-        assert  true;
+        testMain.createSquare("s2", 300, 300, 200);
+        assert true;
     }
 
     public void testCreateLine() {
-        testMain.createLine("l2",400,400,200,400);
+        testMain.createLine("l2", 400, 400, 200, 400);
         assert true;
     }
 
     public void testCreateCircle() {
-        testMain.createCircle("c2",300,300,200);
-        assert  true;
+        testMain.createCircle("c2", 300, 300, 200);
+        assert true;
     }
 
     public void testAlreadyExist() {
         assertFalse(testMain.isExist("c2"));
-        testMain.createCircle("c1",300,300,200);
+        testMain.createCircle("c1", 300, 300, 200);
         assertTrue(testMain.isExist("c1"));
     }
 
@@ -65,58 +66,57 @@ public class MainTest extends TestCase {
     }
 
     public void testCreateGroup() {
-        testMain.createRectangle("r1",100,100,200,400);
-        testMain.createSquare("s1",300,300,200);
-        testMain.createLine("l1",400,400,200,400);
-        testMain.createCircle("c1",300,300,200);
+        testMain.createRectangle("r1", 100, 100, 200, 400);
+        testMain.createSquare("s1", 300, 300, 200);
+        testMain.createLine("l1", 400, 400, 200, 400);
+        testMain.createCircle("c1", 300, 300, 200);
         ArrayList<String> testList = new ArrayList<String>();
         testList.add("l1");
         testList.add("r1");
         testList.add("c1");
-        testMain.createGroup("g1",testList);
+        testMain.createGroup("g1", testList);
     }
 
 
-
     public void testUnGroup() {
-        testMain.createRectangle("r1",100,100,200,400);
-        testMain.createSquare("s1",300,300,200);
-        testMain.createLine("l1",400,400,200,400);
-        testMain.createCircle("c1",300,300,200);
+        testMain.createRectangle("r1", 100, 100, 200, 400);
+        testMain.createSquare("s1", 300, 300, 200);
+        testMain.createLine("l1", 400, 400, 200, 400);
+        testMain.createCircle("c1", 300, 300, 200);
         ArrayList<String> testList = new ArrayList<String>();
         testList.add("l1");
         testList.add("r1");
         testList.add("c1");
-        testMain.createGroup("g1",testList);
+        testMain.createGroup("g1", testList);
         testMain.unGroup("g1");
     }
 
     public void testPickAndMove() {
-        testMain.createLine("l1",20,20,400,400);
-        testMain.pickAndMove(100,50,50,0);
-        testMain.pickAndMove(100,100,50,0);
+        testMain.createLine("l1", 20, 20, 400, 400);
+        testMain.pickAndMove(100, 50, 50, 0);
+        testMain.pickAndMove(100, 100, 50, 0);
         assert true;
     }
 
     public void testDelete() {
-        testMain.createCircle("c1",100,100,20);
+        testMain.createCircle("c1", 100, 100, 20);
         testMain.delete("c1");
     }
 
     public void testListAll() {
-        testMain.createRectangle("r1",100,100,200,400);
-        testMain.createSquare("s1",300,300,200);
-        testMain.createSquare("s2",300,200,500);
-        testMain.createLine("l1",400,400,200,400);
-        testMain.createCircle("c1",300,300,200);
+        testMain.createRectangle("r1", 100, 100, 200, 400);
+        testMain.createSquare("s1", 300, 300, 200);
+        testMain.createSquare("s2", 300, 200, 500);
+        testMain.createLine("l1", 400, 400, 200, 400);
+        testMain.createCircle("c1", 300, 300, 200);
         ArrayList<String> testList = new ArrayList<String>();
         ArrayList<String> testList_2 = new ArrayList<String>();
         testList.add("l1");
         testList.add("c1");
         testList_2.add("s2");
         testList_2.add("g1");
-        testMain.createGroup("g1",testList);
-        testMain.createGroup("g2",testList_2);
+        testMain.createGroup("g1", testList);
+        testMain.createGroup("g2", testList_2);
         testMain.listAll();
     }
 
@@ -203,7 +203,7 @@ public class MainTest extends TestCase {
         testCommand.add(cmd_1);
         testCommand.add(cmd_2);
 
-        testMain.writeInTxt(testCommand,"test.txt");
+        Main.writeInTxt(testCommand, "test.txt");
         assert true;
     }
 
@@ -214,7 +214,7 @@ public class MainTest extends TestCase {
         testCommand.add(cmd_1);
         testCommand.add(cmd_2);
 
-        testMain.writeInHtml(testCommand,"test.html");
+        Main.writeInHtml(testCommand, "test.html");
         assert true;
     }
 }
