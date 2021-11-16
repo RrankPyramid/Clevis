@@ -396,6 +396,7 @@ public class Main {
                     return true;
                 }
                 unGroup(n);
+                System.out.println("Move successfully!");
                 break;
             }
             case "delete": {
