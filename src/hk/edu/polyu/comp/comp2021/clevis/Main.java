@@ -227,7 +227,6 @@ public class Main {
         } else {
             getName_Shape().remove(name);
             Group group = (Group) shape;
-            getName_Shape().putAll(group.getList());
             for (Shape a : group.getList().values()) {
                 a.setGroupCounter(a.getGroupCounter() - 1);
             }
