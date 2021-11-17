@@ -4,7 +4,6 @@ import hk.edu.polyu.comp.comp2021.clevis.model.*;
 import hk.edu.polyu.comp.comp2021.clevis.model.Line;
 import hk.edu.polyu.comp.comp2021.clevis.model.util.Vector;
 import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -42,7 +41,7 @@ public class Main {
      * @param commands The list of command that successfully executed
      * @param fileName The name of the txt file which will be used to store the record
      */
-    public static void writeInTxt(@NotNull ArrayList<String> commands, String fileName) {
+    public static void writeInTxt(ArrayList<String> commands, String fileName) {
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
             for (String s : commands) {
@@ -60,7 +59,7 @@ public class Main {
      * @param fileName The name of the html file which will be used to store the record
      */
 
-    public static void writeInHtml(@NotNull ArrayList<String> commands, String fileName) {
+    public static void writeInHtml(ArrayList<String> commands, String fileName) {
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter(fileName));
             int index = 1;
