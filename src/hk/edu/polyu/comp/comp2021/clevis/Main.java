@@ -442,6 +442,18 @@ public class Main {
 
 
     /**
+     * @return null
+     */
+    public HashMap<String, Shape> getNowHashMap(){
+        HashMap<String, Shape> ret = new HashMap<>();
+        for(int i=getTiming() - 1; i>=0; --i){
+            Shape now = getRecord().get(i);
+
+        }
+        return null;
+    }
+
+    /**
      * @throws IllegalArgumentException undo failed
      */
     public void undo() throws IllegalArgumentException{
@@ -449,27 +461,8 @@ public class Main {
             throw new IllegalArgumentException();
         }
         setTiming(getTiming() - 1);
-        String name = getRecord().get(getTiming()).getShapeName();
-        Shape lastShape = null;
-        for(int i = getTiming() - 1; i>=0; --i){
-            Shape tmp = getRecord().get(i);
-            if(tmp.getShapeName().equals(name)){
-                lastShape = tmp;
-                break;
-            }
-            else if(tmp instanceof Group){
-                Group group = (Group) tmp;
-                if(group.getList().containsKey(name)){
-                    lastShape = group.getList().get(name);
-                    break;
-                }
-            }
-        }
-        if (lastShape != null && !lastShape.isDelete()) {
-            getName_Shape().put(name, lastShape);
-        } else {
-            getName_Shape().remove(name);
-        }
+        Shape now = getRecord().get(getTiming());
+        setName_Shape(getNowHashMap());
     }
 
 
@@ -836,6 +829,19 @@ public class Main {
      */
     public void setTiming(int timing) {
         this.timing = timing;
+    }
+
+    /**
+     * @return group array list
+     */
+    public ArrayList<Group> groupArrayList(){
+        ArrayList<Group> ret = new ArrayList<>();
+        for(Shape shape : getName_Shape().values()){
+            if(shape instanceof Group){
+                ret.add((Group) shape);
+            }
+        }
+        return ret;
     }
 }
 
