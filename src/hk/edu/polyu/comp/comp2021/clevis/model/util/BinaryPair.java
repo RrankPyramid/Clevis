@@ -3,15 +3,15 @@ package hk.edu.polyu.comp.comp2021.clevis.model.util;
 /**
  *
  */
-public abstract class BinaryPair<T,W> {
-    private T x;
-    private W y;
+public abstract class BinaryPair implements Cloneable{
+    private double x;
+    private double y;
 
     /**
      * @param x Horizontal coordinate
      * @param y Longitudinal coordinate
      */
-    public BinaryPair(T x, W y) {
+    BinaryPair(double x, double y) {
         this.setX(x);
         this.setY(y);
     }
@@ -19,28 +19,38 @@ public abstract class BinaryPair<T,W> {
     /**
      * @return return horizontal coordinate
      */
-    public T getX() {
+    public double getX() {
         return x;
     }
 
     /**
      * @param x Horizontal coordinate
      */
-    public void setX(T x) {
+    public void setX(double x) {
         this.x = x;
     }
 
     /**
      * @return Longitudinal coordinate
      */
-    public W getY() {
+    public double getY() {
         return y;
     }
 
     /**
      * @param y Longitudinal coordinate
      */
-    public void setY(W y) {
+    public void setY(double y) {
         this.y = y;
+    }
+
+    @Override
+    public BinaryPair clone() {
+        try {
+            BinaryPair clone = (BinaryPair) super.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

@@ -36,4 +36,8 @@ public class Vertex extends BinaryPair<Double,Double> {
         return new Vertex(this.getX() + other.getX(), this.getY() + other.getY());
     }
 
+    @Override
+    public Vertex clone() {
+        return (Vertex) super.clone();
+    }
 }

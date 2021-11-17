@@ -1,6 +1,5 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
-import hk.edu.polyu.comp.comp2021.clevis.model.util.BinaryPair;
 import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 
 import java.awt.*;
@@ -10,12 +9,12 @@ import java.util.ArrayList;
 /**
  *
  */
-public abstract class Shape {
+public abstract class Shape implements Cloneable{
 
     private int groupCounter = 0;
     private int zOrder;
-    private String name;
-    private ArrayList<BinaryPair<Integer,Shape>> HistoryStatus = new ArrayList<>();
+    private String shapeName;
+    private boolean isDelete = false;
 
     /**
      * @param g Draw the Graphic
@@ -27,8 +26,6 @@ public abstract class Shape {
      * @return the imformation of the shape
      */
     public abstract ArrayList<String> getInfo(String name);
-
-    public abstract void backtrace(int time);
 
     /**
      * @param p One point to check
@@ -63,7 +60,8 @@ public abstract class Shape {
         Class<?> c = this.getClass();
         try {
             Method m = c.getMethod("intersect", other.getClass());
-            return (boolean) m.invoke(this,other);
+            boolean result = (boolean) m.invoke(this,other);
+            return result;
         }catch (Exception error){System.out.println("Oops...incorrect command, please try again");}
         return false;
     }
@@ -99,21 +97,42 @@ public abstract class Shape {
         this.zOrder = zOrder;
     }
 
-    public abstract void updateHistory(int x);
-
-    public ArrayList<BinaryPair<Integer, Shape>> getHistoryStatus() {
-        return HistoryStatus;
+    @Override
+    public Shape clone() {
+        try {
+            Shape clone = (Shape) super.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 
-    public void setHistoryStatus(ArrayList<BinaryPair<Integer, Shape>> historyStatus) {
-        HistoryStatus = historyStatus;
+    /**
+     * @return shape name
+     */
+    public String getShapeName() {
+        return shapeName;
     }
 
-    public String getName() {
-        return name;
+    /**
+     * @param shapeName shape name
+     */
+    public void setShapeName(String shapeName) {
+        this.shapeName = shapeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * @return delete status
+     */
+    public boolean isDelete() {
+        return isDelete;
     }
+
+    /**
+     * set delete status true
+     */
+    public void setDelete() {
+        isDelete = true;
+    }
+
 }

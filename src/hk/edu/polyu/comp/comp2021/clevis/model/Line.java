@@ -173,4 +173,12 @@ public class Line extends Shape {
     public void setY(Vertex y) {
         this.y = y;
     }
+
+    @Override
+    public Line clone(){
+        Line clone = (Line) super.clone();
+        clone.setX(getX().clone());
+        clone.setY(getY().clone());
+        return clone;
+    }
 }

@@ -26,4 +26,9 @@ public class Square extends Rectangle {
         result.add("Side length : " + String.format("%.2f", getDirect().getX()));
         return result;
     }
+
+    @Override
+    public Square clone() {
+        return (Square) super.clone();
+    }
 }
