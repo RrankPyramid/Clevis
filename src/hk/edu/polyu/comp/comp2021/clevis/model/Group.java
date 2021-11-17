@@ -73,6 +73,7 @@ public class Group extends Shape {
     @Override
     public void updateHistory(int time) {
         Group temp = new Group(this.getzOrder());
+        temp.getList().putAll(this.getList());
         HistorpStatus status = new HistorpStatus(time,temp);
         getHistoryStatus().add(status);
     }

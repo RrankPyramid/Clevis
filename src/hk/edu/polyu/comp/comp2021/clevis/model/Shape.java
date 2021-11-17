@@ -61,8 +61,7 @@ public abstract class Shape {
         Class<?> c = this.getClass();
         try {
             Method m = c.getMethod("intersect", other.getClass());
-            boolean result = (boolean) m.invoke(this,other);
-            return result;
+            return (boolean) m.invoke(this,other);
         }catch (Exception error){System.out.println("Oops...incorrect command, please try again");}
         return false;
     }
