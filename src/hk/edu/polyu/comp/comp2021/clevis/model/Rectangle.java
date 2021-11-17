@@ -1,6 +1,8 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
 
+import hk.edu.polyu.comp.comp2021.clevis.model.util.BinaryPair;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.HistorpStatus;
 import hk.edu.polyu.comp.comp2021.clevis.model.util.Vector;
 import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 
@@ -36,7 +38,7 @@ public class Rectangle extends Shape {
 
     @Override
     public void draw(Graphics g) {
-        g.drawRect((int) getP().getX(), (int) getP().getY(), (int) getDirect().getX(), (int) getDirect().getY());
+        g.drawRect(getP().getX().intValue(), getP().getY().intValue(),  getDirect().getX().intValue(),  getDirect().getY().intValue());
     }
 
     @Override
@@ -66,6 +68,13 @@ public class Rectangle extends Shape {
     @Override
     public Vertex getBottomRight() {
         return getP().add(getDirect());
+    }
+
+    @Override
+    public void updateHistory(int time) {
+        Rectangle temp = new Rectangle(this.getP(),this.getDirect());
+        HistorpStatus status = new HistorpStatus(time,temp);
+        getHistoryStatus().add(status);
     }
 
     @Override

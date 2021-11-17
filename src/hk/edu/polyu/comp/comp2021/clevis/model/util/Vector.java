@@ -3,7 +3,7 @@ package hk.edu.polyu.comp.comp2021.clevis.model.util;
 /**
  * Defines vectors for subsequent calculations
  */
-public class Vector extends BinaryPair {
+public class Vector extends BinaryPair<Double,Double> {
     /**
      * @param x x of this Vector
      * @param y y of this Vector

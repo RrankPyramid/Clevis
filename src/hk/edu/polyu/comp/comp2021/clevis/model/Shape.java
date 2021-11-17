@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
+import hk.edu.polyu.comp.comp2021.clevis.model.util.BinaryPair;
 import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 
 import java.awt.*;
@@ -13,6 +14,8 @@ public abstract class Shape {
 
     private int groupCounter = 0;
     private int zOrder;
+    private String name;
+    private ArrayList<BinaryPair<Integer,Shape>> HistoryStatus;
 
     /**
      * @param g Draw the Graphic
@@ -93,5 +96,23 @@ public abstract class Shape {
      */
     public void setzOrder(int zOrder) {
         this.zOrder = zOrder;
+    }
+
+    public abstract void updateHistory(int x);
+
+    public ArrayList<BinaryPair<Integer, Shape>> getHistoryStatus() {
+        return HistoryStatus;
+    }
+
+    public void setHistoryStatus(ArrayList<BinaryPair<Integer, Shape>> historyStatus) {
+        HistoryStatus = historyStatus;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

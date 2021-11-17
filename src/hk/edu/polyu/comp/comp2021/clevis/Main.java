@@ -146,6 +146,7 @@ public class Main {
             return;
         }
         getName_Shape().put(name, new Rectangle(new Vertex(x, y), new Vector(w, h), getZ()));
+        getName_Shape().get(name).setName(name);
         setZ(getZ() + 1);
         createSuccess();
     }
@@ -162,6 +163,7 @@ public class Main {
             return;
         }
         getName_Shape().put(name, new Square(new Vertex(x, y), new Vector(l, l), getZ()));
+        getName_Shape().get(name).setName(name);
         setZ(getZ() + 1);
         createSuccess();
     }
@@ -179,6 +181,7 @@ public class Main {
             return;
         }
         getName_Shape().put(name, new Line(new Vertex(x1, y1), new Vertex(x2, y2), getZ()));
+        getName_Shape().get(name).setName(name);
         setZ(getZ() + 1);
         createSuccess();
     }
@@ -195,6 +198,7 @@ public class Main {
             return;
         }
         getName_Shape().put(name, new Circle(new Vertex(x, y), r, getZ()));
+        getName_Shape().get(name).setName(name);
         setZ(getZ() + 1);
         createSuccess();
     }
@@ -209,6 +213,7 @@ public class Main {
             return;
         }
         Group group = new Group(getZ());
+
         setZ(getZ() + 1);
         for (String s : list) {
             Shape shape = getName_Shape().get(s);
@@ -219,6 +224,7 @@ public class Main {
             group.add_Shape(s, shape);
         }
         getName_Shape().put(name, group);
+        getName_Shape().get(name).setName(name);
         createSuccess();
     }
 

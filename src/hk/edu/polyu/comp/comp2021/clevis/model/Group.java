@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
+import hk.edu.polyu.comp.comp2021.clevis.model.util.HistorpStatus;
 import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 
 import java.awt.*;
@@ -34,7 +35,7 @@ public class Group extends Shape {
     /**
      * @return the names of the Shape by decreasing Z-order
      */
-    public String[] getName() {
+    public String[] getShapeName() {
         int max = Integer.MIN_VALUE;
         String[] shapes = getList().keySet().toArray(new String[getList().keySet().size()]);
         int temp = -1;
@@ -56,7 +57,7 @@ public class Group extends Shape {
      * @param countTab the number of indents required
      */
     public void printInfo(int countTab) {
-        String[] toPrint = this.getName();
+        String[] toPrint = this.getShapeName();
         for (String s : toPrint) {
             for (int x = 0; x < countTab; x++) {
                 System.out.print("    ");
@@ -67,6 +68,13 @@ public class Group extends Shape {
                 ((Group) getList().get(s)).printInfo(countTab + 1);
             }
         }
+    }
+
+    @Override
+    public void updateHistory(int time) {
+        Group temp = new Group(this.getzOrder());
+        HistorpStatus status = new HistorpStatus(time,temp);
+        getHistoryStatus().add(status);
     }
 
     @Override

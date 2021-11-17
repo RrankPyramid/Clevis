@@ -1,6 +1,7 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
 import hk.edu.polyu.comp.comp2021.clevis.model.util.GraphConstant;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.HistorpStatus;
 import hk.edu.polyu.comp.comp2021.clevis.model.util.Vector;
 import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 
@@ -51,6 +52,13 @@ public class Circle extends Shape {
      */
     public void setRadius(double radius) {
         this.radius = radius;
+    }
+
+    @Override
+    public void updateHistory(int time) {
+        Circle temp = new Circle(this.getCenter(),this.getRadius(),this.getzOrder());
+        HistorpStatus status = new HistorpStatus(time,temp);
+        getHistoryStatus().add(status);
     }
 
     @Override

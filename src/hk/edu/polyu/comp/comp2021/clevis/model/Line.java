@@ -1,5 +1,6 @@
 package hk.edu.polyu.comp.comp2021.clevis.model;
 
+import hk.edu.polyu.comp.comp2021.clevis.model.util.HistorpStatus;
 import hk.edu.polyu.comp.comp2021.clevis.model.util.Vector;
 import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 
@@ -38,8 +39,15 @@ public class Line extends Shape {
     }
 
     @Override
+    public void updateHistory(int time) {
+        Line temp = new Line(this.getX(),this.getY(),this.getzOrder());
+        HistorpStatus status = new HistorpStatus(time,temp);
+        getHistoryStatus().add(status);
+    }
+
+    @Override
     public void draw(Graphics g) {
-        g.drawLine((int) getX().getX(), (int) getX().getY(), (int) getY().getX(), (int) getY().getY());
+        g.drawLine( getX().getX().intValue(), getX().getY().intValue(), getY().getX().intValue(), getY().getY().intValue());
     }
 
     @Override

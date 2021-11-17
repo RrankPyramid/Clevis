@@ -30,8 +30,8 @@ public class GroupTest extends TestCase {
 
         g1.add_Shape("l1",l1);
         g1.add_Shape("l2",l2);
-        assertEquals("l1",g1.getName()[1]);
-        assertEquals("l2",g1.getName()[0]);
+        assertEquals("l1",g1.getShapeName()[1]);
+        assertEquals("l2",g1.getShapeName()[0]);
     }
 
     public void testGetGroupCounter() {

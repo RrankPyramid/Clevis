@@ -3,7 +3,7 @@ package hk.edu.polyu.comp.comp2021.clevis.model.util;
 /**
  * Defines veetex for subsequent calculations
  */
-public class Vertex extends BinaryPair {
+public class Vertex extends BinaryPair<Double,Double> {
     /**
      * @param x Initialize x
      * @param y Initialize y
