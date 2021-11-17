@@ -21,6 +21,15 @@ import static hk.edu.polyu.comp.comp2021.clevis.model.util.GraphConstant.WIDTH;
  * The main operating modules
  */
 public class Main {
+    private static Main instance= new Main();
+
+    /**
+     * @return singleton instance of main
+     */
+    public static Main getInstance() {
+        return instance;
+    }
+
     private HashMap<String, Shape> Name_Shape;
     private ArrayList<Shape> record;
     private int z;
@@ -86,7 +95,7 @@ public class Main {
      * @param args Default parameters
      */
     public static void main(String[] args) {
-        Main app = new Main();
+        Main app = Main.getInstance();
         ArrayList<String> commands = app.start();
         writeInHtml(commands, "log.html");
         writeInTxt(commands, "log.txt");
@@ -150,6 +159,7 @@ public class Main {
         }
         Rectangle rectangle = new Rectangle(new Vertex(x, y), new Vector(w, h), getZ());
         getName_Shape().put(name, rectangle);
+        rectangle.setShapeName(name);
         setZ(getZ() + 1);
         if(getTiming() == getRecord().size()){
             getRecord().add(rectangle);
@@ -178,6 +188,7 @@ public class Main {
         }
         Square square = new Square(new Vertex(x, y), new Vector(l, l), getZ());
         getName_Shape().put(name, square);
+        square.setShapeName(name);
         setZ(getZ() + 1);
         if(getTiming() == getRecord().size()){
             getRecord().add(square);
@@ -207,6 +218,7 @@ public class Main {
         }
         Line line = new Line(new Vertex(x1, y1), new Vertex(x2, y2), getZ());
         getName_Shape().put(name, line);
+        line.setShapeName(name);
         setZ(getZ() + 1);
         if(getTiming() == getRecord().size()){
             getRecord().add(line);
@@ -234,6 +246,7 @@ public class Main {
             return;
         }
         Circle circle = new Circle(new Vertex(x, y), r, getZ());
+        circle.setShapeName(name);
         getName_Shape().put(name, circle);
         setZ(getZ() + 1);
         if(getTiming() == getRecord().size()){
@@ -269,9 +282,10 @@ public class Main {
             }
             shape = shape.clone();
             group.add_Shape(s, shape);
-            getName_Shape().put(shape.getShapeName(), shape);
+            getName_Shape().remove(shape.getShapeName());
         }
         getName_Shape().put(name, group);
+        group.setShapeName(name);
         if(getTiming() == getRecord().size()){
             getRecord().add(group);
         }else{
@@ -438,7 +452,7 @@ public class Main {
         String name = getRecord().get(getTiming()).getShapeName();
         Shape lastShape = null;
         for(int i = getTiming() - 1; i>=0; --i){
-            Shape tmp = getRecord().get(getTiming());
+            Shape tmp = getRecord().get(i);
             if(tmp.getShapeName().equals(name)){
                 lastShape = tmp;
                 break;
@@ -723,6 +737,7 @@ public class Main {
                     System.out.println("Cannot undo because you reach the beginning");
                     err();
                 }
+                break;
             }
             case "redo": {
                 if (size != 0){
@@ -735,6 +750,7 @@ public class Main {
                     System.out.println("Cannot redo because you haven't undo yet");
                     err();
                 }
+                break;
             }
             default: {
                 System.out.println("Oops...unknown command, please try again");
@@ -752,6 +768,7 @@ public class Main {
      */
     public ArrayList<String> start() {
         Picture pic = new Picture(WIDTH, HEIGHT);
+        pic.draw();
         ArrayList<String> commandRecord = new ArrayList<>();
         Scanner in = new Scanner(System.in);
         String command = in.nextLine();
@@ -821,3 +838,12 @@ public class Main {
         this.timing = timing;
     }
 }
+
+/*
+rectangle r1 100 100 100 100
+circle c1 200 100 100
+group g1 r1 c1
+move g1 100 100
+
+
+ */

@@ -129,9 +129,10 @@ public abstract class Shape implements Cloneable{
     }
 
     /**
-     * set delete status
+     * set delete status true
      */
     public void setDelete() {
         isDelete = true;
     }
+
 }
