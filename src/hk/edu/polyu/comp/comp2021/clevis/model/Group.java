@@ -1,12 +1,12 @@
-package hk.edu.polyu.comp.comp2021.clevis;
+package hk.edu.polyu.comp.comp2021.clevis.model;
 
-import hk.edu.polyu.comp.comp2021.clevis.util.Vertex;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.INF;
+import static hk.edu.polyu.comp.comp2021.clevis.model.util.GraphConstant.INF;
 
 /**
  *
@@ -149,19 +149,22 @@ public class Group extends Shape {
     @Override
     public ArrayList<String> getInfo(String name) {
         ArrayList<String> result = new ArrayList<>();
-        result.add(name + "is a group");
+        result.add(name + " is a group");
         result.add("Shape included : " + getList().keySet());
         return result;
     }
 
     /**
      * A HashMap stores the name and Shape
-     * @return
+     * @return the hash map comtains name and shape
      */
     public HashMap<String, Shape> getList() {
         return list;
     }
 
+    /**
+     * @param list update the hashmap
+     */
     public void setList(HashMap<String, Shape> list) {
         this.list = list;
     }

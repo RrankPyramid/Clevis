@@ -1,6 +1,6 @@
-package hk.edu.polyu.comp.comp2021.clevis;
+package hk.edu.polyu.comp.comp2021.clevis.model;
 
-import hk.edu.polyu.comp.comp2021.clevis.util.Vertex;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 
 import java.awt.*;
 import java.util.ArrayList;

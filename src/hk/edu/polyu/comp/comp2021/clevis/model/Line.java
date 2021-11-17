@@ -1,12 +1,12 @@
-package hk.edu.polyu.comp.comp2021.clevis;
+package hk.edu.polyu.comp.comp2021.clevis.model;
 
-import hk.edu.polyu.comp.comp2021.clevis.util.Vector;
-import hk.edu.polyu.comp.comp2021.clevis.util.Vertex;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.Vector;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.EPS;
+import static hk.edu.polyu.comp.comp2021.clevis.model.util.GraphConstant.EPS;
 
 
 /**
@@ -22,7 +22,7 @@ public class Line extends Shape {
      * @param y The end node
      * @param z The order the shapes have been added
      */
-    Line(Vertex x, Vertex y, int z) {
+    public Line(Vertex x, Vertex y, int z) {
         this.setX(x);
         this.setY(y);
         this.setzOrder(z);
@@ -32,7 +32,7 @@ public class Line extends Shape {
      * @param x The start node
      * @param y The end node
      */
-    Line(Vertex x, Vertex y) {
+    public Line(Vertex x, Vertex y) {
         this.setX(x);
         this.setY(y);
     }

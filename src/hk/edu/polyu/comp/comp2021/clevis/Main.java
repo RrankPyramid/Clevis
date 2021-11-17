@@ -1,7 +1,9 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
-import hk.edu.polyu.comp.comp2021.clevis.util.Vector;
-import hk.edu.polyu.comp.comp2021.clevis.util.Vertex;
+import hk.edu.polyu.comp.comp2021.clevis.model.*;
+import hk.edu.polyu.comp.comp2021.clevis.model.Line;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.Vector;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedWriter;
@@ -13,8 +15,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.HEIGHT;
-import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.WIDTH;
+import static hk.edu.polyu.comp.comp2021.clevis.model.util.GraphConstant.HEIGHT;
+import static hk.edu.polyu.comp.comp2021.clevis.model.util.GraphConstant.WIDTH;
 
 /**
  * The main operating modules
@@ -95,10 +97,17 @@ public class Main {
         return getName_Shape().containsKey(name);
     }
 
+    /**
+     * @param name the name need check
+     * @return whether this shape is in a group
+     */
     public boolean isGrouped(String name) {
         return getName_Shape().get(name).getGroupCounter() != 0;
     }
 
+    /**
+     * @param name The shape that cannot reach
+     */
     public void unreachable(String name) {
         System.out.println("Sorry, " + name + " is grouped");
     }

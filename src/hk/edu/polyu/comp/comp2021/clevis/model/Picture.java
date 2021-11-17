@@ -1,4 +1,4 @@
-package hk.edu.polyu.comp.comp2021.clevis;
+package hk.edu.polyu.comp.comp2021.clevis.model;
 
 import javax.swing.*;
 import java.awt.*;

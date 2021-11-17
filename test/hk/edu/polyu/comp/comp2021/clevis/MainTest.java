@@ -1,7 +1,7 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
-import hk.edu.polyu.comp.comp2021.clevis.util.Vector;
-import hk.edu.polyu.comp.comp2021.clevis.util.Vertex;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.Vector;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 import junit.framework.TestCase;
 import org.junit.Before;
 

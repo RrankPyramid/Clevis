@@ -1,12 +1,16 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
-import hk.edu.polyu.comp.comp2021.clevis.util.Vector;
-import hk.edu.polyu.comp.comp2021.clevis.util.Vertex;
+import hk.edu.polyu.comp.comp2021.clevis.model.Circle;
+import hk.edu.polyu.comp.comp2021.clevis.model.Group;
+import hk.edu.polyu.comp.comp2021.clevis.model.Line;
+import hk.edu.polyu.comp.comp2021.clevis.model.Rectangle;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.Vector;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
 
-import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.EPS;
+import static hk.edu.polyu.comp.comp2021.clevis.model.util.GraphConstant.EPS;
 
 public class CircleTest extends TestCase {
 
@@ -102,8 +106,16 @@ public class CircleTest extends TestCase {
     }
 
     public void testTestIntersect() {
+        Line l1 = new Line(new Vertex(100,100),new Vertex(100,150));
+        Line l3 = new Line(new Vertex(100,100),new Vertex(300,300));
+        Line l4 = new Line(new Vertex(300,300),new Vertex(100,100));
+        Line l2 = new Line(new Vertex(0,300),new Vertex(300,300));
         assertTrue(A.intersect(line));
         assertTrue(A.intersect(line2));
+        assertFalse(A.intersect(l1));
+        assertFalse(A.intersect(l2));
+        assertTrue(A.intersect(l3));
+        assertTrue(A.intersect(l4));
     }
 
     public void testGetInfo() {

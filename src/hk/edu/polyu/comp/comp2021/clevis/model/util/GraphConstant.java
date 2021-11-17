@@ -1,4 +1,4 @@
-package hk.edu.polyu.comp.comp2021.clevis.util;
+package hk.edu.polyu.comp.comp2021.clevis.model.util;
 
 /**
  * stores the constants that need to be used

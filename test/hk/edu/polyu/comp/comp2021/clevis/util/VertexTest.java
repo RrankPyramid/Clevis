@@ -1,8 +1,10 @@
 package hk.edu.polyu.comp.comp2021.clevis.util;
 
+import hk.edu.polyu.comp.comp2021.clevis.model.util.Vector;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 import org.junit.Test;
 
-import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.EPS;
+import static hk.edu.polyu.comp.comp2021.clevis.model.util.GraphConstant.EPS;
 import static org.junit.Assert.assertEquals;
 
 public class VertexTest {

@@ -1,22 +1,34 @@
-package hk.edu.polyu.comp.comp2021.clevis;
+package hk.edu.polyu.comp.comp2021.clevis.model;
 
 
-import hk.edu.polyu.comp.comp2021.clevis.util.Vector;
-import hk.edu.polyu.comp.comp2021.clevis.util.Vertex;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.Vector;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Rectangle, a type of shape, contains squares
+ */
 public class Rectangle extends Shape {
     private Vertex p;
     private Vector direct;
 
+    /**
+     * @param p The top-left conner
+     * @param direct the vector from top-left to bottom right;
+     * @param z The Z-order
+     */
     public Rectangle(Vertex p, Vector direct, int z) {
         this.setP(p);
         this.setDirect(direct);
         this.setzOrder(z);
     }
 
+    /**
+     * @param p The top-left conner
+     * @param direct the vector from top-left to bottom right;
+     */
     public Rectangle(Vertex p, Vector direct) {
         this.setP(p);
         this.setDirect(direct);
@@ -60,7 +72,7 @@ public class Rectangle extends Shape {
     @Override
     public ArrayList<String> getInfo(String name) {
         ArrayList<String> result = new ArrayList<>();
-        result.add(name + "is a rectangle,");
+        result.add(name + " is a rectangle,");
         result.add("Top-Left Corner : " + String.format("%.2f", getP().getX()) + " " + String.format("%.2f", getP().getY()));
         result.add("Width : " + String.format("%.2f", getDirect().getX()));
         result.add("Height : " + String.format("%.2f", getDirect().getY()));
@@ -101,18 +113,30 @@ public class Rectangle extends Shape {
         return other.intersect(this);
     }
 
+    /**
+     * @return return the top left conner
+     */
     public Vertex getP() {
         return p;
     }
 
+    /**
+     * @param p update the top left conner
+     */
     public void setP(Vertex p) {
         this.p = p;
     }
 
+    /**
+     * @return return the vector from top-left to bottom right
+     */
     public Vector getDirect() {
         return direct;
     }
 
+    /**
+     * @param direct update the vector from top-left to bottom right
+     */
     public void setDirect(Vector direct) {
         this.direct = direct;
     }

@@ -1,8 +1,8 @@
-package hk.edu.polyu.comp.comp2021.clevis;
+package hk.edu.polyu.comp.comp2021.clevis.model;
 
-import hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant;
-import hk.edu.polyu.comp.comp2021.clevis.util.Vector;
-import hk.edu.polyu.comp.comp2021.clevis.util.Vertex;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.GraphConstant;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.Vector;
+import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -88,7 +88,6 @@ public class Circle extends Shape {
     public boolean intersect(Rectangle other) {
         return other.intersect(this);
     }
-
     @Override
     public boolean intersect(Circle otherCircle) {
         Circle bigger = this.getRadius()>otherCircle.getRadius()? this : otherCircle;
