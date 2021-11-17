@@ -12,7 +12,7 @@ public class Line extends Shape {
 
     Vertex x,y;
 
-    Line(Vertex x, Vertex y) {
+    public Line(Vertex x, Vertex y) {
         this.x = x;
         this.y = y;
     }

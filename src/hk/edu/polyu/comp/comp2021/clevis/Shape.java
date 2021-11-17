@@ -6,7 +6,7 @@ import java.awt.*;
 
 public abstract class Shape {
 
-    protected int groupCounter = 0;
+    public int groupCounter = 0;
 
     public abstract void draw(Graphics g);
 

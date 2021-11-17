@@ -8,7 +8,7 @@ import java.util.HashMap;
 import static hk.edu.polyu.comp.comp2021.clevis.util.GraphConstant.INF;
 
 public class Group extends Shape{
-    protected HashMap<String,Shape> list;
+    public HashMap<String,Shape> list;
     public Group(int z_Order){
         list = new HashMap<>();
     }
@@ -16,8 +16,10 @@ public class Group extends Shape{
         list.put(name,s);
         s.groupCounter += 1;
     }
+
     @Override
-    public void draw(Graphics g){
+    public void draw(Graphics g)
+    {
         for (Shape s : this.list.values()){
             s.draw(g);
         }
