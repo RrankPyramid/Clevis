@@ -5,6 +5,7 @@ import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import static hk.edu.polyu.comp.comp2021.clevis.model.util.GraphConstant.INF;
 
@@ -175,5 +176,14 @@ public class Group extends Shape {
      */
     public void setList(HashMap<String, Shape> list) {
         this.list = list;
+    }
+
+    @Override
+    public Group clone(){
+        Group clone = (Group) super.clone();
+        HashMap<String, Shape> cloneMap = new HashMap<>();
+        this.getList().forEach((k, v) -> cloneMap.put(k, v.clone()));
+        clone.setList(cloneMap);
+        return clone;
     }
 }

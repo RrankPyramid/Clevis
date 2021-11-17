@@ -23,6 +23,7 @@ import static hk.edu.polyu.comp.comp2021.clevis.model.util.GraphConstant.WIDTH;
  */
 public class Main {
     private HashMap<String, Shape> Name_Shape;
+    private ArrayList<Shape> record;
     private int z;
 
     /**
@@ -31,6 +32,7 @@ public class Main {
      */
     public Main() {
         setName_Shape(new HashMap<>());
+        record = new ArrayList<>();
         setZ(0);
     }
 
@@ -620,5 +622,19 @@ public class Main {
      */
     public void setZ(int z) {
         this.z = z;
+    }
+
+    /**
+     * @return return the record
+     */
+    public ArrayList<Shape> getRecord() {
+        return record;
+    }
+
+    /**
+     * @param record the record
+     */
+    public void setRecord(ArrayList<Shape> record) {
+        this.record = record;
     }
 }

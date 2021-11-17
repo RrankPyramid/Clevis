@@ -26,4 +26,9 @@ public class Vector extends BinaryPair {
     public double norm() {
         return Math.sqrt(getX() * getX() + getY() * getY());
     }
+
+    @Override
+    public Vector clone() {
+        return (Vector) super.clone();
+    }
 }

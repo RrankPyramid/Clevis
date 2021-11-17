@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  *
  */
-public abstract class Shape {
+public abstract class Shape implements Cloneable{
 
     private int groupCounter = 0;
     private int zOrder;
@@ -93,5 +93,15 @@ public abstract class Shape {
      */
     public void setzOrder(int zOrder) {
         this.zOrder = zOrder;
+    }
+
+    @Override
+    public Shape clone() {
+        try {
+            Shape clone = (Shape) super.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

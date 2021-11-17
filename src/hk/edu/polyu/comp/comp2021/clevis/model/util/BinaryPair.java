@@ -3,7 +3,7 @@ package hk.edu.polyu.comp.comp2021.clevis.model.util;
 /**
  *
  */
-public abstract class BinaryPair {
+public abstract class BinaryPair implements Cloneable{
     private double x;
     private double y;
 
@@ -42,5 +42,15 @@ public abstract class BinaryPair {
      */
     public void setY(double y) {
         this.y = y;
+    }
+
+    @Override
+    public BinaryPair clone() {
+        try {
+            BinaryPair clone = (BinaryPair) super.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

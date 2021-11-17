@@ -47,9 +47,8 @@ public class Rectangle extends Shape {
         Line up = new Line(getP(), getP().add(vectorRight));
         Line right = new Line(getP().add(vectorRight), getP().add(getDirect()));
         Line bottom = new Line(getP().add(vectorDown), getP().add(getDirect()));
-        boolean result = right.containPoint(point) || bottom.containPoint(point) || left.containPoint(point) || up.containPoint(point);
 
-        return result;
+        return right.containPoint(point) || bottom.containPoint(point) || left.containPoint(point) || up.containPoint(point);
     }
 
     @Override
@@ -146,5 +145,13 @@ public class Rectangle extends Shape {
      */
     public void setDirect(Vector direct) {
         this.direct = direct;
+    }
+
+    @Override
+    public Rectangle clone() {
+        Rectangle clone = (Rectangle) super.clone();
+        clone.setP(getP().clone());
+        clone.setDirect(getDirect().clone());
+        return clone;
     }
 }

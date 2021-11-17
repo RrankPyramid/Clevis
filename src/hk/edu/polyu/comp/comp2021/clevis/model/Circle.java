@@ -132,4 +132,12 @@ public class Circle extends Shape {
         result.add("Radius : " + String.format("%.2f", getRadius()));
         return result;
     }
+
+    @Override
+    public Circle clone(){
+        Circle clone = (Circle) super.clone();
+        clone.setCenter(getCenter().clone());
+        clone.setRadius(getRadius());
+        return clone;
+    }
 }
