@@ -40,9 +40,21 @@ public class Line extends Shape {
 
     @Override
     public void updateHistory(int time) {
+        if(getHistoryStatus().size()==0){
+            HistorpStatus status = new HistorpStatus(time,null);
+            return;
+        };
         Line temp = new Line(this.getX(),this.getY(),this.getzOrder());
         HistorpStatus status = new HistorpStatus(time,temp);
         getHistoryStatus().add(status);
+    }
+
+    @Override
+    public void backtrace(int time) {
+        Line other = (Line) getHistoryStatus().get(getHistoryStatus().size()-1).getY();
+        this.setX(other.getX());
+        this.setY(other.getY());
+        this.updateHistory(time);
     }
 
     @Override

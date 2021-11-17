@@ -62,6 +62,13 @@ public class Circle extends Shape {
     }
 
     @Override
+    public void backtrace(int time) {
+        Circle other = (Circle) getHistoryStatus().get(getHistoryStatus().size()-1).getY();
+        this.setCenter(other.getCenter());
+        this.updateHistory(time);
+    }
+
+    @Override
     public void draw(Graphics g) {
         g.drawOval((int) (getCenter().getX() - getRadius()), (int) (getCenter().getY() - getRadius()), (int) getRadius() * 2, (int) getRadius() * 2);
     }

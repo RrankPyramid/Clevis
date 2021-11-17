@@ -79,6 +79,13 @@ public class Group extends Shape {
     }
 
     @Override
+    public void backtrace(int time) {
+        Group other = (Group) getHistoryStatus().get(getHistoryStatus().size()-1).getY();
+        this.setList(other.getList());
+        this.updateHistory(time);
+    }
+
+    @Override
     public void draw(Graphics g) {
         for (Shape s : this.getList().values()) {
             s.draw(g);

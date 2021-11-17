@@ -86,6 +86,15 @@ public class Rectangle extends Shape {
         result.add("Height : " + String.format("%.2f", getDirect().getY()));
         return result;
     }
+
+    @Override
+    public void backtrace(int time) {
+        Rectangle other = (Rectangle) getHistoryStatus().get(getHistoryStatus().size()-1).getY();
+        this.setP(other.getP());
+        this.setDirect(other.getDirect());
+        this.updateHistory(time);
+    }
+
     /**
      * @param other another rectangle
      * @return whether this circle is intersect with the rectangle

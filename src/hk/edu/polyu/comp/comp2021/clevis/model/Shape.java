@@ -15,7 +15,7 @@ public abstract class Shape {
     private int groupCounter = 0;
     private int zOrder;
     private String name;
-    private ArrayList<BinaryPair<Integer,Shape>> HistoryStatus;
+    private ArrayList<BinaryPair<Integer,Shape>> HistoryStatus = new ArrayList<>();
 
     /**
      * @param g Draw the Graphic
@@ -27,6 +27,8 @@ public abstract class Shape {
      * @return the imformation of the shape
      */
     public abstract ArrayList<String> getInfo(String name);
+
+    public abstract void backtrace(int time);
 
     /**
      * @param p One point to check
