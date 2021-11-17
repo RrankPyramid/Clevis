@@ -1,16 +1,14 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
-import hk.edu.polyu.comp.comp2021.clevis.model.Clevis;
-import hk.edu.polyu.comp.comp2021.clevis.util.Vertex;
-
+/**
+ * Application Launcher
+ */
 public class Application {
-
-    public static void main(String[] args){
-        Clevis clevis = new Clevis();
+    /**
+     * @param args Parameters entered at launch
+     */
+    public static void main(String[] args) {
         // Initialize and utilize the system
-        Picture pic = new Picture(600,600);
-        String cmd = getNextCommand();
-        pic.draw();
     }
 
 }
