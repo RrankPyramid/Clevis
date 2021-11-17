@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Application Launcher
@@ -27,7 +28,7 @@ public class Application {
      */
     public static void main(String[] args) {
 
-        Main run = new Main();
+        Main run = Main.getInstance();
 
         Circle c1 = new Circle(new Vertex(100, 100), 100, 1);
         JFrame frame = new JFrame("Clevis");
@@ -66,12 +67,7 @@ public class Application {
         JButton[] back = new JButton[12];
         for(int x = 0; x<12 ; x++){
             back[x] = new JButton("Back");
-            back[x].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    cardLayout.show(allPanel,"control");
-                }
-            });
+            back[x].addActionListener(e -> cardLayout.show(allPanel,"control"));
         }
         JButton[] confirm = new JButton[12];
         for(int x = 0; x<12 ; x++){
@@ -107,12 +103,7 @@ public class Application {
         rectangleJP.add(getrectangleW);
         rectangleJP.add(getrectangleH);
         rectangleJP.add(confirm[0]);
-        confirm[0].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
+        confirm[0].addActionListener(e -> run.createRectangle(getrectangleName.getText(),Double.parseDouble(getrectangleX.getText()),Double.parseDouble(getrectangleY.getText()),Double.parseDouble(getrectangleW.getText()),Double.parseDouble(getrectangleH.getText())));
         panellist.add(rectangleJP);
 
 
@@ -126,54 +117,42 @@ public class Application {
         circleJP.add(getcircleY);
         circleJP.add(getcircleR);
         rectangleJP.add(confirm[1]);
-        confirm[1].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                name = getcircleX.getText();
-                a = getcircleY.getText();
-                b = getcircleR.getText();
-            }
-        });
+        confirm[1].addActionListener(e -> run.createCircle(getrectangleName.getText(),Double.parseDouble(getcircleX.getText()),Double.parseDouble(getcircleY.getText()),Double.parseDouble(getcircleR.getText())));
         panellist.add(circleJP);
 
         JPanel lineJP = new JPanel();
         lineJP.setLayout(new FlowLayout(FlowLayout.LEADING,20,20));
+        JTextField getlineName=new JTextField(5);
         JTextField getlineX1=new JTextField(5);
         JTextField getlineY1=new JTextField(5);
         JTextField getlineX2=new JTextField(5);
         JTextField getlineY2=new JTextField(5);
+        lineJP.add(getlineName);
         lineJP.add(getlineX1);
         lineJP.add(getlineY1);
         lineJP.add(getlineX2);
         lineJP.add(getlineY2);
         rectangleJP.add(confirm[2]);
-        confirm[2].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
+        confirm[2].addActionListener(e -> run.createLine(getlineName.getText(),Double.parseDouble(getlineX1.getText()),Double.parseDouble(getlineY1.getText()),Double.parseDouble(getlineX2.getText()),Double.parseDouble(getlineY2.getText())));
         panellist.add(lineJP);
 
         JPanel groupJP = new JPanel();
         groupJP.setLayout(new FlowLayout(FlowLayout.LEADING,20,20));
         JTextField getgroupName=new JTextField(5);
+        JTextField getlist=new JTextField(5);
         groupJP.add(getgroupName);
+        groupJP.add(getlist);
         rectangleJP.add(confirm[11]);
-        confirm[11].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
-        });
+        confirm[11].addActionListener(e -> run.createGroup(getgroupName.getText(), (ArrayList<String>) Arrays.asList(getlist.getText().split("\\s+"))));
         panellist.add(groupJP);
 
         JPanel ungroupJP = new JPanel();
         JComboBox allGroups = new JComboBox();
         ungroupJP.add(allGroups);
         rectangleJP.add(confirm[3]);
-        confirm[3].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
+        confirm[3].addActionListener(e -> {
+
+
         });
         panellist.add(ungroupJP);
 
@@ -187,10 +166,9 @@ public class Application {
         squareJP.add(getsquareY);
         squareJP.add(getsquareL);
         rectangleJP.add(confirm[4]);
-        confirm[4].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
+        confirm[4].addActionListener(e -> {
+            run.createSquare(getsquareName.getText(),Double.parseDouble(getsquareX.getText()),Double.parseDouble(getsquareY.getText()),Double.parseDouble(getsquareL.getText()));
+
         });
         panellist.add(squareJP);
 
@@ -204,10 +182,9 @@ public class Application {
         pickAndMoveJP.add(getPickMoveX);
         pickAndMoveJP.add(getPickMoveY);
         rectangleJP.add(confirm[5]);
-        confirm[5].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
+        confirm[5].addActionListener(e -> {
+            run.pickAndMove(Double.parseDouble(getpickX.getText()),Double.parseDouble(getpickY.getText()),Double.parseDouble(getPickMoveX.getText()),Double.parseDouble(getPickMoveY.getText()));
+
         });
         panellist.add(pickAndMoveJP);
 
@@ -215,10 +192,9 @@ public class Application {
         JComboBox allShapes = new JComboBox();
         listJP.add(allShapes);
         rectangleJP.add(confirm[6]);
-        confirm[6].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
+        confirm[6].addActionListener(e -> {
+
+
         });
         panellist.add(listJP);
 
@@ -228,10 +204,7 @@ public class Application {
         intersectJP.add(intersect_1);
         intersectJP.add(intersect_2);
         rectangleJP.add(confirm[7]);
-        confirm[7].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
+        confirm[7].addActionListener(e -> {
         });
         panellist.add(intersectJP);
 
@@ -243,10 +216,8 @@ public class Application {
         moveJP.add(getMoveX);
         moveJP.add(getMoveY);
         rectangleJP.add(confirm[8]);
-        confirm[8].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
+        confirm[8].addActionListener(e -> {
+
         });
         panellist.add(moveJP);
 
@@ -254,10 +225,8 @@ public class Application {
         JComboBox boundingBox = new JComboBox();
         boundingBoxJP.add(boundingBox);
         rectangleJP.add(confirm[9]);
-        confirm[9].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
+        confirm[9].addActionListener(e -> {
+
         });
         panellist.add(boundingBoxJP);
 
@@ -266,10 +235,8 @@ public class Application {
         JTextField getdeleteName=new JTextField();
         deleteJP.add(getdeleteName);
         rectangleJP.add(confirm[10]);
-        confirm[10].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            }
+        confirm[10].addActionListener(e -> {
+
         });
         panellist.add(deleteJP);
 
@@ -295,80 +262,20 @@ public class Application {
         cardLayout.show(allPanel,"control");
 
 
-        rectangleButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(allPanel,"rectangle");
-            }
-        });
+        rectangleButton.addActionListener(e -> cardLayout.show(allPanel,"rectangle"));
 
-        circleButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(allPanel,"circle");
-            }
-        });
+        circleButton.addActionListener(e -> cardLayout.show(allPanel,"circle"));
 
-        squareButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(allPanel,"square");
-            }
-        });
-        lineButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(allPanel,"line");
-            }
-        });
-        group.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(allPanel,"group");
-            }
-        });
-        ungroup.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(allPanel,"ungroup");
-            }
-        });
-        pick_and_move.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(allPanel,"pickAndMove");
-            }
-        });
-        list.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(allPanel,"list");
-            }
-        });
-        move.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(allPanel,"move");
-            }
-        });
-        bounding.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(allPanel,"boundingbox");
-            }
-        });
-        delete.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(allPanel,"delete");
-            }
-        });
-        intersect.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(allPanel,"intersect");
-            }
-        });
+        squareButton.addActionListener(e -> cardLayout.show(allPanel,"square"));
+        lineButton.addActionListener(e -> cardLayout.show(allPanel,"line"));
+        group.addActionListener(e -> cardLayout.show(allPanel,"group"));
+        ungroup.addActionListener(e -> cardLayout.show(allPanel,"ungroup"));
+        pick_and_move.addActionListener(e -> cardLayout.show(allPanel,"pickAndMove"));
+        list.addActionListener(e -> cardLayout.show(allPanel,"list"));
+        move.addActionListener(e -> cardLayout.show(allPanel,"move"));
+        bounding.addActionListener(e -> cardLayout.show(allPanel,"boundingbox"));
+        delete.addActionListener(e -> cardLayout.show(allPanel,"delete"));
+        intersect.addActionListener(e -> cardLayout.show(allPanel,"intersect"));
 
 
         frame.add(jp);
