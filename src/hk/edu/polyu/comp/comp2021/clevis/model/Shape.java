@@ -13,6 +13,8 @@ public abstract class Shape implements Cloneable{
 
     private int groupCounter = 0;
     private int zOrder;
+    private String shapeName;
+    private boolean isDelete = false;
 
     /**
      * @param g Draw the Graphic
@@ -103,5 +105,33 @@ public abstract class Shape implements Cloneable{
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
+    }
+
+    /**
+     * @return shape name
+     */
+    public String getShapeName() {
+        return shapeName;
+    }
+
+    /**
+     * @param shapeName shape name
+     */
+    public void setShapeName(String shapeName) {
+        this.shapeName = shapeName;
+    }
+
+    /**
+     * @return delete status
+     */
+    public boolean isDelete() {
+        return isDelete;
+    }
+
+    /**
+     * set delete status
+     */
+    public void setDelete() {
+        isDelete = true;
     }
 }

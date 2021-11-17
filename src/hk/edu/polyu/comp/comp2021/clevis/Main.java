@@ -25,6 +25,7 @@ public class Main {
     private HashMap<String, Shape> Name_Shape;
     private ArrayList<Shape> record;
     private int z;
+    private int timing;
 
     /**
      * Constructor
@@ -34,6 +35,7 @@ public class Main {
         setName_Shape(new HashMap<>());
         record = new ArrayList<>();
         setZ(0);
+        setTiming(0);
     }
 
     /**
@@ -147,8 +149,20 @@ public class Main {
             existErr(name);
             return;
         }
-        getName_Shape().put(name, new Rectangle(new Vertex(x, y), new Vector(w, h), getZ()));
+        Rectangle rectangle = new Rectangle(new Vertex(x, y), new Vector(w, h), getZ());
+        getName_Shape().put(name, rectangle);
         setZ(getZ() + 1);
+        if(getTiming() == getRecord().size()){
+            getRecord().add(rectangle);
+        }else{
+            if(getRecord().get(getTiming()) != null){
+                for(int i=getTiming(); i<getRecord().size(); ++i){
+                    getRecord().set(i, null);
+                }
+            }
+            getRecord().set(getTiming(), rectangle);
+        }
+        setTiming(getTiming() + 1);
         createSuccess();
     }
 
@@ -163,8 +177,20 @@ public class Main {
             existErr(name);
             return;
         }
-        getName_Shape().put(name, new Square(new Vertex(x, y), new Vector(l, l), getZ()));
+        Square square = new Square(new Vertex(x, y), new Vector(l, l), getZ());
+        getName_Shape().put(name, square);
         setZ(getZ() + 1);
+        if(getTiming() == getRecord().size()){
+            getRecord().add(square);
+        }else{
+            if(getRecord().get(getTiming()) != null){
+                for(int i=getTiming(); i<getRecord().size(); ++i){
+                    getRecord().set(i, null);
+                }
+            }
+            getRecord().set(getTiming(), square);
+        }
+        setTiming(getTiming() + 1);
         createSuccess();
     }
 
@@ -180,8 +206,20 @@ public class Main {
             existErr(name);
             return;
         }
-        getName_Shape().put(name, new Line(new Vertex(x1, y1), new Vertex(x2, y2), getZ()));
+        Line line = new Line(new Vertex(x1, y1), new Vertex(x2, y2), getZ());
+        getName_Shape().put(name, line);
         setZ(getZ() + 1);
+        if(getTiming() == getRecord().size()){
+            getRecord().add(line);
+        }else{
+            if(getRecord().get(getTiming()) != null){
+                for(int i=getTiming(); i<getRecord().size(); ++i){
+                    getRecord().set(i, null);
+                }
+            }
+            getRecord().set(getTiming(), line);
+        }
+        setTiming(getTiming() + 1);
         createSuccess();
     }
 
@@ -196,14 +234,26 @@ public class Main {
             existErr(name);
             return;
         }
-        getName_Shape().put(name, new Circle(new Vertex(x, y), r, getZ()));
+        Circle circle = new Circle(new Vertex(x, y), r, getZ());
+        getName_Shape().put(name, circle);
         setZ(getZ() + 1);
+        if(getTiming() == getRecord().size()){
+            getRecord().add(circle);
+        }else{
+            if(getRecord().get(getTiming()) != null){
+                for(int i=getTiming(); i<getRecord().size(); ++i){
+                    getRecord().set(i, null);
+                }
+            }
+            getRecord().set(getTiming(), circle);
+        }
+        setTiming(getTiming() + 1);
         createSuccess();
     }
 
     /**
      * @param name Name of the group
-     * @param list List of Shape need to be add in to group
+     * @param list List of Shape need to be added in to group
      */
     public void createGroup(String name, ArrayList<String> list) {
         if (isExist(name)) {
@@ -218,9 +268,24 @@ public class Main {
                 notExistErr(s);
                 return;
             }
+            shape = shape.clone();
             group.add_Shape(s, shape);
+            getName_Shape().put(shape.getShapeName(), shape);
         }
         getName_Shape().put(name, group);
+        if(getTiming() == getRecord().size()){
+            getRecord().add(group);
+        }else{
+            if(getRecord().get(getTiming()) != null){
+                for(int i=getTiming(); i<getRecord().size(); ++i){
+                    getRecord().set(i, null);
+                }
+            }
+            getRecord().set(getTiming(), group);
+        }
+
+
+        setTiming(getTiming() + 1);
         createSuccess();
     }
 
@@ -237,10 +302,23 @@ public class Main {
             System.out.println(name + " is not a group");
         } else {
             getName_Shape().remove(name);
-            Group group = (Group) shape;
+            Group group = ((Group) shape).clone();
             for (Shape a : group.getList().values()) {
                 a.setGroupCounter(a.getGroupCounter() - 1);
+                getName_Shape().put(a.getShapeName(), a);
             }
+            if(getTiming() == getRecord().size()){
+                getRecord().add(group);
+            }else{
+                if(getRecord().get(getTiming()) != null){
+                    for(int i=getTiming(); i<getRecord().size(); ++i){
+                        getRecord().set(i, null);
+                    }
+                }
+                getRecord().set(getTiming(), group);
+            }
+            setTiming(getTiming() + 1);
+            group.setDelete();
             System.out.println("Ungroup successfully");
         }
     }
@@ -263,7 +341,20 @@ public class Main {
         }
 
         if (temp != null) {
+            temp = temp.clone();
             temp.move(dx, dy);
+            getName_Shape().put(temp.getShapeName(), temp);
+            if(getTiming() == getRecord().size()){
+                getRecord().add(temp);
+            }else{
+                if(getRecord().get(getTiming()) != null){
+                    for(int i=getTiming(); i<getRecord().size(); ++i){
+                        getRecord().set(i, null);
+                    }
+                }
+                getRecord().set(getTiming(), temp);
+            }
+            setTiming(getTiming() + 1);
             System.out.println("Already moved");
         } else {
             System.out.println("Cannot find a shape contains that point");
@@ -283,12 +374,27 @@ public class Main {
             return;
         }
 
-        if(getName_Shape().get(name) instanceof Group){
-            for(String s : ((Group) getName_Shape().get(name)).getList().keySet()){
-                getName_Shape().remove(s);
-            }
+        Shape shape = getName_Shape().get(name).clone();
+        if(shape instanceof Group){
+            Group group = (Group) shape;
+            group.getList().forEach((k, v) -> {
+                v.setDelete();
+                getName_Shape().remove(k);
+            });
         }
+        shape.setDelete();
         getName_Shape().remove(name);
+        if(getTiming() == getRecord().size()){
+            getRecord().add(shape);
+        }else{
+            if(getRecord().get(getTiming()) != null){
+                for(int i=getTiming(); i<getRecord().size(); ++i){
+                    getRecord().set(i, null);
+                }
+            }
+            getRecord().set(getTiming(), shape);
+        }
+        setTiming(getTiming() + 1);
         System.out.println("Already delete.");
     }
 
@@ -312,17 +418,66 @@ public class Main {
             nameList[a] = x;
         }
         System.out.println("========");
-        for (int x = 0; x < nameList.length; x++) {
-            System.out.println(nameList[x]);
-            if (getName_Shape().get(nameList[x]) instanceof Group) {
-                ((Group) getName_Shape().get(nameList[x])).printInfo(1);
+        for (String s : nameList) {
+            System.out.println(s);
+            if (getName_Shape().get(s) instanceof Group) {
+                ((Group) getName_Shape().get(s)).printInfo(1);
             }
         }
         System.out.println("========");
     }
 
+
     /**
-     * Output the error massage
+     * @throws IllegalArgumentException undo failed
+     */
+    public void undo() throws IllegalArgumentException{
+        if(getTiming() == 0){
+            throw new IllegalArgumentException();
+        }
+        setTiming(getTiming() - 1);
+        String name = getRecord().get(getTiming()).getShapeName();
+        Shape lastShape = null;
+        for(int i = getTiming() - 1; i>=0; --i){
+            Shape tmp = getRecord().get(getTiming());
+            if(tmp.getShapeName().equals(name)){
+                lastShape = tmp;
+                break;
+            }
+            else if(tmp instanceof Group){
+                Group group = (Group) tmp;
+                if(group.getList().containsKey(name)){
+                    lastShape = group.getList().get(name);
+                    break;
+                }
+            }
+        }
+        if (lastShape != null && !lastShape.isDelete()) {
+            getName_Shape().put(name, lastShape);
+        } else {
+            getName_Shape().remove(name);
+        }
+    }
+
+
+    /**
+     * @throws IllegalArgumentException redo failed
+     */
+    public void redo() throws IllegalArgumentException{
+        if(timing == getRecord().size()){
+            throw new IllegalArgumentException();
+        }
+        Shape now = getRecord().get(getTiming());
+        if(now == null){
+            throw new IllegalArgumentException();
+        }
+        if(!now.isDelete())
+            getName_Shape().put(now.getShapeName(), now);
+        setTiming(getTiming() + 1);
+    }
+
+    /**
+     * Output the error message
      */
     public void err() {
         System.out.println("Oops...incorrect command, please try again");
@@ -465,7 +620,20 @@ public class Main {
                 }
                 double dx = Double.parseDouble(list.remove(0));
                 double dy = Double.parseDouble(list.remove(0));
-                getName_Shape().get(n).move(dx, dy);
+                Shape shape = getName_Shape().get(n).clone();
+                shape.move(dx, dy);
+                getName_Shape().put(n, shape);
+                if(getTiming() == getRecord().size()){
+                    getRecord().add(shape);
+                }else{
+                    if(getRecord().get(getTiming()) != null){
+                        for(int i=getTiming(); i<getRecord().size(); ++i){
+                            getRecord().set(i, null);
+                        }
+                    }
+                    getRecord().set(getTiming(), shape);
+                }
+                setTiming(getTiming() + 1);
                 System.out.println("Move successfully!");
                 break;
             }
@@ -545,6 +713,30 @@ public class Main {
             case "quit": {
                 return false;
             }
+            case "undo": {
+                if (size != 0){
+                    err();
+                    break;
+                }
+                try{
+                    undo();
+                }catch (Exception e){
+                    System.out.println("Cannot undo because you reach the beginning");
+                    err();
+                }
+            }
+            case "redo": {
+                if (size != 0){
+                    err();
+                    break;
+                }
+                try{
+                    redo();
+                }catch (Exception e){
+                    System.out.println("Cannot redo because you haven't undo yet");
+                    err();
+                }
+            }
             default: {
                 System.out.println("Oops...unknown command, please try again");
             }
@@ -562,7 +754,6 @@ public class Main {
     public ArrayList<String> start() {
         Picture pic = new Picture(WIDTH, HEIGHT);
         ArrayList<String> commandRecord = new ArrayList<>();
-        ArrayList<String> undo_Record = new ArrayList<>();
         Scanner in = new Scanner(System.in);
         String command = in.nextLine();
         while (true) {
@@ -581,21 +772,7 @@ public class Main {
         return commandRecord;
     }
 
-//    /**
-//     * @param command
-//     * @param commandRecord
-//     * @param undoCommand
-//     * @return
-//     */
-//    public boolean undo_redo(String command,ArrayList<String> commandRecord,ArrayList<String> undoCommand){
-//        ArrayList<String> list = new ArrayList<>(Arrays.asList(command.split("\\s+")));
-//        String func = list.remove(0);
-//        switch (func){
-//            case "undo": {
-//
-//            }
-//        }
-//    }
+
     /**
      * @return The Name_Shape (Hashmap, contains name and corresponding shape )
      */
@@ -632,9 +809,16 @@ public class Main {
     }
 
     /**
-     * @param record the record
+     * @return timing
      */
-    public void setRecord(ArrayList<Shape> record) {
-        this.record = record;
+    public int getTiming() {
+        return timing;
+    }
+
+    /**
+     * @param timing timing
+     */
+    public void setTiming(int timing) {
+        this.timing = timing;
     }
 }
