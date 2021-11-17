@@ -9,10 +9,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 import static hk.edu.polyu.comp.comp2021.clevis.model.util.GraphConstant.HEIGHT;
 import static hk.edu.polyu.comp.comp2021.clevis.model.util.GraphConstant.WIDTH;
@@ -446,11 +443,19 @@ public class Main {
      */
     public HashMap<String, Shape> getNowHashMap(){
         HashMap<String, Shape> ret = new HashMap<>();
+        HashSet<String> gn = new HashSet<>();
+
         for(int i=getTiming() - 1; i>=0; --i){
             Shape now = getRecord().get(i);
-
+            if(ret.containsKey(now.getShapeName()) || gn.contains(now.getShapeName()))
+                continue;
+            ret.put(now.getShapeName(), now);
+            if(now instanceof Group){
+                for(Shape shape : ((Group) now).getList().values())
+                    gn.add(shape.getShapeName());
+            }
         }
-        return null;
+        return ret;
     }
 
     /**
@@ -461,7 +466,6 @@ public class Main {
             throw new IllegalArgumentException();
         }
         setTiming(getTiming() - 1);
-        Shape now = getRecord().get(getTiming());
         setName_Shape(getNowHashMap());
     }
 
@@ -477,9 +481,8 @@ public class Main {
         if(now == null){
             throw new IllegalArgumentException();
         }
-        if(!now.isDelete())
-            getName_Shape().put(now.getShapeName(), now);
         setTiming(getTiming() + 1);
+        setName_Shape(getNowHashMap());
     }
 
     /**
