@@ -125,6 +125,7 @@ public class Application {
         circleJP.add(getcircleX);
         circleJP.add(getcircleY);
         circleJP.add(getcircleR);
+        rectangleJP.add(confirm[1]);
         confirm[1].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -145,17 +146,35 @@ public class Application {
         lineJP.add(getlineY1);
         lineJP.add(getlineX2);
         lineJP.add(getlineY2);
+        rectangleJP.add(confirm[2]);
+        confirm[2].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
         panellist.add(lineJP);
 
         JPanel groupJP = new JPanel();
         groupJP.setLayout(new FlowLayout(FlowLayout.LEADING,20,20));
         JTextField getgroupName=new JTextField(5);
         groupJP.add(getgroupName);
+        rectangleJP.add(confirm[11]);
+        confirm[11].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
         panellist.add(groupJP);
 
         JPanel ungroupJP = new JPanel();
         JComboBox allGroups = new JComboBox();
         ungroupJP.add(allGroups);
+        rectangleJP.add(confirm[3]);
+        confirm[3].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
         panellist.add(ungroupJP);
 
         JPanel squareJP = new JPanel();
@@ -167,6 +186,12 @@ public class Application {
         squareJP.add(getsquareX);
         squareJP.add(getsquareY);
         squareJP.add(getsquareL);
+        rectangleJP.add(confirm[4]);
+        confirm[4].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
         panellist.add(squareJP);
 
         JPanel pickAndMoveJP = new JPanel();
@@ -178,11 +203,23 @@ public class Application {
         pickAndMoveJP.add(getpickY);
         pickAndMoveJP.add(getPickMoveX);
         pickAndMoveJP.add(getPickMoveY);
+        rectangleJP.add(confirm[5]);
+        confirm[5].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
         panellist.add(pickAndMoveJP);
 
         JPanel listJP = new JPanel();
         JComboBox allShapes = new JComboBox();
         listJP.add(allShapes);
+        rectangleJP.add(confirm[6]);
+        confirm[6].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
         panellist.add(listJP);
 
         JPanel intersectJP = new JPanel();
@@ -190,6 +227,12 @@ public class Application {
         JComboBox intersect_2 = new JComboBox();
         intersectJP.add(intersect_1);
         intersectJP.add(intersect_2);
+        rectangleJP.add(confirm[7]);
+        confirm[7].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
         panellist.add(intersectJP);
 
         JPanel moveJP = new JPanel();
@@ -199,17 +242,35 @@ public class Application {
         moveJP.add(moveShape);
         moveJP.add(getMoveX);
         moveJP.add(getMoveY);
+        rectangleJP.add(confirm[8]);
+        confirm[8].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
         panellist.add(moveJP);
 
         JPanel boundingBoxJP = new JPanel();
         JComboBox boundingBox = new JComboBox();
         boundingBoxJP.add(boundingBox);
+        rectangleJP.add(confirm[9]);
+        confirm[9].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
         panellist.add(boundingBoxJP);
 
 
         JPanel deleteJP = new JPanel();
         JTextField getdeleteName=new JTextField();
         deleteJP.add(getdeleteName);
+        rectangleJP.add(confirm[10]);
+        confirm[10].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
         panellist.add(deleteJP);
 
         for(int x = 0 ; x<12 ; x++){
