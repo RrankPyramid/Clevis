@@ -112,32 +112,40 @@ public class Group extends Shape {
         }
         return new Vertex(max_x, max_y);
     }
-
-    @Override
+    /**
+     * @param other another circle
+     * @return whether this circle is intersect with the circle
+     */
     public boolean intersect(Circle other) {
         for (Shape s : getList().values()) {
             if (s.intersect(other)) return true;
         }
         return false;
     }
-
-    @Override
+    /**
+     * @param other another line
+     * @return whether this circle is intersect with the line
+     */
     public boolean intersect(Line other) {
         for (Shape s : getList().values()) {
             if (s.intersect(other)) return true;
         }
         return false;
     }
-
-    @Override
+    /**
+     * @param other another rectangle
+     * @return whether this circle is intersect with the rectangle
+     */
     public boolean intersect(Rectangle other) {
         for (Shape s : getList().values()) {
             if (s.intersect(other)) return true;
         }
         return false;
     }
-
-    @Override
+    /**
+     * @param other another group
+     * @return whether this circle is intersect with the group
+     */
     public boolean intersect(Group other) {
         for (Shape s : getList().values()) {
             if (s.intersect(other)) return true;

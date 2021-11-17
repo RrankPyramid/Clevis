@@ -86,8 +86,10 @@ public class Line extends Shape {
     public double distanceTo(Vertex point) {
         return Math.abs(getX().vectorTo(point).crossProduct(getX().vectorTo(getY())) / (getX().distanceTo(getY())));
     }
-
-    @Override
+    /**
+     * @param other another line
+     * @return whether this circle is intersect with the line
+     */
     public boolean intersect(Line other) {
         Rectangle r1 = new Rectangle(this.getX(),this.getX().vectorTo(this.getY()));
         Rectangle r2 = new Rectangle(other.getX(),other.getX().vectorTo(other.getY()));
@@ -96,8 +98,10 @@ public class Line extends Shape {
         double b = other.getX().vectorTo(this.getY()).crossProduct(other.getX().vectorTo(other.getY())) * other.getX().vectorTo(other.getY()).crossProduct(other.getX().vectorTo(this.getX()));
         return a >= 0 && b >= 0;
     }
-
-    @Override
+    /**
+     * @param other another rectangle
+     * @return whether this circle is intersect with the rectangle
+     */
     public boolean intersect(Rectangle other) {
         Vector vectorDown = new Vector(0, other.getDirect().getY());
         Vector vectorRight = new Vector(other.getDirect().getX(), 0);
@@ -107,13 +111,17 @@ public class Line extends Shape {
         Line bottom = new Line(other.getP().add(vectorDown), other.getP().add(other.getDirect()));
         return (this.intersect(left) || this.intersect(up) || this.intersect(right) || this.intersect(bottom));
     }
-
-    @Override
+    /**
+     * @param other another circle
+     * @return whether this circle is intersect with the circle
+     */
     public boolean intersect(Circle other) {
         return other.intersect(this);
     }
-
-    @Override
+    /**
+     * @param other another group
+     * @return whether this circle is intersect with the group
+     */
     public boolean intersect(Group other) {
         return other.intersect(this);
     }

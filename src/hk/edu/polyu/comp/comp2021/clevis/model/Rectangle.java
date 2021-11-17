@@ -63,7 +63,6 @@ public class Rectangle extends Shape {
         return getP();
     }
 
-
     @Override
     public Vertex getBottomRight() {
         return getP().add(getDirect());
@@ -78,8 +77,10 @@ public class Rectangle extends Shape {
         result.add("Height : " + String.format("%.2f", getDirect().getY()));
         return result;
     }
-
-    @Override
+    /**
+     * @param other another rectangle
+     * @return whether this circle is intersect with the rectangle
+     */
     public boolean intersect(Rectangle other) {
         Vertex otherTopLeft = other.getTopLeft();
         Vertex topLeft = this.getTopLeft();
@@ -91,8 +92,10 @@ public class Rectangle extends Shape {
 
         return (!(otherTopLeft.getX() > topLeft.getX()) || !(otherTopLeft.getY() > topLeft.getY())) || (!(otherBottomRight.getX() < bottomRight.getX()) || !(otherBottomRight.getY() < bottomRight.getY()));
     }
-
-    @Override
+    /**
+     * @param other another circle
+     * @return whether this circle is intersect with the circle
+     */
     public boolean intersect(Circle other) {
         Vector vectorDown = new Vector(0, getDirect().getY());
         Vector vectorRight = new Vector(getDirect().getX(), 0);
@@ -102,13 +105,17 @@ public class Rectangle extends Shape {
         Line bottom = new Line(getP().add(vectorDown), getP().add(getDirect()));
         return left.intersect(other) || up.intersect(other) || right.intersect(other) || bottom.intersect(other);
     }
-
-    @Override
+    /**
+     * @param other another line
+     * @return whether this circle is intersect with the line
+     */
     public boolean intersect(Line other) {
         return other.intersect(this);
     }
-
-    @Override
+    /**
+     * @param other another group
+     * @return whether this circle is intersect with the group
+     */
     public boolean intersect(Group other) {
         return other.intersect(this);
     }

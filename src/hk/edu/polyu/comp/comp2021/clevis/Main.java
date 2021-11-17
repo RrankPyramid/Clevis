@@ -560,9 +560,12 @@ public class Main {
     public ArrayList<String> start() {
         Picture pic = new Picture(WIDTH, HEIGHT);
         ArrayList<String> commandRecord = new ArrayList<>();
+        ArrayList<String> undo_Record = new ArrayList<>();
         Scanner in = new Scanner(System.in);
         String command = in.nextLine();
-        while (this.getCommand(command)) {
+        while (true) {
+
+            if(! this.getCommand(command))break;
             commandRecord.add(command);
             pic.removeAllShape();
             pic.repaint();
@@ -576,6 +579,21 @@ public class Main {
         return commandRecord;
     }
 
+//    /**
+//     * @param command
+//     * @param commandRecord
+//     * @param undoCommand
+//     * @return
+//     */
+//    public boolean undo_redo(String command,ArrayList<String> commandRecord,ArrayList<String> undoCommand){
+//        ArrayList<String> list = new ArrayList<>(Arrays.asList(command.split("\\s+")));
+//        String func = list.remove(0);
+//        switch (func){
+//            case "undo": {
+//
+//            }
+//        }
+//    }
     /**
      * @return The Name_Shape (Hashmap, contains name and corresponding shape )
      */

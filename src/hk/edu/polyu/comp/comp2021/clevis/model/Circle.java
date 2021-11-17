@@ -79,16 +79,26 @@ public class Circle extends Shape {
         return new Vertex(getCenter().getX() + getRadius(), getCenter().getY() + getRadius());
     }
 
-    @Override
+    /**
+     * @param other another group
+     * @return whether this circle is intersect with the group
+     */
     public boolean intersect(Group other) {
         return other.intersect(this);
     }
 
-    @Override
+    /**
+     * @param other another rectangle
+     * @return whether this circle is intersect with the rectangle
+     */
     public boolean intersect(Rectangle other) {
         return other.intersect(this);
     }
-    @Override
+
+    /**
+     * @param otherCircle another circle
+     * @return whether this circle is intersect with the circle
+     */
     public boolean intersect(Circle otherCircle) {
         Circle bigger = this.getRadius()>otherCircle.getRadius()? this : otherCircle;
         Circle smaller = this.getRadius()<=otherCircle.getRadius()? this : otherCircle;
@@ -98,7 +108,10 @@ public class Circle extends Shape {
         return result_1;
     }
 
-    @Override
+    /**
+     * @param otherLine another line
+     * @return whether this circle is intersect with the Line
+     */
     public boolean intersect(Line otherLine) {
         if (otherLine.getX().distanceTo(getCenter()) < getRadius() && otherLine.getY().distanceTo(getCenter()) < getRadius())
             return false;

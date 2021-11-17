@@ -3,6 +3,7 @@ package hk.edu.polyu.comp.comp2021.clevis.model;
 import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 
 import java.awt.*;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
@@ -48,15 +49,21 @@ public abstract class Shape {
 
     /**
      * @param other Another shape
+     *
+     * use the reflection to get the method of the subclass
+     *
      * @return Whether these two shapes are intersected
      */
-    public abstract boolean intersect(Circle other);
+    public boolean intersect(Shape other){
+        Class<?> c = this.getClass();
+        try {
+            Method m = c.getMethod("intersect", other.getClass());
+            boolean result = (boolean) m.invoke(this,other);
+            return result;
+        }catch (Exception error){System.out.println("Oops...incorrect command, please try again");}
+        return false;
+    }
 
-    public abstract boolean intersect(Line other);
-
-    public abstract boolean intersect(Rectangle other);
-
-    public abstract boolean intersect(Group other);
 
     /**
      * @return Returns how many groups the shape is contained by
