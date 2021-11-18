@@ -313,7 +313,7 @@ public class Application {
         JPanel boundingBoxJP = new JPanel();
         JComboBox boundingBox = new JComboBox();
         boundingBoxJP.add(boundingBox);
-        boundingBox.add(confirm[9]);
+        boundingBoxJP.add(confirm[9]);
         confirm[9].addActionListener(e -> {
             Shape asked = run.getName_Shape().get((String)boundingBox.getSelectedItem());
             String boundingBoxResult = "";
@@ -350,7 +350,7 @@ public class Application {
         allPanel.add(listJP,"list");
         allPanel.add(intersectJP,"intersect");
         allPanel.add(moveJP,"move");
-        allPanel.add(boundingBoxJP,"boungdingbox");
+        allPanel.add(boundingBoxJP,"boundingbox");
         allPanel.add(deleteJP,"delete");
         allPanel.add(controler,"control");
 
