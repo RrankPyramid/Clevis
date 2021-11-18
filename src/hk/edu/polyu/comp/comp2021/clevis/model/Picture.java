@@ -8,6 +8,14 @@ import java.util.ArrayList;
  *
  */
 public class Picture extends JFrame {
+    private static Picture instance = new Picture(WIDTH, HEIGHT);
+
+    /**
+     * @return the instance of the picture
+     */
+    public static Picture getInstance(){
+        return instance;
+    }
     private final int width;
     private final int height;
 
