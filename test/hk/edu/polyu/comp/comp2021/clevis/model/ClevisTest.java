@@ -5,7 +5,7 @@ import org.junit.Test;
 public class ClevisTest {
 
     @Test
-    public void testClevisConstructor(){
+    public void testClevisConstructor() {
         Clevis clevis = new Clevis();
         assert true;
     }
