@@ -1,2 +1,0 @@
-circle c1 100 200 300
-rectangle r1 100 200 300

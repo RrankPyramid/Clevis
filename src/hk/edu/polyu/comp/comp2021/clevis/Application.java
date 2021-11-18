@@ -300,7 +300,8 @@ public class Application {
         pickAndMoveJP.add(getPickMoveY);
         pickAndMoveJP.add(confirm[5]);
         confirm[5].addActionListener(e -> {
-            run.getCommand("pick-snd-move " + getpickX.getText() + " " + getpickY.getText() + " " + getPickMoveX.getText() + " " + getPickMoveY.getText());
+            run.getCommand("pick-and-move " + getpickX.getText() + " " + getpickY.getText() + " " + getPickMoveX.getText() + " " + getPickMoveY.getText());
+
             getpickX.setText("");
             getpickY.setText("");
             getPickMoveX.setText("");
