@@ -207,7 +207,7 @@ public class Application {
         groupJP.add(getlist);
         groupJP.add(confirm[11]);
         confirm[11].addActionListener(e -> {
-            run.createGroup(getgroupName.getText(), (ArrayList<String>) Arrays.asList(getlist.getText().split("\\s+")));
+            run.createGroup(getgroupName.getText(), new ArrayList<>(Arrays.asList(getlist.getText().split("\\s+"))));
             run.getCommand(getgroupName.getText()+" " +getlist.getText());
             getgroupName.setText("");
             getlist.setText("");
