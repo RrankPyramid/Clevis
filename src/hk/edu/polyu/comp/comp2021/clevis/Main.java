@@ -31,6 +31,7 @@ public class Main {
     private ArrayList<Shape> record;
     private int z;
     private int timing;
+    private ArrayList<String> cmdRecord = new ArrayList<>();
 
     /**
      * Constructor
@@ -517,6 +518,7 @@ public class Main {
                 double y = Double.parseDouble(list.remove(0));
                 double w = Double.parseDouble(list.remove(0));
                 double h = Double.parseDouble(list.remove(0));
+                getCmdRecord().add(command);
                 createRectangle(n, x, y, w, h);
                 break;
             }
@@ -532,6 +534,7 @@ public class Main {
                 double y1 = Double.parseDouble(list.remove(0));
                 double x2 = Double.parseDouble(list.remove(0));
                 double y2 = Double.parseDouble(list.remove(0));
+                getCmdRecord().add(command);
                 createLine(n, x1, y1, x2, y2);
                 break;
             }
@@ -544,6 +547,7 @@ public class Main {
                 double x = Double.parseDouble(list.remove(0));
                 double y = Double.parseDouble(list.remove(0));
                 double r = Double.parseDouble(list.remove(0));
+                getCmdRecord().add(command);
                 createCircle(n, x, y, r);
                 break;
             }
@@ -556,6 +560,7 @@ public class Main {
                 double x = Double.parseDouble(list.remove(0));
                 double y = Double.parseDouble(list.remove(0));
                 double l = Double.parseDouble(list.remove(0));
+                getCmdRecord().add(command);
                 createSquare(n, x, y, l);
                 break;
             }
@@ -566,6 +571,7 @@ public class Main {
                 }
                 String n = list.remove(0);
                 createGroup(n, list);
+                getCmdRecord().add(command);
                 break;
             }
             case "ungroup": {
@@ -579,6 +585,7 @@ public class Main {
                     return true;
                 }
                 unGroup(n);
+                getCmdRecord().add(command);
                 break;
             }
             case "delete": {
@@ -592,6 +599,7 @@ public class Main {
                     return true;
                 }
                 delete(n);
+                getCmdRecord().add(command);
                 break;
             }
             case "boundingbox": {
@@ -611,6 +619,7 @@ public class Main {
                 Vertex top_left = getName_Shape().get(n).getTopLeft();
                 Vertex bottom_right = getName_Shape().get(n).getBottomRight();
                 System.out.println(String.format("%.2f", top_left.getX()) + " " + String.format("%.2f",top_left.getY()) + " " + String.format("%.2f",(bottom_right.getX() - top_left.getX()) )+ " " + String.format("%.2f",(bottom_right.getY() - top_left.getY())));
+                getCmdRecord().add(command);
                 break;
             }
             case "move": {
@@ -643,6 +652,7 @@ public class Main {
                     getRecord().set(getTiming(), shape);
                 }
                 setTiming(getTiming() + 1);
+                getCmdRecord().add(command);
                 System.out.println("Move successfully!");
                 break;
             }
@@ -656,6 +666,7 @@ public class Main {
                 double dx = Double.parseDouble(list.remove(0));
                 double dy = Double.parseDouble(list.remove(0));
                 pickAndMove(x, y, dx, dy);
+                getCmdRecord().add(command);
                 break;
             }
             case "list": {
@@ -678,6 +689,7 @@ public class Main {
                     System.out.println(s);
                 }
                 System.out.println("========");
+                getCmdRecord().add(command);
                 break;
             }
             case "listAll": {
@@ -686,6 +698,7 @@ public class Main {
                     break;
                 }
                 listAll();
+                getCmdRecord().add(command);
                 break;
             }
             case "intersect": {
@@ -715,11 +728,11 @@ public class Main {
                 } catch (Exception ignored) {
                     err();
                 }
-
-
+                getCmdRecord().add(command);
                 break;
             }
             case "quit": {
+                getCmdRecord().add(command);
                 return false;
             }
             case "undo": {
@@ -729,6 +742,7 @@ public class Main {
                 }
                 try{
                     undo();
+                    getCmdRecord().add(command);
                 }catch (Exception e){
                     System.out.println("Cannot undo because you reach the beginning");
                     err();
@@ -742,6 +756,7 @@ public class Main {
                 }
                 try{
                     redo();
+                    getCmdRecord().add(command);
                 }catch (Exception e){
                     System.out.println("Cannot redo because you haven't undo yet");
                     err();
@@ -763,8 +778,8 @@ public class Main {
      * @return return the list of command that successfully executed
      */
     public ArrayList<String> start() {
-        Picture pic = new Picture(WIDTH, HEIGHT);
-        pic.draw();
+//        Picture pic = new Picture(WIDTH, HEIGHT);
+//        pic.draw();
         ArrayList<String> commandRecord = new ArrayList<>();
         Scanner in = new Scanner(System.in);
         String command = in.nextLine();
@@ -772,15 +787,15 @@ public class Main {
 
             if(! this.getCommand(command))break;
             commandRecord.add(command);
-            pic.removeAllShape();
-            pic.repaint();
-            for (Shape s : getName_Shape().values()) {
-                pic.add(s);
-            }
-            pic.draw();
+//            pic.removeAllShape();
+//            pic.repaint();
+//            for (Shape s : getName_Shape().values()) {
+//                pic.add(s);
+//            }
+//            pic.draw();
             command = in.nextLine();
         }
-        pic.dispose();
+//        pic.dispose();
         return commandRecord;
     }
 
@@ -845,6 +860,18 @@ public class Main {
             }
         }
         return ret;
+    }
+
+    public ArrayList<String> getCmdRecord() {
+        return cmdRecord;
+    }
+
+    public void setCmdRecord(ArrayList<String> cmdRecord) {
+        this.cmdRecord = cmdRecord;
+    }
+    public void output(ArrayList<String> c,String file_txt,String file_html){
+        writeInHtml(c,file_html);
+        writeInTxt(c,file_txt);
     }
 }
 

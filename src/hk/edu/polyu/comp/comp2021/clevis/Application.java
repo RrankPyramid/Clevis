@@ -2,15 +2,12 @@ package hk.edu.polyu.comp.comp2021.clevis;
 
 import hk.edu.polyu.comp.comp2021.clevis.model.Circle;
 import hk.edu.polyu.comp.comp2021.clevis.model.Group;
-import hk.edu.polyu.comp.comp2021.clevis.model.Picture;
 import hk.edu.polyu.comp.comp2021.clevis.model.Shape;
 import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
@@ -21,6 +18,7 @@ import java.util.Set;
 public class Application {
 
     public Application(){}
+    private ArrayList<String> commandRecord = new ArrayList<>();
 
     Main run = new Main();
 
@@ -32,6 +30,8 @@ public class Application {
     public static void main(String[] args) {
 
         Main run = Main.getInstance();
+//        String file_txt = args[3];
+//        String file_html = args[1];
 
         Circle c1 = new Circle(new Vertex(100, 100), 100, 1);
         JFrame frame = new JFrame("Clevis");
@@ -126,6 +126,7 @@ public class Application {
         rectangleJP.add(confirm[0]);
         confirm[0].addActionListener(e -> {
             run.createRectangle(getrectangleName.getText(),Double.parseDouble(getrectangleX.getText()),Double.parseDouble(getrectangleY.getText()),Double.parseDouble(getrectangleW.getText()),Double.parseDouble(getrectangleH.getText()));
+            run.getCmdRecord().add("rectangle "+getrectangleName.getText()+" "+getrectangleX.getText()+" "+getrectangleY.getText()+getrectangleW.getText()+" "+getrectangleH.getText());
             getrectangleName.setText("");
             getrectangleX.setText("");
             getrectangleY.setText("");
@@ -155,6 +156,7 @@ public class Application {
         circleJP.add(confirm[1]);
         confirm[1].addActionListener(e -> {
             run.createCircle(getcircleName.getText(),Double.parseDouble(getcircleX.getText()),Double.parseDouble(getcircleY.getText()),Double.parseDouble(getcircleR.getText()));
+            run.getCmdRecord().add("circle "+getcircleName.getText()+" "+getcircleX.getText()+" "+getcircleY.getText()+" "+getcircleR.getText());
             getcircleName.setText("");
             getcircleX.setText("");
             getcircleY.setText("");
@@ -184,6 +186,7 @@ public class Application {
         lineJP.add(confirm[2]);
         confirm[2].addActionListener(e -> {
             run.createLine(getlineName.getText(),Double.parseDouble(getlineX1.getText()),Double.parseDouble(getlineY1.getText()),Double.parseDouble(getlineX2.getText()),Double.parseDouble(getlineY2.getText()));
+            run.getCmdRecord().add("line "+getlineName.getText()+" "+getlineX1.getText()+" "+getlineY1.getText()+" "+getlineX2.getText()+" "+getlineY2.getText());
             getlineName.setText("");
             getlineX1.setText("");
             getlineX2.setText("");
@@ -224,6 +227,7 @@ public class Application {
         ungroupJP.add(confirm[3]);
         confirm[3].addActionListener(e -> {
             run.unGroup((String)allGroups.getSelectedItem());
+            run.getCmdRecord().add("ungroup "+ allGroups.getSelectedItem());
             allGroups.setSelectedIndex(0);
             cardLayout.show(allPanel,"control");
         });
@@ -246,6 +250,7 @@ public class Application {
         squareJP.add(confirm[4]);
         confirm[4].addActionListener(e -> {
             run.createSquare(getsquareName.getText(),Double.parseDouble(getsquareX.getText()),Double.parseDouble(getsquareY.getText()),Double.parseDouble(getsquareL.getText()));
+            run.getCmdRecord().add("square "+getsquareName.getText()+" "+getsquareX.getText()+" "+getsquareY.getText()+" "+getsquareL.getText());
             getsquareName.setText("");
             getsquareX.setText("");
             getsquareY.setText("");
@@ -273,6 +278,7 @@ public class Application {
         pickAndMoveJP.add(confirm[5]);
         confirm[5].addActionListener(e -> {
             run.pickAndMove(Double.parseDouble(getpickX.getText()),Double.parseDouble(getpickY.getText()),Double.parseDouble(getPickMoveX.getText()),Double.parseDouble(getPickMoveY.getText()));
+            run.getCmdRecord().add("pick-snd-move "+getpickX.getText()+" "+getpickY.getText()+" "+getPickMoveX.getText()+" "+getPickMoveY.getText());
             getpickX.setText("");
             getpickY.setText("");
             getPickMoveX.setText("");
@@ -298,6 +304,7 @@ public class Application {
         confirm[6].addActionListener(e -> {
             String x = (String) allShapes.getSelectedItem();
             run.getCommand("list "+x);
+            run.getCmdRecord().add("list "+allShapes.getSelectedItem());
             ArrayList<String> out = run.getName_Shape().get(x).getInfo(x);
             String ans="";
             for(String s : out){
@@ -329,6 +336,7 @@ public class Application {
             intersect_a = (String)intersect_1.getSelectedItem();
             intersect_b = (String)intersect_2.getSelectedItem();
             run.getCommand("intersect "+intersect_a+" "+intersect_b);
+            run.getCmdRecord().add("intersect "+intersect_a+" "+intersect_b);
             String intersectOrNot = "";
             intersectOrNot+=(intersect_a+" and "+intersect_b+ " is intersect ?\n"+run.getName_Shape().get(intersect_a).intersect(run.getName_Shape().get(intersect_b)));
             JOptionPane.showMessageDialog(null,intersectOrNot,"Result",JOptionPane.INFORMATION_MESSAGE);
@@ -349,6 +357,7 @@ public class Application {
         moveJP.add(confirm[8]);
         confirm[8].addActionListener(e -> {
             run.getName_Shape().get(moveCmb.getSelectedItem()).move(Double.parseDouble(getMoveX.getText()),Double.parseDouble(getMoveY.getText()));
+            run.getCmdRecord().add("move "+moveCmb.getSelectedItem()+" "+ getMoveX.getText()+" "+ getMoveY.getText());
             frame.repaint();
             getMoveX.setText("");
             getMoveY.setText("");
@@ -363,9 +372,10 @@ public class Application {
         boundingBoxJP.add(confirm[9]);
         confirm[9].addActionListener(e -> {
             Shape asked = run.getName_Shape().get((String)boundingBox.getSelectedItem());
+            run.getCmdRecord().add("boundingbox "+boundingBox.getSelectedItem());
             String boundingBoxResult = "";
-            boundingBoxResult += "Top Left corner: ("+String.format(".2f",asked.getTopLeft().getX())+", "+String.format(".2f",asked.getTopLeft().getY())+"\n";
-            boundingBoxResult += "Width :"+String.format(".2f",asked.getBottomRight().getX()-asked.getTopLeft().getX())+"\nHeight :"+String.format(".2f",asked.getBottomRight().getY()-asked.getTopLeft().getY());
+            boundingBoxResult += "Top Left corner: ("+String.format("%.2f",asked.getTopLeft().getX())+", "+String.format("%.2f",asked.getTopLeft().getY())+"\n";
+            boundingBoxResult += "Width :"+String.format("%.2f",asked.getBottomRight().getX()-asked.getTopLeft().getX())+"\nHeight :"+String.format("%.2f",asked.getBottomRight().getY()-asked.getTopLeft().getY());
             JOptionPane.showMessageDialog(null,boundingBoxResult,"BoundingBox",JOptionPane.INFORMATION_MESSAGE);
             cardLayout.show(allPanel,"control");
         });
@@ -379,6 +389,7 @@ public class Application {
         deleteJP.add(confirm[10]);
         confirm[10].addActionListener(e -> {
             run.delete((String)deleteCmb.getSelectedItem());
+            run.getCmdRecord().add("delete "+ deleteCmb.getSelectedItem());
             cardLayout.show(allPanel,"control");
             frame.repaint();
         });
@@ -481,8 +492,15 @@ public class Application {
             frame.repaint();
         });
 
+//        frame.addWindowListener(new WindowAdapter() {
+//
+//            @Override
+//            public void windowClosing(WindowEvent e) {
+//                super.windowClosing(e);
+//                run.output(run.getCmdRecord(),file_txt,file_html);
+//            }
 
-
+        });
         frame.add(jp);
         frame.add(allPanel,BorderLayout.EAST);
         frame.setBounds(300,200,600,300);
@@ -493,5 +511,12 @@ public class Application {
     }
 
 
+    public ArrayList<String> getCommandRecord() {
+        return commandRecord;
+    }
+
+    public void setCommandRecord(ArrayList<String> commandRecord) {
+        this.commandRecord = commandRecord;
+    }
 }
 
