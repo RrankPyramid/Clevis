@@ -500,7 +500,7 @@ public class Application {
 //                run.output(run.getCmdRecord(),file_txt,file_html);
 //            }
 
-        });
+//        });
         frame.add(jp);
         frame.add(allPanel,BorderLayout.EAST);
         frame.setBounds(300,200,600,300);
