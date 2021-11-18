@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
@@ -68,6 +69,8 @@ public class Application {
         JButton move=new JButton("Move");
         JButton bounding=new JButton("BoundingBox");
         JButton delete=new JButton("Delete");
+        JButton undo=new JButton("Undo");
+        JButton redo=new JButton("Redo");
         JButton[] back = new JButton[12];
         for(int x = 0; x<12 ; x++){
             back[x] = new JButton("Back");
@@ -91,20 +94,34 @@ public class Application {
         controler.add(move);
         controler.add(bounding);
         controler.add(delete);
+        controler.add(undo);
+        controler.add(redo);
+
 
         controler.setLayout(new GridLayout(6,6,5,5));
 
         JPanel rectangleJP = new JPanel();
-        rectangleJP.setLayout(new FlowLayout(FlowLayout.LEADING,20,20));
+        rectangleJP.setLayout(new FlowLayout(0));
+//        rectangleJP.setLayout(new GridLayout(null,1,20,20));
+        JLabel recName = new JLabel("Name :");
+        JLabel recX = new JLabel("X    :");
+        JLabel recY = new JLabel("   Y    :");
+        JLabel recW = new JLabel("W    :");
+        JLabel recH = new JLabel("   H    :");
         JTextField getrectangleName = new JTextField(5);
         JTextField getrectangleX=new JTextField(5);
         JTextField getrectangleY=new JTextField(5);
         JTextField getrectangleW=new JTextField(5);
         JTextField getrectangleH=new JTextField(5);
+        rectangleJP.add(recName);
         rectangleJP.add(getrectangleName);
+        rectangleJP.add(recX);
         rectangleJP.add(getrectangleX);
+        rectangleJP.add(recY);
         rectangleJP.add(getrectangleY);
+        rectangleJP.add(recW);
         rectangleJP.add(getrectangleW);
+        rectangleJP.add(recH);
         rectangleJP.add(getrectangleH);
         rectangleJP.add(confirm[0]);
         confirm[0].addActionListener(e -> {
@@ -122,14 +139,18 @@ public class Application {
 
 
         JPanel circleJP = new JPanel();
-        circleJP.setLayout(new FlowLayout(FlowLayout.LEADING,20,20));
+        circleJP.setLayout(new FlowLayout(0));
         JTextField getcircleName=new JTextField(5);
         JTextField getcircleX=new JTextField(5);
         JTextField getcircleY=new JTextField(5);
         JTextField getcircleR=new JTextField(5);
+        circleJP.add(new JLabel("Name :"));
         circleJP.add(getcircleName);
+        circleJP.add(new JLabel("X    :"));
         circleJP.add(getcircleX);
+        circleJP.add(new JLabel("   Y    :"));
         circleJP.add(getcircleY);
+        circleJP.add(new JLabel("R    :"));
         circleJP.add(getcircleR);
         circleJP.add(confirm[1]);
         confirm[1].addActionListener(e -> {
@@ -144,16 +165,21 @@ public class Application {
         panellist.add(circleJP);
 
         JPanel lineJP = new JPanel();
-        lineJP.setLayout(new FlowLayout(FlowLayout.LEADING,20,20));
+        lineJP.setLayout(new FlowLayout(0));
         JTextField getlineName=new JTextField(5);
         JTextField getlineX1=new JTextField(5);
         JTextField getlineY1=new JTextField(5);
         JTextField getlineX2=new JTextField(5);
         JTextField getlineY2=new JTextField(5);
+        lineJP.add(new JLabel("Name :"));
         lineJP.add(getlineName);
+        lineJP.add(new JLabel("X1    :"));
         lineJP.add(getlineX1);
+        lineJP.add(new JLabel("  Y1    :"));
         lineJP.add(getlineY1);
+        lineJP.add(new JLabel("X2    :"));
         lineJP.add(getlineX2);
+        lineJP.add(new JLabel("  Y2    :"));
         lineJP.add(getlineY2);
         lineJP.add(confirm[2]);
         confirm[2].addActionListener(e -> {
@@ -169,10 +195,12 @@ public class Application {
         panellist.add(lineJP);
 
         JPanel groupJP = new JPanel();
-        groupJP.setLayout(new FlowLayout(FlowLayout.LEADING,20,20));
+        groupJP.setLayout(new FlowLayout(0));
         JTextField getgroupName=new JTextField(5);
         JTextField getlist=new JTextField(5);
+        groupJP.add(new JLabel("Name:"));
         groupJP.add(getgroupName);
+        groupJP.add(new JLabel("Shapes need be grouped :"));
         groupJP.add(getlist);
         groupJP.add(confirm[11]);
         confirm[11].addActionListener(e -> {
@@ -191,6 +219,7 @@ public class Application {
         for (int x = 0; x<groupArrayList.size() ; x++){
             allGroups.addItem(groupArrayList.get(x).getShapeName());
         }
+        ungroupJP.add(new JLabel("Group :"));
         ungroupJP.add(allGroups);
         ungroupJP.add(confirm[3]);
         confirm[3].addActionListener(e -> {
@@ -205,9 +234,14 @@ public class Application {
         JTextField getsquareX=new JTextField(5);
         JTextField getsquareY=new JTextField(5);
         JTextField getsquareL=new JTextField(5);
+        squareJP.setLayout(new FlowLayout(0));
+        squareJP.add(new JLabel("Name :"));
         squareJP.add(getsquareName);
+        squareJP.add(new JLabel("   X   :"));
         squareJP.add(getsquareX);
+        squareJP.add(new JLabel("   Y :"));
         squareJP.add(getsquareY);
+        squareJP.add(new JLabel("Lenght :"));
         squareJP.add(getsquareL);
         squareJP.add(confirm[4]);
         confirm[4].addActionListener(e -> {
@@ -223,13 +257,18 @@ public class Application {
         panellist.add(squareJP);
 
         JPanel pickAndMoveJP = new JPanel();
-        JTextField getpickX=new JTextField(5);
-        JTextField getpickY=new JTextField(5);
-        JTextField getPickMoveX=new JTextField(5);
-        JTextField getPickMoveY=new JTextField(5);
+        JTextField getpickX=new JTextField(4);
+        JTextField getpickY=new JTextField(4);
+        JTextField getPickMoveX=new JTextField(4);
+        JTextField getPickMoveY=new JTextField(4);
+        pickAndMoveJP.setLayout(new FlowLayout(0));
+        pickAndMoveJP.add(new JLabel("Pick(x):"));
         pickAndMoveJP.add(getpickX);
+        pickAndMoveJP.add(new JLabel("Pick(y):"));
         pickAndMoveJP.add(getpickY);
+        pickAndMoveJP.add(new JLabel("Move(x):"));
         pickAndMoveJP.add(getPickMoveX);
+        pickAndMoveJP.add(new JLabel("Move(y):"));
         pickAndMoveJP.add(getPickMoveY);
         pickAndMoveJP.add(confirm[5]);
         confirm[5].addActionListener(e -> {
@@ -252,6 +291,8 @@ public class Application {
         for(String s : StrArray){
             allShapes.addItem(s);
         }
+        listJP.setLayout(new FlowLayout(0));
+        listJP.add(new JLabel("Shapes :"));
         listJP.add(allShapes);
         listJP.add(confirm[6]);
         confirm[6].addActionListener(e -> {
@@ -278,7 +319,9 @@ public class Application {
             intersect_1.addItem(s);
             intersect_2.addItem(s);
         }
+        intersectJP.add(new JLabel("Shape 1 :"));
         intersectJP.add(intersect_1);
+        intersectJP.add(new JLabel("Shape 2 :"));
         intersectJP.add(intersect_2);
         intersectJP.add(confirm[7]);
         confirm[7].addActionListener(e -> {
@@ -295,10 +338,13 @@ public class Application {
 
         JPanel moveJP = new JPanel();
         JComboBox moveCmb = new JComboBox();
-        JTextField getMoveX=new JTextField();
-        JTextField getMoveY=new JTextField();
+        JTextField getMoveX=new JTextField(5);
+        JTextField getMoveY=new JTextField(5);
+        moveJP.add(new JLabel("Shape :"));
         moveJP.add(moveCmb);
+        moveJP.add(new JLabel("Move(x) :"));
         moveJP.add(getMoveX);
+        moveJP.add(new JLabel("Move(y) :"));
         moveJP.add(getMoveY);
         moveJP.add(confirm[8]);
         confirm[8].addActionListener(e -> {
@@ -312,6 +358,7 @@ public class Application {
 
         JPanel boundingBoxJP = new JPanel();
         JComboBox boundingBox = new JComboBox();
+        boundingBoxJP.add(new JLabel("Shape :"));
         boundingBoxJP.add(boundingBox);
         boundingBoxJP.add(confirm[9]);
         confirm[9].addActionListener(e -> {
@@ -327,6 +374,7 @@ public class Application {
 
         JPanel deleteJP = new JPanel();
         JComboBox deleteCmb =new JComboBox();
+        deleteJP.add(new JLabel("Shape :"));
         deleteJP.add(deleteCmb);
         deleteJP.add(confirm[10]);
         confirm[10].addActionListener(e -> {
@@ -380,7 +428,6 @@ public class Application {
             for(String s : run.getName_Shape().keySet()){
                 allShapes.addItem(s);
             }
-            listJP.add(allShapes);
             cardLayout.show(allPanel,"list");
         });
         move.addActionListener(e -> {
@@ -421,6 +468,19 @@ public class Application {
             }
             cardLayout.show(allPanel,"intersect");
         });
+        undo.addActionListener(e -> {
+            try{
+                run.undo();
+            }catch (RuntimeException error){JOptionPane.showMessageDialog(null,"Undo fail, there is no option yet","Undo Fail",JOptionPane.INFORMATION_MESSAGE);}
+            frame.repaint();
+        });
+        redo.addActionListener(e -> {
+            try{
+                run.redo();
+            }catch (RuntimeException error){JOptionPane.showMessageDialog(null,"Redo fail, already latest.","Redo Fail",JOptionPane.INFORMATION_MESSAGE);}
+            frame.repaint();
+        });
+
 
 
         frame.add(jp);
