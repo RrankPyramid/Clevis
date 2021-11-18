@@ -5,7 +5,6 @@ import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import static hk.edu.polyu.comp.comp2021.clevis.model.util.GraphConstant.INF;
 
@@ -55,17 +54,18 @@ public class Group extends Shape {
 
     /**
      * @param countTab the number of indents required
+     * @param list the list of shapes names
      */
-    public void printInfo(int countTab) {
+    public void printInfo(int countTab, ArrayList<String> list) {
         String[] toPrint = this.getName();
         for (String s : toPrint) {
             for (int x = 0; x < countTab; x++) {
-                System.out.print("    ");
+                list.add("    ");
             }
-            System.out.print(s);
-            System.out.print("\n");
+            list.add(s);
+            list.add("\n");
             if (getList().get(s) instanceof Group) {
-                ((Group) getList().get(s)).printInfo(countTab + 1);
+                ((Group) getList().get(s)).printInfo(countTab + 1, list);
             }
         }
     }
@@ -113,6 +113,7 @@ public class Group extends Shape {
         }
         return new Vertex(max_x, max_y);
     }
+
     /**
      * @param other another circle
      * @return whether this circle is intersect with the circle
@@ -123,6 +124,7 @@ public class Group extends Shape {
         }
         return false;
     }
+
     /**
      * @param other another line
      * @return whether this circle is intersect with the line
@@ -133,6 +135,7 @@ public class Group extends Shape {
         }
         return false;
     }
+
     /**
      * @param other another rectangle
      * @return whether this circle is intersect with the rectangle
@@ -143,6 +146,7 @@ public class Group extends Shape {
         }
         return false;
     }
+
     /**
      * @param other another group
      * @return whether this circle is intersect with the group
@@ -165,6 +169,7 @@ public class Group extends Shape {
 
     /**
      * A HashMap stores the name and Shape
+     *
      * @return the hash map comtains name and shape
      */
     public HashMap<String, Shape> getList() {
@@ -179,7 +184,7 @@ public class Group extends Shape {
     }
 
     @Override
-    public Group clone(){
+    public Group clone() {
         Group clone = (Group) super.clone();
         HashMap<String, Shape> cloneMap = new HashMap<>();
         this.getList().forEach((k, v) -> cloneMap.put(k, v.clone()));
