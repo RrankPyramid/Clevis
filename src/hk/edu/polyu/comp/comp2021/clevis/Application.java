@@ -1,6 +1,7 @@
 package hk.edu.polyu.comp.comp2021.clevis;
 
 import hk.edu.polyu.comp.comp2021.clevis.model.Circle;
+import hk.edu.polyu.comp.comp2021.clevis.model.Group;
 import hk.edu.polyu.comp.comp2021.clevis.model.Picture;
 import hk.edu.polyu.comp.comp2021.clevis.model.Shape;
 import hk.edu.polyu.comp.comp2021.clevis.model.util.Vertex;
@@ -11,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 
 /**
  * Application Launcher
@@ -36,7 +38,9 @@ public class Application {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                c1.draw(g);
+                for(Shape s : run.getName_Shape().values()){
+                    s.draw(g);
+                }
             }
         };
 
@@ -92,7 +96,7 @@ public class Application {
 
         JPanel rectangleJP = new JPanel();
         rectangleJP.setLayout(new FlowLayout(FlowLayout.LEADING,20,20));
-        JTextField getrectangleName = new JTextField();
+        JTextField getrectangleName = new JTextField(5);
         JTextField getrectangleX=new JTextField(5);
         JTextField getrectangleY=new JTextField(5);
         JTextField getrectangleW=new JTextField(5);
@@ -103,21 +107,40 @@ public class Application {
         rectangleJP.add(getrectangleW);
         rectangleJP.add(getrectangleH);
         rectangleJP.add(confirm[0]);
-        confirm[0].addActionListener(e -> run.createRectangle(getrectangleName.getText(),Double.parseDouble(getrectangleX.getText()),Double.parseDouble(getrectangleY.getText()),Double.parseDouble(getrectangleW.getText()),Double.parseDouble(getrectangleH.getText())));
+        confirm[0].addActionListener(e -> {
+            run.createRectangle(getrectangleName.getText(),Double.parseDouble(getrectangleX.getText()),Double.parseDouble(getrectangleY.getText()),Double.parseDouble(getrectangleW.getText()),Double.parseDouble(getrectangleH.getText()));
+            getrectangleName.setText("");
+            getrectangleX.setText("");
+            getrectangleY.setText("");
+            getrectangleW.setText("");
+            getrectangleH.setText("");
+            cardLayout.show(allPanel,"control");
+            frame.repaint();
+        });
         panellist.add(rectangleJP);
 
 
 
         JPanel circleJP = new JPanel();
         circleJP.setLayout(new FlowLayout(FlowLayout.LEADING,20,20));
+        JTextField getcircleName=new JTextField(5);
         JTextField getcircleX=new JTextField(5);
         JTextField getcircleY=new JTextField(5);
         JTextField getcircleR=new JTextField(5);
+        circleJP.add(getcircleName);
         circleJP.add(getcircleX);
         circleJP.add(getcircleY);
         circleJP.add(getcircleR);
-        rectangleJP.add(confirm[1]);
-        confirm[1].addActionListener(e -> run.createCircle(getrectangleName.getText(),Double.parseDouble(getcircleX.getText()),Double.parseDouble(getcircleY.getText()),Double.parseDouble(getcircleR.getText())));
+        circleJP.add(confirm[1]);
+        confirm[1].addActionListener(e -> {
+            run.createCircle(getcircleName.getText(),Double.parseDouble(getcircleX.getText()),Double.parseDouble(getcircleY.getText()),Double.parseDouble(getcircleR.getText()));
+            getcircleName.setText("");
+            getcircleX.setText("");
+            getcircleY.setText("");
+            getcircleR.setText("");
+            cardLayout.show(allPanel,"control");
+            frame.repaint();
+        });
         panellist.add(circleJP);
 
         JPanel lineJP = new JPanel();
@@ -132,8 +155,17 @@ public class Application {
         lineJP.add(getlineY1);
         lineJP.add(getlineX2);
         lineJP.add(getlineY2);
-        rectangleJP.add(confirm[2]);
-        confirm[2].addActionListener(e -> run.createLine(getlineName.getText(),Double.parseDouble(getlineX1.getText()),Double.parseDouble(getlineY1.getText()),Double.parseDouble(getlineX2.getText()),Double.parseDouble(getlineY2.getText())));
+        lineJP.add(confirm[2]);
+        confirm[2].addActionListener(e -> {
+            run.createLine(getlineName.getText(),Double.parseDouble(getlineX1.getText()),Double.parseDouble(getlineY1.getText()),Double.parseDouble(getlineX2.getText()),Double.parseDouble(getlineY2.getText()));
+            getlineName.setText("");
+            getlineX1.setText("");
+            getlineX2.setText("");
+            getlineY1.setText("");
+            getlineY2.setText("");
+            cardLayout.show(allPanel,"control");
+            frame.repaint();
+        });
         panellist.add(lineJP);
 
         JPanel groupJP = new JPanel();
@@ -142,17 +174,29 @@ public class Application {
         JTextField getlist=new JTextField(5);
         groupJP.add(getgroupName);
         groupJP.add(getlist);
-        rectangleJP.add(confirm[11]);
-        confirm[11].addActionListener(e -> run.createGroup(getgroupName.getText(), (ArrayList<String>) Arrays.asList(getlist.getText().split("\\s+"))));
+        groupJP.add(confirm[11]);
+        confirm[11].addActionListener(e -> {
+            run.createGroup(getgroupName.getText(), (ArrayList<String>) Arrays.asList(getlist.getText().split("\\s+")));
+            run.getCommand(getgroupName.getText()+" " +getlist.getText());
+            getgroupName.setText("");
+            getlist.setText("");
+            cardLayout.show(allPanel,"control");
+        });
         panellist.add(groupJP);
 
         JPanel ungroupJP = new JPanel();
         JComboBox allGroups = new JComboBox();
+        allGroups.addItem("--please choose--");
+        ArrayList<Group> groupArrayList = run.groupArrayList();
+        for (int x = 0; x<groupArrayList.size() ; x++){
+            allGroups.addItem(groupArrayList.get(x).getShapeName());
+        }
         ungroupJP.add(allGroups);
-        rectangleJP.add(confirm[3]);
+        ungroupJP.add(confirm[3]);
         confirm[3].addActionListener(e -> {
-
-
+            run.unGroup((String)allGroups.getSelectedItem());
+            allGroups.setSelectedIndex(0);
+            cardLayout.show(allPanel,"control");
         });
         panellist.add(ungroupJP);
 
@@ -165,78 +209,130 @@ public class Application {
         squareJP.add(getsquareX);
         squareJP.add(getsquareY);
         squareJP.add(getsquareL);
-        rectangleJP.add(confirm[4]);
+        squareJP.add(confirm[4]);
         confirm[4].addActionListener(e -> {
             run.createSquare(getsquareName.getText(),Double.parseDouble(getsquareX.getText()),Double.parseDouble(getsquareY.getText()),Double.parseDouble(getsquareL.getText()));
+            getsquareName.setText("");
+            getsquareX.setText("");
+            getsquareY.setText("");
+            getsquareL.setText("");
+            cardLayout.show(allPanel,"control");
+            frame.repaint();
 
         });
         panellist.add(squareJP);
 
         JPanel pickAndMoveJP = new JPanel();
-        JTextField getpickX=new JTextField();
-        JTextField getpickY=new JTextField();
-        JTextField getPickMoveX=new JTextField();
-        JTextField getPickMoveY=new JTextField();
+        JTextField getpickX=new JTextField(5);
+        JTextField getpickY=new JTextField(5);
+        JTextField getPickMoveX=new JTextField(5);
+        JTextField getPickMoveY=new JTextField(5);
         pickAndMoveJP.add(getpickX);
         pickAndMoveJP.add(getpickY);
         pickAndMoveJP.add(getPickMoveX);
         pickAndMoveJP.add(getPickMoveY);
-        rectangleJP.add(confirm[5]);
+        pickAndMoveJP.add(confirm[5]);
         confirm[5].addActionListener(e -> {
             run.pickAndMove(Double.parseDouble(getpickX.getText()),Double.parseDouble(getpickY.getText()),Double.parseDouble(getPickMoveX.getText()),Double.parseDouble(getPickMoveY.getText()));
+            getpickX.setText("");
+            getpickY.setText("");
+            getPickMoveX.setText("");
+            getPickMoveY.setText("");
+            cardLayout.show(allPanel,"control");
+            frame.repaint();
 
         });
         panellist.add(pickAndMoveJP);
 
+
         JPanel listJP = new JPanel();
         JComboBox allShapes = new JComboBox();
+        allShapes.addItem("--please choose--");
+        String[] StrArray = run.getName_Shape().keySet().toArray(new String[0]);
+        for(String s : StrArray){
+            allShapes.addItem(s);
+        }
         listJP.add(allShapes);
-        rectangleJP.add(confirm[6]);
+        listJP.add(confirm[6]);
         confirm[6].addActionListener(e -> {
-
-
+            String x = (String) allShapes.getSelectedItem();
+            run.getCommand("list "+x);
+            ArrayList<String> out = run.getName_Shape().get(x).getInfo(x);
+            String ans="";
+            for(String s : out){
+                ans+=s;
+                ans+="\n";
+            }
+            JOptionPane.showMessageDialog(null,ans,x,JOptionPane.INFORMATION_MESSAGE);
+            cardLayout.show(allPanel,"control");
         });
         panellist.add(listJP);
+
 
         JPanel intersectJP = new JPanel();
         JComboBox intersect_1 = new JComboBox();
         JComboBox intersect_2 = new JComboBox();
+        intersect_1.addItem("--please choose--");
+        intersect_2.addItem("--please choose--");
+        for(String s : run.getName_Shape().keySet()){
+            intersect_1.addItem(s);
+            intersect_2.addItem(s);
+        }
         intersectJP.add(intersect_1);
         intersectJP.add(intersect_2);
-        rectangleJP.add(confirm[7]);
+        intersectJP.add(confirm[7]);
         confirm[7].addActionListener(e -> {
+            String intersect_a,intersect_b;
+            intersect_a = (String)intersect_1.getSelectedItem();
+            intersect_b = (String)intersect_2.getSelectedItem();
+            run.getCommand("intersect "+intersect_a+" "+intersect_b);
+            String intersectOrNot = "";
+            intersectOrNot+=(intersect_a+" and "+intersect_b+ " is intersect ?\n"+run.getName_Shape().get(intersect_a).intersect(run.getName_Shape().get(intersect_b)));
+            JOptionPane.showMessageDialog(null,intersectOrNot,"Result",JOptionPane.INFORMATION_MESSAGE);
+            cardLayout.show(allPanel,"control");
         });
         panellist.add(intersectJP);
 
         JPanel moveJP = new JPanel();
-        JComboBox moveShape = new JComboBox();
+        JComboBox moveCmb = new JComboBox();
         JTextField getMoveX=new JTextField();
         JTextField getMoveY=new JTextField();
-        moveJP.add(moveShape);
+        moveJP.add(moveCmb);
         moveJP.add(getMoveX);
         moveJP.add(getMoveY);
-        rectangleJP.add(confirm[8]);
+        moveJP.add(confirm[8]);
         confirm[8].addActionListener(e -> {
-
+            run.getName_Shape().get(moveCmb.getSelectedItem()).move(Double.parseDouble(getMoveX.getText()),Double.parseDouble(getMoveY.getText()));
+            frame.repaint();
+            getMoveX.setText("");
+            getMoveY.setText("");
+            cardLayout.show(allPanel,"control");
         });
         panellist.add(moveJP);
 
         JPanel boundingBoxJP = new JPanel();
         JComboBox boundingBox = new JComboBox();
         boundingBoxJP.add(boundingBox);
-        rectangleJP.add(confirm[9]);
+        boundingBox.add(confirm[9]);
         confirm[9].addActionListener(e -> {
-
+            Shape asked = run.getName_Shape().get((String)boundingBox.getSelectedItem());
+            String boundingBoxResult = "";
+            boundingBoxResult += "Top Left corner: ("+String.format(".2f",asked.getTopLeft().getX())+", "+String.format(".2f",asked.getTopLeft().getY())+"\n";
+            boundingBoxResult += "Width :"+String.format(".2f",asked.getBottomRight().getX()-asked.getTopLeft().getX())+"\nHeight :"+String.format(".2f",asked.getBottomRight().getY()-asked.getTopLeft().getY());
+            JOptionPane.showMessageDialog(null,boundingBoxResult,"BoundingBox",JOptionPane.INFORMATION_MESSAGE);
+            cardLayout.show(allPanel,"control");
         });
         panellist.add(boundingBoxJP);
 
 
         JPanel deleteJP = new JPanel();
-        JTextField getdeleteName=new JTextField();
-        deleteJP.add(getdeleteName);
-        rectangleJP.add(confirm[10]);
+        JComboBox deleteCmb =new JComboBox();
+        deleteJP.add(deleteCmb);
+        deleteJP.add(confirm[10]);
         confirm[10].addActionListener(e -> {
-
+            run.delete((String)deleteCmb.getSelectedItem());
+            cardLayout.show(allPanel,"control");
+            frame.repaint();
         });
         panellist.add(deleteJP);
 
@@ -269,13 +365,62 @@ public class Application {
         squareButton.addActionListener(e -> cardLayout.show(allPanel,"square"));
         lineButton.addActionListener(e -> cardLayout.show(allPanel,"line"));
         group.addActionListener(e -> cardLayout.show(allPanel,"group"));
-        ungroup.addActionListener(e -> cardLayout.show(allPanel,"ungroup"));
+        ungroup.addActionListener(e -> {
+            allGroups.addItem("--please choose--");
+            for(Group group1 : run.groupArrayList()){
+                allGroups.addItem(group1.getShapeName());
+            }
+            cardLayout.show(allPanel,"ungroup");
+
+        });
         pick_and_move.addActionListener(e -> cardLayout.show(allPanel,"pickAndMove"));
-        list.addActionListener(e -> cardLayout.show(allPanel,"list"));
-        move.addActionListener(e -> cardLayout.show(allPanel,"move"));
-        bounding.addActionListener(e -> cardLayout.show(allPanel,"boundingbox"));
-        delete.addActionListener(e -> cardLayout.show(allPanel,"delete"));
-        intersect.addActionListener(e -> cardLayout.show(allPanel,"intersect"));
+        list.addActionListener(e -> {
+            allShapes.removeAllItems();
+            allShapes.addItem("--please choose--");
+            for(String s : run.getName_Shape().keySet()){
+                allShapes.addItem(s);
+            }
+            listJP.add(allShapes);
+            cardLayout.show(allPanel,"list");
+        });
+        move.addActionListener(e -> {
+            moveCmb.removeAllItems();
+            moveCmb.addItem("--please choose--");
+            for(String s : run.getName_Shape().keySet()){
+                moveCmb.addItem(s);
+            }
+            cardLayout.show(allPanel,"move");
+        });
+
+        bounding.addActionListener(e -> {
+            boundingBox.removeAllItems();
+            boundingBox.addItem("--please choose--");
+            for(String s : run.getName_Shape().keySet()){
+                boundingBox.addItem(s);
+            }
+            cardLayout.show(allPanel,"boundingbox");
+        });
+
+        delete.addActionListener(e -> {
+            deleteCmb.removeAllItems();
+            deleteCmb.addItem("--please choose--");
+            for(String s : run.getName_Shape().keySet()){
+                deleteCmb.addItem(s);
+            }
+            cardLayout.show(allPanel,"delete");
+        });
+
+        intersect.addActionListener(e -> {
+            intersect_1.removeAllItems();
+            intersect_2.removeAllItems();
+            intersect_1.addItem("--please choose--");
+            intersect_2.addItem("--please choose--");
+            for(String s : run.getName_Shape().keySet()){
+                intersect_1.addItem(s);
+                intersect_2.addItem(s);
+            }
+            cardLayout.show(allPanel,"intersect");
+        });
 
 
         frame.add(jp);

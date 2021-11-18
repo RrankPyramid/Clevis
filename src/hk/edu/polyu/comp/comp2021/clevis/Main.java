@@ -607,7 +607,7 @@ public class Main {
                 }
                 Vertex top_left = getName_Shape().get(n).getTopLeft();
                 Vertex bottom_right = getName_Shape().get(n).getBottomRight();
-                System.out.println(top_left.getX() + " " + top_left.getY() + " " + (bottom_right.getX() - top_left.getX()) + " " + (bottom_right.getY() - top_left.getY()));
+                System.out.println(String.format("%.2f", top_left.getX()) + " " + String.format("%.2f",top_left.getY()) + " " + String.format("%.2f",(bottom_right.getX() - top_left.getX()) )+ " " + String.format("%.2f",(bottom_right.getY() - top_left.getY())));
                 break;
             }
             case "move": {
