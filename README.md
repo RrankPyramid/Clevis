@@ -1,5 +1,5 @@
-# COMP2021-project
-A project of COMP2021
+# Clevis
+CLEVIS, or Command LinE Vector graphIcs Software, is a software that can draw a vector diagram by CLI.
 
 ## Download
 Click on Releases on the right to download the latest version of clevis.jar
